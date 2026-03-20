@@ -1,0 +1,33 @@
+Compile:
+
+to compile the RedCap Client you just have to run the Makefile with Make
+if you are under MacOSX you will have to comment and uncomment 2 lignes
+if you are using NetBSD there is also one line to comment and uncomment in includes/includes.h
+
+
+Use:
+
+launch ./Redcap then open a telnet connection on localhost on port 5505
+
+then for the momment there is only a few command that are implemented:
+
+connect login[:password]@host[:port] (auto_agree)
+:to connect to an hotline server
+
+send_chat "my message"
+:to send chat in public chat
+
+get_user_list
+:to obtain user list on the server
+
+get_file_list
+:to obtain file list on the server
+
+next_server
+:go to next server
+
+previous_server
+:go to previous server
+
+list_server
+:list all connected server

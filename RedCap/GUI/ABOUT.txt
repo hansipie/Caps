@@ -1,0 +1,137 @@
+Bonjour et bonne année !
+Pendant les vacances, l'intra, le site www.epita.fr, www.epitech.net... ne marchaient pas. Donc impossible d'envoyer le CRAM.
+Aujourd'hui ca remarche mais il est trop tard pour le faire.
+Donc j'envoie le CRAM en piece jointe par mail...
+Bonne journée.
+Nicolas.
+/////////////////////////////////////////////////////
+
+
+
+
+
+correction de la premiere connection:
+supprimer MyFrrame::void auto_launch();
+dans myapp.cpp, OnInit() mettre 
+	MyFrame *frame = new MyFrame(_T("Interface Caps"), 150, 100);
+	wxCommandEvent event;
+	frame->OnConnect_client(event);
+changer "bleue CAPS client connection" dans myFrame.cpp OnConnect_client()
+
+
+correction void MyFrame::agree()
+
+suppression UpdateStatusBar() dans Myframe.H
+
+correction:
+OnSize( wxSizeEvent& event )
+void MyFrame::OnMove( wxMoveEvent& event )
+
+StatusBar text ajouté dans 
+MF::Myframe()
+MF::relogin()
+MF::Connectok()
+MF::myFrame()
+MF::Lost_console()
+
+effacement de MF::launch_server_box()
+
+correction MF::Lost_console()
+	if (is_connected_console == 1)
+		wxMessageBox(_("Error RedCap Client connexion lost!\n"), _("Alert !"));
+pour pas avoir 2 messages d'erreurs à la fois
+
+
+corriger onglet filetransfert:
+OnTransferSashChange()
+OnSize()
+pour dimentionner la sach et les explorateurs ou il faut
+
+MF::change_serv() ne fesait pas "prev_server" mais "previous_server"
+
+MF::inputmessage()
+correction de la fonction pour qu'elle ne zappe plus de commande
+
+MF::chat_msg(), changé de nom en receive_chat()
+
+///////////////////////////////////////////////////////////////////////////////////////
+ls et lls si on clique sur les boutons de l'interface. il faut le refaire entierement pour qu'il rafraichisse quece qu'il faut et qu'il prenne en compte lessous dossiers. 
+
+PUTAIN DE AGREED.... ca fait combien de temps ??
+michel:
+-"agree ? disagee ?" dans receive_agreement.c
+-reponses a changer dans command.c
+-send_priv_chat a la place de send_priv_chat (et oui, les autres commandes commencent par "send") dans command.c et send_priv_chat.c
+-"recieve_priv_chat" a la place de receive_priv_chat (ca doit etre fait commes les autres) dans receive_server_msg.c
+
+user_acces
+
+peut etre que j'ai mal changé tout ca dans mon code mais il y a des seg fault dans receive_instantmsg :
+le client console recoit bien le message, il envoie "receive_instantmsg...", le prompt, puis plante. selon le degug c'est dans "remove data()" que ca se passe.
+
+//////////////////////////////////////////////////////////////////////////
+
+faire un scroll des fenetres de chat, pour que quand un nouveau message arrive, qu'on puisse le voir directement
+
+gerer les erreurs ! les deconnexions inatendues du serveur ou du client console
+quand le serveur se coupe brutalement, le client console envoie "you are disconnected from ..."
+c'est pas suffisant car il donne que l'ip. si, comme moi, on se connecte sur la meme ip et sur 2 ports différents on peut pas différentier.
+
+il faut pas mettre "You are disconnected from..." mais "disconnected from...". je vais l'ajouter dans le protocole.
+le message vient en plus a tout moment... si je suis sur le serveur 2, je suis averti de la déconnection avec le serveur 1, mais c'est pas le moment... pourkoi ne pas attendre que je fasse previous_serveur pour etre averti ? (ca serait plus propre).
+l'idéal serait qu'au moment ou je fait previous_server, je tombe sur le serveur 1, la console me donne tous les messages chat qui etaient en attente et apres me ditque je suis deconnecté.
+
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+
+
+le grisage des boutons:
+
+- en globale dans MF.h 
+	wxToolBar		*ToolBar;
+	wxBitmapButton		SendChatButton;
+
+- il faut donc changer les fonctions 
+void MyFrame::CreateMyToolBar() MF.cpp
+
+- a differents endroits le code suivant est ajouté avec des true et false en fonction des endroits:
+
+	file_menu->Enable(CONTROLS_OPTIONS, FALSE);
+	file_menu->Enable(CONTROLS_ADMIN, FALSE);
+	connect_menu->Enable(CONTROLS_CONNECT, FALSE);
+	connect_menu->Enable(CONTROLS_DISCONNECT, FALSE);
+	connect_menu->Enable(CONTROLS_CONNECT_CLIENT, TRUE);
+	m_panel->Enable(false);
+	toolbar->EnableTool(CONTROLS_CONNECT_CLIENT, true);
+	toolbar->EnableTool(CONTROLS_CONNECT, false);
+	toolbar->EnableTool(CONTROLS_DISCONNECT, false);
+	toolbar->EnableTool(CONTROLS_OPTIONS, false);
+	toolbar->EnableTool(CONTROLS_BROADCAST, false);
+	m_panel->panel_public->SendChatButton->Enable(false);
+	m_panel->panel_transfer->ExploClient->download_button->Enable(false);
+	m_panel->panel_transfer->ExploClient->upload_button->Enable(false);
+	m_panel->panel_transfer->ExploServer->delete_button->Enable(false);
+	m_panel->panel_transfer->ExploServer->create_folder_button->Enable(false);
+	m_panel->panel_transfer->ExploServer->preview_button->Enable(false);
+
+void MyFrame::MyFrame()
+void MyFrame::OnConnect_client(wxCommandEvent &event)
+
+void MyFrame::connect_ok(vector<wxString>::iterator i)
+void MyFrame::relogin()
+void MyFrame::lost_console()
+
+tous les if() a la fin de MF::user_acces()
+et de void MyFrame::change_serv()
+
+a faire : droits des users (admin, refuse chat, away...)
+
+
+
+
+Niko. crée toi un compte sur www.leszamis.tk !!! dit :
+il est relou ton probleme... je sait de quelle boucle infinie ca vient. ta facon de faire marche pas si read lit moins que la taille maxi (a cause du reseau), la facon de hansi marche pas par ce que read() est bloquant ... moi je sait pas koi faire  
+Niko. crée toi un compte sur www.leszamis.tk !!! dit :
+en fait hansi a supprimé 2 lignes... ces 2 lignes font que la boucle s'arrete bien mais parfois elle s'arrete trop tot (1448 bits) mais si on les enleve, sur mon systeme ca marche plus du tout parce que read s'arrete jamais
+

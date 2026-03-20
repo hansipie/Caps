@@ -1,0 +1,111 @@
+#include "../../../includes/redcap.h"
+
+char	*find_extention(char *file)
+{
+  int	i;
+  char	*ext;
+
+  ext = strdup(file);
+  i = strlen(file);
+  while((file[i] != '.') && (i > 0))
+    i--;
+  ext+=i;
+  return(ext);
+}
+
+int	look_for_supp_ext(char *ext)
+{
+  int	i;
+
+  for (i = 1; i <= strlen(ext); i++)
+    {
+      if ((ext[i] >= 'A') && (ext[i] <= 'Z'))
+	ext[i] += 32;
+    }
+  if (!strncmp(ext, ".jpg", 4))
+    return(1);
+  if (!strncmp(ext, ".jpeg", 5))
+    return(1);
+  if (!strncmp(ext, ".text", 5))
+    return(1);
+  if (!strncmp(ext, ".txt", 4))
+    return(1);  
+  if (!strncmp(ext, ".gif", 4))
+    return(1);
+  if (!strncmp(ext, ".png", 4))
+    return(1);
+  if (!strncmp(ext, ".bmp", 5))
+    return(1);
+  if (!strncmp(ext, ".pdf", 4))
+    return(1);
+  if (gl_redcap->engine->server->caps_flag == 1)
+    {
+      if (!strncmp(ext, ".avi", 4))
+	return(2);
+      if (!strncmp(ext, ".mov", 4))
+	return(2);
+    }
+  return(0);
+}
+
+int	look_for_size(char *file)
+{
+  return(1);
+}
+
+void    preview(int command)
+{
+  t_transac     *transac;
+  t_data        *pars, *data, *tmp;
+  int           flag;
+  char		*ext, *str;
+  int		vid;
+
+  if(gl_redcap->debug->functions)
+    printf("func:preview\n");
+  flag = 0;
+  pars = pars_opt(gl_redcap->bridge->data->buffer,
+		  gl_redcap->bridge->data->len, 
+		  command);
+  tmp = pars;
+  if (pars != NULL)
+    {      
+      pars = pars->next;
+      ext = find_extention(pars->buffer);
+      if ((vid = look_for_supp_ext(ext)) == 0)
+	{
+	  str = malloc(strlen("error: file type [] not supported by preview\n") + strlen(ext));
+	  sprintf(str, "error: file type [%s] not supported by preview\n", ext);
+	  Writen(gl_redcap->bridge->fd, str);
+	  free(str);
+	  free(ext);
+	  return;
+	}
+/*       if ((gl_redcap->engine->server->caps_flag == 1) && (vid == 2)) */
+/* 	{ */
+/* 	  if (fork() == 0) */
+/* 	    { */
+/* 	      if (execl(VLCPATH, "-q", "udp:", NULL) == -1) */
+/* 		perror("execl"); */
+/* 	      exit(0); */
+/* 	    } */
+/* 	} */
+      if (!gl_redcap->engine->server->caps_flag 
+	  || look_for_size(pars->buffer)) 
+      transac = malloc((sizeof(t_transac)) * MALLOC);
+      transac = build_hdr(transac, DWNL_FILE, HDR_RQST);      
+      transac = build_field_s(transac, FILE_NAME, pars->buffer);
+      transac = build_field_i(transac, ID_FILE_TRANSFERT_OPT, 2);
+      data = make_path(gl_redcap->engine->server->path, 1);
+      new_elem_task(pars->buffer, transac->header->id, 
+		    ID_FILE_TRANSFERT_OPT, 0, 0);
+      if (data)
+	transac = build_field_b(transac, FILE_PATH, 
+				data->buffer, data->len);
+      send_transac(transac);
+    }
+  else
+    Writen(gl_redcap->bridge->fd, "preview \"my_file\"\n");
+  free_opt(tmp);
+}
+

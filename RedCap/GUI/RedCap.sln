@@ -1,0 +1,27 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RedCap", "RedCap.vcproj", "{238B47CE-7DA9-48B5-B518-0D4C87BE083F}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Debug DLL = Debug DLL
+		Release = Release
+		Release DLL = Release DLL
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{238B47CE-7DA9-48B5-B518-0D4C87BE083F}.Debug.ActiveCfg = Debug|Win32
+		{238B47CE-7DA9-48B5-B518-0D4C87BE083F}.Debug.Build.0 = Debug|Win32
+		{238B47CE-7DA9-48B5-B518-0D4C87BE083F}.Debug DLL.ActiveCfg = Debug DLL|Win32
+		{238B47CE-7DA9-48B5-B518-0D4C87BE083F}.Debug DLL.Build.0 = Debug DLL|Win32
+		{238B47CE-7DA9-48B5-B518-0D4C87BE083F}.Release.ActiveCfg = Release|Win32
+		{238B47CE-7DA9-48B5-B518-0D4C87BE083F}.Release.Build.0 = Release|Win32
+		{238B47CE-7DA9-48B5-B518-0D4C87BE083F}.Release DLL.ActiveCfg = Release DLL|Win32
+		{238B47CE-7DA9-48B5-B518-0D4C87BE083F}.Release DLL.Build.0 = Release DLL|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

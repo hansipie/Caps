@@ -1,0 +1,47 @@
+#include "../../../includes/redcap.h"
+
+void    send_cli_nfo(u_int16_t hdr_type, int fd_connect)
+{
+  t_transac *transac;
+  
+  if(gl_redcap->debug->functions)
+    printf("function:send_cli_nfo\n");
+  transac = malloc((sizeof(t_transac)) * MALLOC);
+  transac = build_hdr(transac, hdr_type, HDR_RQST);
+  transac = build_field_s(transac, ID_USR_NAME, gl_redcap->name);
+  transac = build_field_i(transac, ID_USR_ICON, gl_redcap->icon);
+  /* a definir correctement */
+  transac = build_field_i(transac, 113, 0);
+  /*                        */
+  if (hdr_type == AGREED)
+    {
+      gl_redcap->engine->server->name = strdup(gl_redcap->name);
+      gl_redcap->engine->server->icon = gl_redcap->icon;
+    }
+  send_transac(transac);
+}
+
+void	agreed(int command)
+{
+  send_cli_nfo(AGREED, gl_redcap->engine->server->fd);
+  gl_redcap->engine->server->connected = 3;
+  get_user_list(gl_redcap->bridge->fd);
+}
+
+void    disagreed(int command)
+{
+  char	*buff;
+  t_data        *pars;
+
+  if((pars = pars_opt(gl_redcap->bridge->data->buffer, 
+		      gl_redcap->bridge->data->len, 
+		      command)) != NULL)
+      {
+	gl_redcap->engine->server->connected = 4;
+	buff = malloc((strlen("disconnected from ") + strlen(gl_redcap->engine->server->host) + 3) * MALLOC);
+	sprintf(buff, "disconnected from %s\n", gl_redcap->engine->server->host);
+	Writen(gl_redcap->bridge->fd, buff);
+	free(buff);
+      }
+  free_opt(pars);
+}

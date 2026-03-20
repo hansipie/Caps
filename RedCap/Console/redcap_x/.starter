@@ -1,0 +1,1 @@
+valgrind --tool=memcheck --leak-check=yes --track-fds=yes --lowlat-signals=yes --lowlat-syscalls=yes --error-limit=yes -v ./RedCap -fut

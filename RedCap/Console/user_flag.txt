@@ -1,0 +1,29 @@
+a: RPM  refuse privat messages
+b: RPC  refuse privat chat
+c: A    admin
+d: N    nothing
+e: AWAY away
+
+			Noth	admin	RPC	RPM	coadmin	AWAY
+
+0000000000010010	0	1	0	0	1	0	admin
+0000000000000010	0	0	0	0	1	o	co-admin
+0000000000000000	0	0	0	0	0	0	guest
+0000000000100000	1	o	o	o	o	o	noth
+0000000000100100	1	0	0	1	0	0	noth, refuse private message
+0000000000101100	1	0	1	1	0	0	noth, refuse private message, refuse private chat
+
+
+
+
+
+
+
+
+uflag:0000000000010010
+tmp:00
+uflag:0000000000000000
+tmp:020
+uflag:0000000000100000
+tmp:02
+uflag:0000000000000010

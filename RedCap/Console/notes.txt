@@ -1,0 +1,243 @@
+status	date		fact
+---------------------------------------------------------------------------------------------------------------------------
+current
+
+ok	24/01/05	gestion des espaces dans toutes les commandes
+ok	05/01/05	faire un repertoire de download
+ok	05/01/05	faire lrm			
+
+	09/01/05	revoir comment faire limite de preview
+	26/01/05	lrm ne supprime pas les repertoires
+	26/01/05	revoir les droits de creations de repertoires
+
+			:down_up
+	07/01/05	limiter la taille des preview a 600ko
+	20/11/04	faire resume upload
+	17/11/04	faire une fonction de controle des resumes afin de savoir que c'est bien 
+			le bon fichier qu'on download genre "file change since last connection"
+	17/11/04	ajouter error dans les download deja effectuer
+	16/11/04	verifier que les downloads marchent bien
+	13/10/04	upload ok mais rajouter file type et file type creator dans l'element
+	30/10/04	remplir et parser correctement flattened file object
+	16/11/04	faire un seul parcour de fichier pour l'ensemble upload/download
+	24/11/04	poser la question de es-cr qu'on resume 
+
+			:manage_task
+	06/01/05	retester toute la gestion des tasks
+	20/11/04	faire une pseudo gestion automatique des tasks
+	09/11/04	freeer un task retire
+	30/10/04	gestion de liste de download deplacer les elements dans la liste
+	01/11/04	gestion des queue
+	30/10/04	revoir malloc de task
+	30/10/04	revoir malloc de convert
+
+			:path
+	06/01/05	revoire gestion d'erreur de lrm
+	17/11/04	faire rename (mv)
+	17/07/04	mettre des " autour de cd ou gerer les noms 
+			de dossiers avec espaces refuser le cd de n'importe quoi
+	13/10/04	faire les commandes lcd lpwd			
+	10/11/04	mkdir
+	10/11/04	lmkdir revoir les droits de creations
+
+			:transaction
+	08/01/05	faire which_action qui recherche a quoi correspond le reply
+	15/09/04	faire gestion manage transac avec is_reply ...
+	08/01/05	faire une liste chainee waiting for reply
+
+			:autre
+	11/01/05	finir user_info
+	08/01/05	finir file_info
+	07/01/05	possibilite de faire help d'une commande	
+	05/01/05	revoir la gestion de reception et envoie des preview
+	05/01/05	essayer de recuperer un fichier en preview et comparer les hexa
+	04/01/04	ajouter le port de deconnection adresse + nom de server lors de la deconnection
+	17/12/04	revoir le user access pour n'afficher que les access modifies depuis le login
+	15/12/04	bloquer les fonction non authorise du user access
+	07/12/04	probleme de connection avec le debug
+	20/11/04	limiter les previews sur la taille des fichiers cause server hotline
+	16/11/04	verifier bug de connection (transaction inconnue)
+	05/01/05	faire une fonction pour tous les parsages de commandes avec plusieurs args
+	07/01/05	revoir pars opt, utiliser tab
+	31/10/04	verifier multi down/up en multi server
+	14/09/04	faire une restriction par commande en fonction de l'etat
+	14/09/04	user access et gestion des fonctions a restreindre
+	15/10/04	cygwin inet_pton connait pas	
+	27/10/04	faire une fonction qui initialise la structure server a chaques fois
+	19/09/04	trop de fermeture ouverture de telnet fini par gener la connection
+	18/07/04	gestion de la transaction 100
+	15/09/04	revoire totalement manage_server revoir disconnect 
+			et le truc qui compte le nbr de connection pour le trtp
+	15/09/04	revoir les options de set_user
+	08/09/04	probleme avec set_user pour le changement d'icon sur osX
+
+
+---------------------------------------------------------------------------------------------------------------------------
+vers_b4-5b
+
+ok	17/01/05	bug preview
+
+---------------------------------------------------------------------------------------------------------------------------
+vers_b4-5a
+
+ok	12/01/05	get_user
+ok	14/01/05	delete_user
+ok	14/01/05	get_login_list
+
+---------------------------------------------------------------------------------------------------------------------------
+vers_b4-4h
+
+ok	04/01/05	limiter les previews sur les types jpg pdf text gif png bmp + majuscules
+ok	06/01/05	revoir gestion task un seul look for task
+ok	05/01/05	bug dans stop task si le task n'existe pas
+ok	10/11/04	faire une meme fonction pour toutes les parsages de commandes
+ok	08/01/05	gestion de plusieurs telnet
+ok	08/09/04	ne pas faire d'auto agree dans le cas ou 
+			la reponse a agree na pas ete donne et qu'on a ete deconnecte
+ok	10/01/05	file_info
+ok	10/01/05	mkdir
+ok	10/01/05	delete_file
+
+---------------------------------------------------------------------------------------------------------------------------
+vers_b4-4a
+
+ok	04/01/05	mise a jour des commandes par rapport au dernier protocole
+ok	13/10/04	lls recuperer la gestion de fichier de hansi
+ok	13/10/04	revoir cd pwd et gestion du path
+ok	31/12/04	probleme avec cd ..
+			lors de la creation du path
+ok	15/12/04	probleme avec completion
+ok	15/12/04	voir le user flag avec hansi
+ok	15/12/04	user access (+ hansi)
+ok	15/12/04	gerer afficher les bon user acces (nom de fonction)
+ok	31/12/04	probleme de copie du sous path dans get_file_list
+
+---------------------------------------------------------------------------------------------------------------------------
+vers_b4-3c
+
+ok	02/10/04	faire resume download
+ok	20/11/04	retirer .hpf au fichier dont le transfert est termine
+ok	10/11/04        ajouter l'extension .hpf au fichier en cours de transfert
+ok	02/11/04	revoir affichage taille petits fichier
+ok	10/11/04	lmkdir
+ok	10/11/04	lrm
+ok	10/11/04	annuler un download avec suppretion du fichier cancel_task
+ok	30/10/04	rajouter des trais avant et apres agreement et mettre agree et disagree avec une minusculer
+ok	09/11/04	retirer un task delete_task
+ok	09/11/04	rajouter affichage de la reference dans les tasks
+ok	09/11/04	stopper les download
+ok	04/11/04	revoir affichage des preview
+
+---------------------------------------------------------------------------------------------------------------------------
+vers_b4-3a
+
+ok	02/10/04	faire preview
+ok	30/10/04	garder la structure remplie tant que l'element pas retirer de la liste
+ok	04/11/04	revoir affichage ls
+ok	01/11/04	faire un seul gros buffer pour les uploads
+ok	30/10/04	inclure upload dans liste chaine boucle de download
+ok	15/10/04	gerer multi down/up
+ok	13/10/04	finir gestion de visualisation
+ok	30/10/04	revoir creation de fichier lors du demarage des download voir si fichier pas deja existant
+ok	30/10/04	faire liste chaine boucle de download
+ok	27/10/04	Remplacer  send_priv_chat par instant_msg 
+ok	30/10/04	"send_priv_chat" -> "instant_msg"
+ok	27/10/04	gerer les id de reponse et d'envoie de transaction de down_up
+ok	15/10/04	bug lancement upload download
+ok	14/09/04	broken pipe en cas de "gros" upload sous osx
+ok	16/09/04	probleme de mmap sous linux 
+ok	15/10/04	download
+ok	15/10/04	upload
+
+---------------------------------------------------------------------------------------------------------------------------
+vers_b4-0b
+
+ok	19/09/04	netoyage des thread "zombie" dans main_bridge
+
+---------------------------------------------------------------------------------------------------------------------------
+vers_b4-0a
+
+ok	18/07/04	seg fault au bout de 16 connections	
+ok	09/09/04	probleme de latence du aux cond_threads (auto_agree et peut etre multi transactions)
+ok	18/07/04	probleme de multi-client telnet
+ok	15/07/04	segfault dans str_to_tab_clean
+ok	14/09/04	amelioration de help
+ok	18/07/04	upload que les 1024 1er bytes d'un fichier
+ok			upload gestion d'erreur
+ok	14/09/04	changement get_file_list en ls
+ok	14/09/04	changement get_user_file_list en lls
+ok	18/07/04	make path segfault			
+ok	17/07/04	cd ne marche plus avec plus de 2 sous folder
+ok	13/07/04	cd pwd ls avec gestion du chemin (segfault) 
+
+---------------------------------------------------------------------------------------------------------------------------
+vers_b3-2a
+
+ok	14/07/04	depassement de buffer dans receive_file
+ok	18/07/04	mettre un zero pour la taille des folders
+ok	18/07/04	envoie de messages prives
+ok	19/07/04	depassement de buffer dans le server name et dans aggreement quand on ce connect a partir 
+			d'un linux sur un serveur mac ou alors caracteres spetiaux.
+ok	18/07/04	reception de message prives
+ok	13/07/04	gerer l'abscence d'aggreement
+ok	07/07/04	gestion d'id par serveurs connectes et travail sur connect.c
+
+ok	07/07/04	ajouter un /0 a la fin du send_chat pour gerer le buffer overflow revoir le pars_opt de nico 
+			dans send_chat les strlen...
+
+---------------------------------------------------------------------------------------------------------------------------
+vers_b2-2d
+
+ok	06/07/04	erreur espace dans send chat
+ok	06/07/04	erreur segfault quand mauvaise option dans connect
+ok	07/07/04	erreur lors du notify change user
+
+---------------------------------------------------------------------------------------------------------------------------
+
+doing	07/06/04	probleme de variable data non mise a jour entre les threads
+doing	27/05/04	probleme l'ancien client accepte la derniere commande meme si le nouveau cleint est deja connecte
+doing	07/07/04	plantage si trop de chat recu en "non actif"
+doing	07/07/04	refaire le go_to server
+none	07/07/04	faire un truc pour virer les serveur en auto reconnect
+
+none	11/06/04	faire un systeme de gestion de la reception de transac
+none	10/06/04	revoir initialisation d'un serveur
+none    20/05/04	traites trames recus lors du login
+none	22/05/04	main_engine est bloquant trouver une solution pour le faire changer de serveur d'ecoute lorsque 
+			gl_redcap->server change
+none	20/05/04	verifier que sur un serveur "non actif" les donnes recu sont bien stockes et bien utilises ensuites
+none	01/06/04	client telnet windos DOS et hyperterminal genere un problene de read
+			tant que != de 10 13 faire le read ... peut etre !
+none	02/05/04	probleme d'affichage sous certains telnet peut etre ...
+			mettre 10 13 a la fin de chaque Writen plutot que \n !
+none	24/05/04	ranger les .c et faire le menage
+none			remplacer les strcmp par srncmp et refaire strcpy pour gerer le buffer overflow
+
+ok	03/05/4		faire un auto reconnect en cas de deconnection sauvage du server
+ok	19/05/04	revoir les serveurs enleves de la liste en cas de plantage
+ok	02/05/04	probleme lors de l'extinction sauvage d'un server probleme au niveau du read qui recoit 0
+ok	20/05/04	voir a kel momment il faut lancer l'engine creer un thread pour l'engine
+ok	22/05/04	creer un thread pour le bridge et un pour l'engine a l'initialisation
+ok	22/05/04	c'est le thread cre lors de la connection qui fait le read et non l'engine, 
+			engine ne fait que recuperer le buffer list du server courant l'engine une 
+			fois l'element traite le retire de la liste
+	ok		1 - creation du thread relatif au serveur sur lequel on ce connecte
+	ok		2 - lancer le read (dans le thread) qui remplie le buffer list
+			(toute la phases de connection ce fait directement dans le thread concerne)
+	ok		3 - si cx etablie place le pointeur sur serveur sur le nouveau serveur
+	ok		4 - lancer TRTP qui reagit en fonction de ce qu'il y a dans le buffer list.
+ok	23/05/04	probleme de multiple connection quand on force le telnet a quitter
+			de connection tout court en fait
+ok	20/05/04	etablir la connection avec le serveur TRTP... en utilisant les fonctions Read et Writen avec buffer
+			n'est pas effectue dans le main engine.ok	29/05/04	probleme de multiple connection quand on force le telnet a quitter
+                        au momment ou on relance un telnet ecriture sur le mauvais fd
+			voir les free de toto et les exit du thread mauvaise gestion du multiple client
+ok	20/05/04	ok etablir le login
+ok	01/06/04	probleme de commande decalle lors de: utilisation d'un fd ferme " "
+			1) connection telnet unix
+			2) connection telnet putty
+			3) close putty
+			4) connection telnet unix
+ok	02/06/04	implementation d'un second niveau de debug (d'un niveau de debug avance)
+ok	26/05/04	probleme de multiple instance de strcli du a mauvaise gestion de TRTP
+

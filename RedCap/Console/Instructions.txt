@@ -1,0 +1,9 @@
+Rush Réseaux Avancés
+--------------------
+
+Pour ce rush vous devrez disposer des OS suivants :
+
+	- Un Linux, quelqu'il soit, de préférence en 2.4
+	- Un, voir deux Windows; si possible un Server et Workstation (2k/2K3 et 2k/XP)
+
+Vous pouvez ajouter les OS que vous souhaitez à la liste, la notation récompensera les setups hétérogènes.
