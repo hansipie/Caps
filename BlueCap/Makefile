@@ -1,33 +1,38 @@
-# the following library is needs on SUNs from my experience
-# LIBS = -lxnet
+NAME    = BlueCap
 
-NAME 	= BlueCap
+SRCDIR  = src
+OBJDIR  = build/obj
+BINDIR  = build/bin
 
-SRC	= main.cpp \
-	MyFile.cpp CUser.cpp CDwlUpl.cpp\
-	ClServ.cpp ClServ_Protocole.cpp ClServ_Tools.cpp ClServ_MkTransactions.cpp ClServ_Action.cpp ClServ_DwlUpl.cpp ClServ_CplxFields.cpp \
-	Serv_Action.cpp Serv_Tools.cpp Serv.cpp \
-	Transaction.cpp FlFileObj.cpp 
+SRC     = main.cpp \
+          MyFile.cpp CUser.cpp CDwlUpl.cpp \
+          ClServ.cpp ClServ_Protocole.cpp ClServ_Tools.cpp \
+          ClServ_MkTransactions.cpp ClServ_Action.cpp \
+          ClServ_DwlUpl.cpp ClServ_CplxFields.cpp \
+          Serv_Action.cpp Serv_Tools.cpp Serv.cpp \
+          Transaction.cpp FlFileObj.cpp
 
-OBJ	= $(SRC:.cpp=.o)
+SRCS    = $(addprefix $(SRCDIR)/, $(SRC))
+OBJ     = $(patsubst $(SRCDIR)/%.cpp, $(OBJDIR)/%.o, $(SRCS))
 
-LDFLAGS	= `Magick++-config --ldflags --libs`
-
-CPPFLAGS	= -I. -g  -g3 -ggdb -Wall -ansi -pg `Magick++-config --cppflags --cxxflags`
-
-CC = g++
+LDFLAGS  = `pkg-config --libs Magick++`
+CPPFLAGS = -I$(SRCDIR) -g -g3 -ggdb -Wall -ansi -pg `pkg-config --cflags Magick++`
+CC       = g++
 
 all: server
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+	@mkdir -p $(OBJDIR)
+	$(CC) $(CPPFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME) *.core *~ *#
+	rm -f $(BINDIR)/$(NAME) *.core *~ *#
 
-re:	fclean all
+re: fclean all
 
 server: $(OBJ)
-	$(CC) $(LDFLAGS) $(OBJ) -o $(NAME)
-
-# DO NOT DELETE THIS LINE -- make depend depends on it.
+	@mkdir -p $(BINDIR)
+	$(CC) $(OBJ) $(LDFLAGS) -o $(BINDIR)/$(NAME)

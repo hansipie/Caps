@@ -1,4 +1,6 @@
 #include "Transaction.hpp"
+#include <cstring>
+#include <cstdio>
 
 CTransactions::CTransactions(int Id)
 {
