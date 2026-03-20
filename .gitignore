@@ -54,3 +54,4 @@ dkms.conf
 # debug information files
 *.dwo
 /BlueCap/build
+/RedCap/Console/build

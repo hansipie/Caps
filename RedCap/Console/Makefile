@@ -9,8 +9,7 @@ SHARED	= src/shared/wrapsock.c src/shared/get_next_line.c src/shared/std.c \
 	src/shared/buffer_list.c \
 	src/shared/prompt.c \
 	src/shared/print.c \
-	src/shared/other.c \
-	src/shared/non_blocking_fd.c	
+	src/shared/other.c	
 
 ENGINE	= src/engine/main_engine.c \
 	src/engine/functions/new_user.c \
@@ -92,14 +91,14 @@ CC = gcc
 RM = rm -f
 
 $(NAME): $(OBJS5) $(OBJS4) $(OBJS3) $(OBJS2) $(OBJS1)
-	$(CC) -o $(NAME) $(LDFLAGS) $(LIBS) $(OBJS5) $(OBJS4) $(OBJS3) $(OBJS2) $(OBJS1)
-	mv $(NAME) redcap_x/
+	$(CC) -o $(NAME) $(LDFLAGS) $(LIBS) $(OBJS5) $(OBJS4) $(OBJS3) $(OBJS2) $(OBJS1) -lm
+	mv $(NAME) build/
 
 clean:
 	$(RM) $(OBJS5) $(OBJS4) $(OBJS3) $(OBJS2) $(OBJS1)
 	$(RM) ./*~ ./src/*~ ./src/bridge/*~ ./src/bridge/functions/*~ ./src/engine/*~ ./src/engine/functions/*~ ./src/shared/*~ ./includes/*~
 
 fclean: clean
-	$(RM) rm redcap_x/RedCap
+	$(RM) rm build/RedCap
 
 re: fclean $(NAME)
