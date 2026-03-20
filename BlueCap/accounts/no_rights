@@ -1,0 +1,56 @@
+name = "No Rights"
+login = "no_rights"
+password = ""
+
+DeleteFile = 0
+UploadFile = 0
+DownloadFile = 0
+RenameFile = 0
+
+MoveFile = 0
+CreateFolder = 0
+DeleteFolder = 0
+RenameFolder = 0
+
+MoveFolder = 0
+ReadChat = 0
+SendChat = 0
+OpenChat = 0
+
+CloseChat = 0
+ShowInList = 0
+CreateUser = 0
+DeleteUser = 0
+
+OpenUser = 0
+ModifyUser = 0
+ChangeOwnPass = 0
+SendPrivMsg = 0
+
+NewsReadArt = 0
+NewsPostArt = 0
+DisconUser = 0
+CannotBeDiscon = 0
+
+GetClientInfo = 0
+UploadAnywhere = 0
+AnyName = 0
+NoAgreement = 0
+
+SetFileComment = 0
+SetFolderComment = 0 
+ViewDropBoxes = 0
+MakeAlias = 0
+
+Broadcast = 0
+NewsDeleteArt = 0
+NewsCreateCat = 0
+NewsDeleteCat = 0
+
+NewsCreateFldr = 0
+NewsDeleteFldr = 0
+UploadFldr = 0
+DownloadFldr = 0
+
+CanSendMsg = 0
+

@@ -1,0 +1,631 @@
+progression BlueCap
+
+-------------------------------------------------------
+-------------------------------------------------------
+
+objectifs generaux courants
+
+serv ... en cours
+	threads de connection ... non (select peut etre suffisant)
+	plusieurs client ... ok
+	action serv ... ok
+	gestion liste utilisateur ... ok
+		a partir d'un fichier ... ok
+	fichier de conf ... ok
+	agreement ... ok
+
+clserv ... en cours
+	envoie ... ok
+		donnees ... ok
+		liste chainee ... ok
+	reception ... ok
+		donnees ... ok
+		trame multi instructions ... ok
+		liste chainee ... ok
+	gestion avancee du protocole ... en cours
+		threading ... non (pas utile)
+		transaction ID ... ok 
+		selfsend ... ok
+	gestion des operations internes ... ok
+		manipulation des comptes ... ok
+		manipulation des fichiers ... ok
+		gestion chat ... ok
+		gestion news ... non
+	
+clserv_protocol(action) ... ok
+	handshake ... ok
+	login ... ok
+	agreement ... ok
+	useracces ... ok
+		  construction du champs de bits ... ok
+		  gestion a partir d'un fichier ... ok
+	getuserlist ... ok
+		    gestion du user flags ... ok
+	getfilenamelist ... ok
+	chat ... en cours
+	     prive ... non
+	     publique ... ok
+	     broacast ... ok
+	     instant message ... ok
+	download/upload ... ok
+
+transaction ... ok
+	trame -> struct ... ok
+	struct -> trame ... ok
+
+download/upload
+	handshake ... ok
+	flattened file object
+		  infos ... ok
+			type de fichier ... ok
+			date ... non 
+			createur ... ok
+			reste ... ok
+		  buffer -> FFO ... ok
+		  FFO -> buffer ... ok   
+	fichier ... ok
+	previews ... ok
+	threading ... non
+
+administration
+	user access ... ok 
+	user flag ... ok
+	droits ... en cours
+		
+
+-------------------------------------------------------
+-------------------------------------------------------
+ 
+20040426
+
+solution temporaire pour le transaction ID
+
+erreur apres l'envoye de agreement
+"connection reset by peer"
+
+-------------------------------------------------------
+
+20040506
+
+erreure du 20040426 reglee: 
+	paquet non conforme --> taille de la partie data mal calcule
+	correction de la classe transaction
+
+
+-------------------------------------------------------
+
+20040510
+
+agreement envoye mais aucune manifestation cote client :-@
+
+recherche d'une vraie solution pour le transaction ID (le pb vient peut etre de la)
+	threading du clserv au niveau du protocole --> probleme: risque d'ecrasement de donnees a envoyer
+						       solution: empliler de donnees recus et a envoyer
+
+modification de la structure transaction (utilisation liste C++) pour la gestion des "trames de porcs"
+
+
+exploration d'autre solutions pour le noyau du serveur (serv)
+	eFarm (voir le code en detaille avant toute decision)
+	classes de socket existantes (http://manitou.gel.ulaval.ca/~parizeau/doc/index.html)
+
+--------------------------------------------------------
+
+20040525
+
+non pour les autre solution pour le noyau du serveur
+- efarm: mystique
+- classe socket: compliquee
+
+les listes reception et d'envoie sont ok
+
+agreement envoye mais aucune manifestation cote client => vient peut etre de l'abscence de useraccess, le client est en attende de cette requete
+
+transaction ID ok pour l'instant (a mettre a l'epreuve)
+
+Creation de fonction individuelles pour les transaction du protocole  ---> fait
+
+a coder: useraccess => a completer
+a coder: getuserlist => a completer
+a coder: treat_rcvd => fonction que traite les buffer en replissant les variables a remplir (exp: gestion de compte utilisateurs, des droits, etc...)
+
+Comment faire un tableau de pointeur sur fonction en C++ ?
+
+--------------------------------------------------------
+
+20040526
+
+tableau de pointeur sur fonction en C++  --> c bon ca fonctionne ==> gestion des "self send" (ou talk du serveur)
+reste a transformer les tableaux statics en vector ou autre
+
+a coder: useraccess => a completer
+a coder: getuserlist => a completer
+a coder: treat_rcvd => fonction que traite les buffer en replissant les varaibles a remplir (exp: gestion de compte utilisateurs, des droits, etc...)
+
+--------------------------------------------------------
+
+20040609
+
+pb avec la declaration des pointeur sur fonction sous netBSD
+
+--------------------------------------------------------
+
+20040611
+
+pb sous netBSD identifie : version de gcc necessaire >= 3.2.1
+
+--------------------------------------------------------
+
+20040615
+
+pb avec agreement resolu => vient de data size et total size
+
+a coder: useraccess => a completer
+a coder: getuserlist => a completer
+a coder: Actions => fonctions qui traitent les buffers en replissant les varaibles a remplir (exp: gestion de compte utilisateurs, des droits, etc...)
+a coder: gestion utilisateurs dans ClServ et peut-etre Serv
+
+--------------------------------------------------------
+
+20040616
+
+gestion des identifiants ds ClServ ... peut etre ok
+initialisation des comptes ds Serv ... a completer en faisant une lecture dans un fichier
+
+a faire
+gerer le compte incorrecte (qui n'existe pas, mauvais mot de passe, etc ...)
+gestion divers (nbr de connections avec le meme compte, etc ...)
+
+pb au moment de useraccess-getuserlist, apres envoie des trames rien ne se passe.
+
+a coder: useraccess => a completer && getuserlist => a completer
+	coder une fonction qui cree les champs de bits
+
+
+--------------------------------------------------------
+
+20040617
+
+suppression des charr *buffers ds CFiels et CBuffer, ils on ete remplace par des vectors
+
+pb : seg fault qd le compte n'existe pas au login. l'execution de la classe CServ ne s'arrete pas
+
+--------------------------------------------------------
+
+20040618
+
+gestion de l'agreement a partir d'un fichier
+
+--------------------------------------------------------
+
+20040628
+
+fait:
+gestion de la conf du serveur a partir d'un fichier
+kill "propre" de CClServ
+gestion du login qui n'existe pas et du password incorrecte
+
+
+a faire: 
+useraccess && getuserlist => a completer
+	gerer les comptes utilisateur a partir d'un fichier
+	coder une fonction qui cree les champs de bits
+
+--------------------------------------------------------
+
+20040629
+
+fait:
+Creation du compte sur freshmeat.net pour la publication du projet
+caps:baobab
+
+a faire:
+Completer le site avec les sources
+
+--------------------------------------------------------
+
+20040629
+
+fait:
+Une seule connexion client acceptee
+
+
+bug:
+a plus d'une connexion client, bloquage ds le accepte
+
+a faire:
+Completer le site avec les sources
+
+a faire: 
+useraccess => a completer : coder une fonction qui cree les champs de bits
+getusernamelist => gerer le userflag
+gerer les comptes utilisateur a partir d'un fichier
+
+a faire:
+gerer la transaction pas encore implementee.
+
+--------------------------------------------------------
+
+20040713
+
+fait:
+useraccess
+transaction pas encore implemente, renvoie la transaction 100(erreur)
+
+bug:
+a plus d'une connexion client, bloquage ds le accepte a verifier... (?)
+
+a faire:
+Completer le site avec les sources
+
+a faire: 
+getusernamelist => gerer le userflag
+gerer les comptes utilisateur a partir d'un fichier
+
+a faire:
+transformer les buildfield pour ne plus avoir de char* 
+
+--------------------------------------------------------
+
+20040714
+
+fait:
+gerer les comptes utilisateur a partir d'un fichier
+
+bug:
+a plus d'une connexion client, bloquage ds le accepte a verifier... (?)
+
+a faire:
+Completer le site avec les sources
+
+--------------------------------------------------------
+
+20040920
+
+fait : broadcast du user name liste
+
+bug : 
+- pb d'effacement du user apres deconnexion
+- mauvaise gestion du user name
+
+a faire: 
+- getusernamelist => gerer le userflag
+- transformer les buildfield pour ne plus avoir de char* 
+- notify changer user envoye a chaque get user list a changer.
+
+--------------------------------------------------------
+
+20040923
+
+fait : 
+- user broadcast (355)
+
+a faire: 
+- notify changer user envoye a chaque get user list a changer.
+- pb de gestion des utilisateurs lors d'une deconnection. 
+
+--------------------------------------------------------
+
+20040928
+
+fait:
+- gestion des utilisateurs internes du serveur lors d'une deconnection. 
+
+a faire: 
+- notify changer user envoye a chaque get user list a changer.
+- chat
+- gestion du \n dans l'agreement (remplacer par \10\13)
+- upload/download
+
+--------------------------------------------------------
+--------------------------------------------------------
+v0.1a
+	Passage en release candidat:
+
+- OS: Linux, CygWin (avec un autoconf-automake)
+- fonctionalites:
+	- authentification
+	- liste des utilisateurs
+	- user broadcast
+--------------------------------------------------------
+--------------------------------------------------------
+
+v0.1b
+	new features:
+	- public chat
+	- instant message
+	- get file name list
+	
+	bugs corrections:
+	- agreement wasn't well formated
+
+	known bugs:
+	- problem with user's rights
+	- user disconnection not broadcasted
+	- memory leaks
+	- Transcation ID limited to 20
+	
+--------------------------------------------------------
+--------------------------------------------------------
+
+v0.2a
+	new features:    
+	- files folder configured trought the config file
+
+	bugs corrections:
+	- Transcation ID virtualy infinit
+	- correction of a path including "." when reading field 202
+
+	known bugs:
+	- Transaction ID of NoRely transactions not removed from list 
+	- problem with user's rights
+	- user disconnection not broadcasted
+	- memory leaks
+
+	-------------------------------------------
+
+16/11/04 
+
+a faire:
+  implementer les threads pour uploader et downloader
+  download
+	completer le FFO date, createur, ...
+	coupler le FFO au ficher
+	envoyer le fichier
+  upload
+	decouper le fichier du FFO
+	recevoir le fichier
+
+22/11/04 (v0.2b)
+
+fait
+  debut du portage windows:
+	- bcopy -> memcpy
+	- bzero -> memset
+	- strndup -> string::assign
+	- utilisation de Dev-C++: pb avec fnctl
+
+23/11/04 (v0.2c)
+  portage windows complet
+	  compilation conditionnelle
+  changement du systeme de referencage des ClServ (verifier si broadcast et cie fonctionne encore)
+  
+29/11/04 (v0.2d)
+
+	new features:
+	- download/upload
+	- user disconnection broadcasted
+	- Win32/Unix source code
+	- new ClServ management
+	- new fd management
+	
+	known bugs:
+	- upload not optimised
+	- download ends with a disconnection error, the file has .hpf extension but is complete
+	- download/uploads not threaded
+	- dates in flattened file object not set
+	- Transaction ID of NoRely transactions not removed from list 
+	- problem with user's rights
+	- memory leaks
+	- under win32, close for a ClServ return en error "no error"
+	- user disconnection not broadcasted	 
+
+31/11/04
+
+	Fixed bug: strange segfault when uploading corrected. Any files can
+	now be uploaded. 
+	
+	Rq: low transfert speed is due to size of buffer used, it's
+	just a test value, can be changed in hotline.hpp (#define
+	BUFFSIZE)
+
+25/12/04 (v0.2f_dev)
+05/01/05
+
+	new features:
+	- delete file
+	- move file
+	- get file info
+	- set file info (without comments)
+	- user disconnection broadcasted
+	- previews (2 secondes) 
+	- icons file type are displayed in the explorer
+
+	bugs corrections:
+	- under win32, close for a ClServ return en error "no error"
+
+	features to dev:
+	- download/uploads not threaded
+	- before totaly delete a file, move it to trash. really delete
+	files in trash
+	- dates formating (ffo, get file info)
+	- real previews
+	- file comments stategie
+
+	known bugs:
+	- upload not optimised
+	- download/preview ends with a disconnection error, the file has .hpf extension but is complete
+	- Transaction ID of NoRely transactions not removed from list 
+	- problem with user's rights
+	- memory leaks
+	
+--------------------------------------------------------
+--------------------------------------------------------
+
+12/01/05 (v0.3a)
+13/01/05	 
+	new features:
+	- disconnect user
+	- disconnect message (implemented, but not used)
+	- new folder
+	- get client info text
+	- user flags
+
+	bugs corrections:
+	- notify change user n'est plu envoye a chaque get user list.
+
+	features to dev:
+	- upload optimisation
+	- files scaled preview
+	- download/uploads not threaded
+	- before totaly delete a file, move it to trash. really delete
+	files in trash
+	- dates formating (ffo, get file info)
+	- real previews
+	- file comments stategie
+
+	known bugs:
+	- download/preview ends with a disconnection error, the file has .hpf extension but is complete
+	- Transaction ID of NoRely transactions not removed from list 
+	- problem with user's rights
+	- memory leaks
+
+23/01/05 (v0.3b)
+	new features:
+	- CAPS previews (using ImageMagick)
+	- Get all user list
+	
+	bugs corrections:
+	- files extension case sensitive
+	- problem with user's rights
+	- memory leaks
+
+	features to dev:
+	- upload optimisation
+	- download/uploads not threaded
+	- before totaly delete a file, move it to trash. really delete files in trash
+	- dates formating (ffo, get file info) 
+	- no time limite for previews
+	- file comments stategie
+
+	known bugs:
+	- download/preview ends with a disconnection error, the file has .hpf extension but is complete
+	- Transaction ID of NoRely transactions not removed from list 
+	- no more WIN32 compatible
+
+26/01/05 (v0.3c)
+	 new features:
+	 - set, get, delete, new user
+	 - error messages
+	 
+	 features to dev
+	- upload optimisation
+	- download/uploads not threaded
+	- before totaly delete a file, move it to trash. really delete files in trash
+	- dates formating (ffo, get file info) 
+	- no time limite for previews
+	- file comments stategie
+	- save new accounts into files
+
+	known bugs:
+	- download/preview ends with a disconnection error, the file has .hpf extension but is complete
+	- Transaction ID of NoRely transactions not removed from list 
+	- no more WIN32 compatible
+
+26/01/05 (v0.3d)
+	new features:
+	- save/modify/delete accounts in files
+	 
+	features to dev
+	- upload optimisation
+	- download/uploads not threaded
+	- before totaly delete a file, move it to trash. really delete files in trash
+	- dates formating (ffo, get file info) 
+	- no time limite for previews
+	- file comments stategie
+
+	known bugs:
+	- download/preview ends with a disconnection error, the file has .hpf extension but is complete
+	- Transaction ID of NoRely transactions not removed from list 
+	- no more WIN32 compatible
+	
+26/01/05 (v0.3e_dev)
+	new features:
+	- compiles under win32 but, without CAPS previews (using ImageMagick) and directory creation
+	
+	features to dev
+	- upload optimisation
+	- download/uploads not threaded
+	- before totaly delete a file, move it to trash. really delete files in trash
+	- dates formating (ffo, get file info) 
+	- no time limite for previews
+	- file comments stategie
+
+	known bugs:
+	- download/preview ends with a disconnection error, the file has .hpf extension but is complete
+	- Transaction ID of NoRely transactions not removed from list 
+
+	
+27/01/05 (v0.3e_dev)
+	new features:
+	- compiles under win32 but, without CAPS previews (using ImageMagick) and directory creation
+	- download optimisation
+	- previews are ok
+	
+	features to dev
+	- upload optimisation
+	- before totaly delete a file, move it to trash. really delete files in trash
+	- dates formating (ffo, get file info) 
+	- file comments stategie
+
+	known bugs:
+	- download ends with a disconnection error, the file has .hpf extension but is complete
+	- Transaction ID of NoRely transactions not removed from list
+	- broken pipe when canceling downloads 
+
+27/01/05 (v0.3e_dev)
+03/02/05 (v0.3e_dev)
+	new features:
+	- compiles under win32 but, without CAPS previews (using ImageMagick) and directory creation
+	- download optimisation
+	- upload optimisation
+	- previews are ok
+
+	bugs correction:
+	- more error returns on transactions
+	       - download
+	       - get file name list (missing directory)
+	       - login
+	- controle on field 202
+	- upload oversize
+
+	features to dev
+	- before totaly delete a file, move it to trash. really delete files in trash
+	- dates formating (ffo, get file info) 
+	- file comments stategie
+
+	known bugs:
+	- download/uploads/prewviews doesn't end properly, but files
+	are complete
+	- Transaction ID of NoRely transactions not removed from list
+	- broken pipe sometimes when canceling downloads 
+
+08/02/05 (v0.4a_dev)
+	 working on RPM ... c'est ok
+	 a modifie file info order pour redcap (qui gere mal)
+	 bug avec redcap lors d'un bad login/passwd ... corrige
+	 preview d'une image vide ... ok	 
+	 a corriger val de retour de CClServ::MakeGetFileInfoReply(int Id)
+
+09/02/05 (v0.4b_dev)
+	 val de retour de CClServ::MakeGetFileInfoReply(int Id) ... ok
+	 retour d'erreur de Action Instant Message ... ok
+	 ajout du retour d'erreur de getclientinfotext
+
+16/02/05 (v0.4c_dev)
+	 bug sur broadcast corrige
+	 debug selectif (sortie standard)
+
+19/02/05 (0.4c)
+	 fermeture automatique du fd lors d'une preview pour Redcap
+
+22/02/05 (0.4d_dev)
+	 actualisation des droit pour les utilisateurs connectés
+
+26/02/05 (0.5a)
+	 preview video
+	 preview image vers client caps en jpeg
+
+27/02/05 (0.5b)
+	 version de demonstration, pas de modification majeure.
+

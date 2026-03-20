@@ -1,0 +1,55 @@
+name = "Admin"
+login = "admin"
+password = "passadmin"
+
+DeleteFile = 1
+UploadFile = 1
+DownloadFile = 1
+RenameFile = 1
+
+MoveFile = 1
+CreateFolder = 1
+DeleteFolder = 1
+RenameFolder = 1
+
+MoveFolder = 1
+ReadChat = 1
+SendChat = 1
+OpenChat = 1
+
+CloseChat = 1
+ShowInList = 1
+CreateUser = 1
+DeleteUser = 1
+
+OpenUser = 1
+ModifyUser = 1
+ChangeOwnPass = 1
+SendPrivMsg = 1
+
+NewsReadArt = 1
+NewsPostArt = 1
+DisconUser = 1
+CannotBeDiscon = 1
+
+GetClientInfo = 1
+UploadAnywhere = 1
+AnyName = 1
+NoAgreement = 0
+
+SetFileComment = 1
+SetFolderComment = 1 
+ViewDropBoxes = 1
+MakeAlias = 1
+
+Broadcast = 1
+NewsDeleteArt = 1
+NewsCreateCat = 1
+NewsDeleteCat = 1
+
+NewsCreateFldr = 1
+NewsDeleteFldr = 1
+UploadFldr = 1
+DownloadFldr = 1
+
+CanSendMsg = 1

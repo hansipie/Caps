@@ -1,0 +1,5 @@
+just run ./make
+
+you while need ImageMagick (www.imagemagick.org).
+
+Under Win32 use Dev-C++.

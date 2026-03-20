@@ -1,0 +1,77 @@
+# Project: BlueCap
+# Makefile created by Dev-C++ 4.9.9.0
+
+CPP  = g++.exe -D__DEBUG__
+CC   = gcc.exe -D__DEBUG__
+WINDRES = windres.exe
+RES  = BlueCap_private.res
+OBJ  = ClServ.o ClServ_Action.o ClServ_DwlUpl.o ClServ_MkTransactions.o ClServ_Protocole.o ClServ_Tools.o FlFileObj.o main.o Serv.o Serv_Action.o Serv_Tools.o Transaction.o ClServ_CplxFields.o CUser.o MyFile.o CDwlUpl.o $(RES)
+LINKOBJ  = ClServ.o ClServ_Action.o ClServ_DwlUpl.o ClServ_MkTransactions.o ClServ_Protocole.o ClServ_Tools.o FlFileObj.o main.o Serv.o Serv_Action.o Serv_Tools.o Transaction.o ClServ_CplxFields.o CUser.o MyFile.o CDwlUpl.o $(RES)
+LIBS =  -L"C:/Dev-Cpp/lib" -L"C:/Program Files/ImageMagick-6.1.9-Q16/lib" win32lib/WS2_32.Lib  -g3 
+INCS =  -I"C:/Dev-Cpp/include"  -I"C:/Program Files/ImageMagick-6.1.9-Q16/include" 
+CXXINCS =  -I"C:/Dev-Cpp/include/c++/3.3.1"  -I"C:/Dev-Cpp/include/c++/3.3.1/mingw32"  -I"C:/Dev-Cpp/include/c++/3.3.1/backward"  -I"C:/Dev-Cpp/lib/gcc-lib/mingw32/3.3.1/include"  -I"C:/Dev-Cpp/include"  -I"C:/Program Files/ImageMagick-6.1.9-Q16/include" 
+BIN  = BlueCap.exe
+CXXFLAGS = $(CXXINCS)   -g3
+CFLAGS = $(INCS)   -g3
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before BlueCap.exe all-after
+
+
+clean: clean-custom
+	rm -f $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "BlueCap.exe" $(LIBS)
+
+ClServ.o: ClServ.cpp
+	$(CPP) -c ClServ.cpp -o ClServ.o $(CXXFLAGS)
+
+ClServ_Action.o: ClServ_Action.cpp
+	$(CPP) -c ClServ_Action.cpp -o ClServ_Action.o $(CXXFLAGS)
+
+ClServ_DwlUpl.o: ClServ_DwlUpl.cpp
+	$(CPP) -c ClServ_DwlUpl.cpp -o ClServ_DwlUpl.o $(CXXFLAGS)
+
+ClServ_MkTransactions.o: ClServ_MkTransactions.cpp
+	$(CPP) -c ClServ_MkTransactions.cpp -o ClServ_MkTransactions.o $(CXXFLAGS)
+
+ClServ_Protocole.o: ClServ_Protocole.cpp
+	$(CPP) -c ClServ_Protocole.cpp -o ClServ_Protocole.o $(CXXFLAGS)
+
+ClServ_Tools.o: ClServ_Tools.cpp
+	$(CPP) -c ClServ_Tools.cpp -o ClServ_Tools.o $(CXXFLAGS)
+
+FlFileObj.o: FlFileObj.cpp
+	$(CPP) -c FlFileObj.cpp -o FlFileObj.o $(CXXFLAGS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+Serv.o: Serv.cpp
+	$(CPP) -c Serv.cpp -o Serv.o $(CXXFLAGS)
+
+Serv_Action.o: Serv_Action.cpp
+	$(CPP) -c Serv_Action.cpp -o Serv_Action.o $(CXXFLAGS)
+
+Serv_Tools.o: Serv_Tools.cpp
+	$(CPP) -c Serv_Tools.cpp -o Serv_Tools.o $(CXXFLAGS)
+
+Transaction.o: Transaction.cpp
+	$(CPP) -c Transaction.cpp -o Transaction.o $(CXXFLAGS)
+
+ClServ_CplxFields.o: ClServ_CplxFields.cpp
+	$(CPP) -c ClServ_CplxFields.cpp -o ClServ_CplxFields.o $(CXXFLAGS)
+
+CUser.o: CUser.cpp
+	$(CPP) -c CUser.cpp -o CUser.o $(CXXFLAGS)
+
+MyFile.o: MyFile.cpp
+	$(CPP) -c MyFile.cpp -o MyFile.o $(CXXFLAGS)
+
+CDwlUpl.o: CDwlUpl.cpp
+	$(CPP) -c CDwlUpl.cpp -o CDwlUpl.o $(CXXFLAGS)
+
+BlueCap_private.res: BlueCap_private.rc 
+	$(WINDRES) -i BlueCap_private.rc -I rc -o BlueCap_private.res -O coff 
