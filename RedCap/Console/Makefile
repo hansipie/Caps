@@ -1,104 +1,115 @@
-#setenv LD_LIBRARY_PATH "/usr/pkg/lib"
-NAME	= RedCap
+NAME    = RedCap
 
-SRC	= src/main.c src/init.c src/opts.c
+SRCDIR  = src
+OBJDIR  = build/obj
+BINDIR  = build/bin
 
-SHARED	= src/shared/wrapsock.c src/shared/get_next_line.c src/shared/std.c \
-	src/shared/read.c \
-	src/shared/write.c \
-	src/shared/buffer_list.c \
-	src/shared/prompt.c \
-	src/shared/print.c \
-	src/shared/other.c	
+SRC     = main.c \
+          init.c \
+          opts.c
 
-ENGINE	= src/engine/main_engine.c \
-	src/engine/functions/new_user.c \
-	src/engine/functions/my_access.c \
-	src/engine/functions/set_user_edit.c \
-	src/engine/functions/pars_opt.c \
-	src/engine/functions/get_user.c \
-	src/engine/functions/delete_file.c \
-	src/engine/functions/rename_file.c \
-	src/engine/functions/user_info.c \
-	src/engine/functions/get_file_info.c \
-	src/engine/functions/lmv.c \
-	src/engine/functions/help.c \
-	src/engine/functions/server_name.c \
-	src/engine/functions/lrm.c \
-	src/engine/functions/mkdir.c \
-	src/engine/functions/preview.c \
-	src/engine/functions/task.c \
-	src/engine/functions/connect.c \
-	src/engine/functions/change_server.c \
-	src/engine/functions/send_chat.c \
-	src/engine/functions/send_priv_chat.c \
-	src/engine/functions/login.c \
-	src/engine/functions/me_info.c \
-	src/engine/functions/get_user_list.c \
-	src/engine/functions/get_bookmark.c \
-	src/engine/functions/agreed.c \
-	src/engine/functions/delete_user.c \
-	src/engine/functions/get_file_list.c \
-	src/engine/functions/disconnect.c \
-	src/engine/functions/file_list_client.c \
-	src/engine/functions/get_login_list.c \
-	src/engine/functions/download.c \
-	src/engine/functions/upload.c \
-	src/engine/functions/manage_server.c \
-	src/engine/functions/manage_task.c \
-	src/engine/functions/send_broadcast.c \
-	src/engine/functions/cd.c \
-	src/engine/functions/pwd.c \
-	src/engine/transaction.c \
-	src/engine/transaction2.c \
-	src/engine/flattened_file_object.c \
-	src/engine/send_file.c \
-	src/engine/manage_transac.c \
-	src/engine/receive_file.c \
-	src/engine/main_create_down-up.c
+SHARED  = shared/wrapsock.c \
+          shared/get_next_line.c \
+          shared/std.c \
+          shared/read.c \
+          shared/write.c \
+          shared/buffer_list.c \
+          shared/prompt.c \
+          shared/print.c \
+          shared/other.c
 
-BRIDGE	= src/bridge/main_bridge.c \
-	src/bridge/command.c \
-	src/bridge/functions/receive_login_list.c \
-	src/bridge/functions/receive_file_info.c \
-	src/bridge/functions/receive_get_user.c \
-	src/bridge/functions/receive_user_info.c \
-	src/bridge/functions/receive_chat.c \
-	src/bridge/functions/receive_broadcast.c \
-	src/bridge/functions/receive_server_msg.c \
-	src/bridge/functions/error.c \
-	src/bridge/functions/receive_download.c \
-	src/bridge/functions/receive_upload.c \
-	src/bridge/functions/receive_agreement.c \
-	src/bridge/functions/receive_user_list.c \
-	src/bridge/functions/receive_user_access.c \
-	src/bridge/functions/receive_file_list.c \
-	src/bridge/functions/receive_login.c \
-	src/bridge/functions/receive_delete_user.c 
+ENGINE  = engine/main_engine.c \
+          engine/functions/new_user.c \
+          engine/functions/my_access.c \
+          engine/functions/set_user_edit.c \
+          engine/functions/pars_opt.c \
+          engine/functions/get_user.c \
+          engine/functions/delete_file.c \
+          engine/functions/rename_file.c \
+          engine/functions/user_info.c \
+          engine/functions/get_file_info.c \
+          engine/functions/lmv.c \
+          engine/functions/help.c \
+          engine/functions/server_name.c \
+          engine/functions/lrm.c \
+          engine/functions/mkdir.c \
+          engine/functions/preview.c \
+          engine/functions/task.c \
+          engine/functions/connect.c \
+          engine/functions/change_server.c \
+          engine/functions/send_chat.c \
+          engine/functions/send_priv_chat.c \
+          engine/functions/login.c \
+          engine/functions/me_info.c \
+          engine/functions/get_user_list.c \
+          engine/functions/get_bookmark.c \
+          engine/functions/agreed.c \
+          engine/functions/delete_user.c \
+          engine/functions/get_file_list.c \
+          engine/functions/disconnect.c \
+          engine/functions/file_list_client.c \
+          engine/functions/get_login_list.c \
+          engine/functions/download.c \
+          engine/functions/upload.c \
+          engine/functions/manage_server.c \
+          engine/functions/manage_task.c \
+          engine/functions/send_broadcast.c \
+          engine/functions/cd.c \
+          engine/functions/pwd.c \
+          engine/transaction.c \
+          engine/transaction2.c \
+          engine/flattened_file_object.c \
+          engine/send_file.c \
+          engine/manage_transac.c \
+          engine/receive_file.c \
+          engine/main_create_down-up.c
 
-#LIBS = -I/usr/include/  -L/usr/lib -lpthread # Mac OsX
-LIBS = -I/usr/pkg/include -L/usr/pkg/lib -lpthread
+BRIDGE  = bridge/main_bridge.c \
+          bridge/command.c \
+          bridge/functions/receive_login_list.c \
+          bridge/functions/receive_file_info.c \
+          bridge/functions/receive_get_user.c \
+          bridge/functions/receive_user_info.c \
+          bridge/functions/receive_chat.c \
+          bridge/functions/receive_broadcast.c \
+          bridge/functions/receive_server_msg.c \
+          bridge/functions/error.c \
+          bridge/functions/receive_download.c \
+          bridge/functions/receive_upload.c \
+          bridge/functions/receive_agreement.c \
+          bridge/functions/receive_user_list.c \
+          bridge/functions/receive_user_access.c \
+          bridge/functions/receive_file_list.c \
+          bridge/functions/receive_login.c \
+          bridge/functions/receive_delete_user.c
 
-INCL = -I.
-CFLAGS = -g -g3 -ggdb -Wall
+ALL_SRC = $(SRC) $(SHARED) $(ENGINE) $(BRIDGE)
+SRCS    = $(addprefix $(SRCDIR)/, $(ALL_SRC))
+OBJS    = $(patsubst $(SRCDIR)/%.c, $(OBJDIR)/%.o, $(SRCS))
+
+LIBS    = -lpthread
+INCL    = -I.
+CFLAGS  = -g -g3 -ggdb -Wall
 LDFLAGS = -g -lm
-OBJS1 = ${SRC:.c=.o}
-OBJS2 = $(ENGINE:.c=.o)
-OBJS3 = $(BRIDGE:.c=.o)
-OBJS4 = $(TCPSERV:.c=.o)
-OBJS5 = $(SHARED:.c=.o)
-CC = gcc
-RM = rm -f
+CC      = gcc
+RM      = rm -f
 
-$(NAME): $(OBJS5) $(OBJS4) $(OBJS3) $(OBJS2) $(OBJS1)
-	$(CC) -o $(NAME) $(LDFLAGS) $(LIBS) $(OBJS5) $(OBJS4) $(OBJS3) $(OBJS2) $(OBJS1) -lm
-	mv $(NAME) build/
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	@mkdir -p $(BINDIR)
+	$(CC) $(LDFLAGS) $(LIBS) -o $(BINDIR)/$(NAME) $(OBJS) -lm
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(INCL) -c $< -o $@
 
 clean:
-	$(RM) $(OBJS5) $(OBJS4) $(OBJS3) $(OBJS2) $(OBJS1)
-	$(RM) ./*~ ./src/*~ ./src/bridge/*~ ./src/bridge/functions/*~ ./src/engine/*~ ./src/engine/functions/*~ ./src/shared/*~ ./includes/*~
+	$(RM) -r $(OBJDIR)
 
 fclean: clean
-	$(RM) rm build/RedCap
+	$(RM) $(BINDIR)/$(NAME)
 
-re: fclean $(NAME)
+re: fclean all
+
+.PHONY: all clean fclean re
