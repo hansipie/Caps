@@ -7,8 +7,8 @@ class CAgree: public wxDialog
 public:
 	CAgree(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, wxString agreement_txt);
 	~CAgree(void);
-	void OnCancel(void);
-	void OnOk(void);
+	void OnCancel(wxCommandEvent& event);
+	void OnOk(wxCommandEvent& event);
 
     MyFrame					*MainFrame;
 

@@ -23,7 +23,6 @@
 #define NUL_NBR 1000000000
 
 #define LOCAL_PATH "./download/"
-#define VLCPATH "/usr/bin/vlc"
 
 //
 // Header defines

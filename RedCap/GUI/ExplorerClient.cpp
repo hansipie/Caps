@@ -1,7 +1,7 @@
 #include "general.h"
 
 
-CExplorerClient::CExplorerClient(MyFrame *MainFrame, wxPanel *parent, int height, int xWin, int yWin, wxChar *bitmap_name)
+CExplorerClient::CExplorerClient(MyFrame *MainFrame, wxPanel *parent, int height, int xWin, int yWin, const wxString& bitmap_name)
 {
 	
 #ifdef __WIN32__
@@ -109,12 +109,12 @@ void MyPanel::GetDraggedItemNameClient()
 	wxMessageBox("You dragged my wife !?");
 }
 
-void MyPanel::CreateItemClient()
+void MyPanel::CreateItemClient(wxCommandEvent& event)
 {
 	//wxTreeItemId item = panel_transfer->ExploClient->tree_transfer->GetSelection();
 	//wxMessageBox("Create : " + item);
 }
-void MyPanel::DeleteItemClient()
+void MyPanel::DeleteItemClient(wxCommandEvent& event)
 {
 //	wxTreeItemId item = panel_transfer->ExploClient->tree_transfer->GetSelection();
 //	wxString file_name = panel_transfer->ExploClient->tree_transfer->GetItemText(item);
@@ -128,14 +128,14 @@ void MyPanel::DeleteItemClient()
 //	else
 //		wxMessageBox("No File to Delete have been selected", "File Transfer Information", wxICON_EXCLAMATION);
 }
-void MyPanel::ReloadExploClient()
+void MyPanel::ReloadExploClient(wxCommandEvent& event)
 {
 	//wxMessageBox("test");
 	panel_transfer->ExploClient->tree_list->DeleteAllItems();
 	MainFrame->output_message("lls");
 }
 
-void MyPanel::UploadFileClient()
+void MyPanel::UploadFileClient(wxCommandEvent& event)
 {
 	wxString file_name;
 	long item = panel_transfer->ExploClient->tree_list->GetNextItem(-1, wxLIST_NEXT_ALL,
@@ -156,7 +156,7 @@ void MyPanel::OnDbleClickFileClient(wxTreeEvent& event)
 //	wxMessageBox("Open file [" + file_name + "]");
 }
 
-void MyPanel::GetFileInfo(wxListEvent& event)
+void MyPanel::GetFileInfo(wxCommandEvent& event)
 {
 	long item = panel_transfer->ExploServer->tree_list->GetNextItem(-1, wxLIST_NEXT_ALL,
                                         wxLIST_STATE_SELECTED);

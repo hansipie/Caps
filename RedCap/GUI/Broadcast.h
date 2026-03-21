@@ -2,7 +2,7 @@ class BroadcastDialog: public wxDialog
 {
 public:
 		BroadcastDialog(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos);
-		void BroadcastDialog::OnSendBroadcast(wxCommandEvent& command);
+		void OnSendBroadcast(wxCommandEvent& command);
 		
 		wxTextCtrl		*message;
 		wxString		msg_box;

@@ -77,7 +77,6 @@ END_EVENT_TABLE()
 // CPrivChat
 //----------------------------------------------------------------------
 BEGIN_EVENT_TABLE(CPrivChat, wxPanel)
-EVT_SIZE      ( CPrivChat::OnSize)
 END_EVENT_TABLE()
 
 //----------------------------------------------------------------------

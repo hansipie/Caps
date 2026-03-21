@@ -68,9 +68,9 @@ char	*calc_debit(long current_bytes, float cycle)
 
 void	receive_preview(t_thread_data *transfert)
 {
-  long	tot, tot2;
+  long	tot;
   long	nb_bits;
-  char  *buf, *name;
+  char  *buf, *save, *name;
   char	*tmp;
   int	i, ffd, flag;
 
@@ -79,29 +79,19 @@ void	receive_preview(t_thread_data *transfert)
     printf("func:receive_preview\n");
   tot = 0;
   Writen(gl_redcap->bridge->fd, "\npreview:\n");
-  buf = malloc(1024);
+  buf = malloc(20);
+  save = buf;
   flag = O_CREAT | O_EXCL | O_RDWR;//
   name = my_strcat("preview_", transfert->name);
   ffd = open(name, flag, 0600);//
-  tot2 = 0;
-  while (((nb_bits = read(transfert->fd, buf, 1024)) > 0))
-    {      
-      if (gl_redcap->engine->server->caps_flag != 1)
-	{
-	  set_non_blocking(transfert->fd, 1);
-	  printf(".");
-	}
-      else
-	printf(":");
-      tot2 += write(ffd, buf, nb_bits);//
+  while (((nb_bits = read(transfert->fd, buf, 20)) > 0))
+    {
+      write(ffd, buf, nb_bits);//
+      printf("nb_bits:%ld\n", nb_bits);
       tot = tot + nb_bits;
+      if (nb_bits < 20)
+	break;
     }
-  if (gl_redcap->engine->server->caps_flag != 1)
-    set_non_blocking(transfert->fd, 0);
-  else
-    printf("\n- Caps flag -");
-  printf("\nread from server: %ld\n", tot);
-  printf("write to file: %ld\n", tot2);
   close(ffd);
   tmp = malloc(40);
   sprintf(tmp, "receive:%ld\n", tot);
@@ -110,15 +100,8 @@ void	receive_preview(t_thread_data *transfert)
   nb_bits = 0;
   if ((ffd = open(name, O_RDONLY, 0)) < 0)
     perror("open:");
-  tot = 0;
-  tot2 = 0;
-  while (((nb_bits = read(ffd, buf, 1024)) > 0))
-    {
-      tot2 += write(gl_redcap->bridge->fd, buf, nb_bits);
-      tot += nb_bits;
-    }
-  printf("read from file: %ld\n", tot);
-  printf("write to ihm: %ld\n", tot2);
+  while (((nb_bits = read(ffd, buf, 20)) > 0))
+    write(gl_redcap->bridge->fd, buf, nb_bits);
   unlink(name);
   free(name);
   Writen(gl_redcap->bridge->fd, "\n\n--------------\nend of preview\n");

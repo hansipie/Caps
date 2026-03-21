@@ -35,6 +35,7 @@ u_int32_t	locate_file(char *name)
 int	existenz(char *file)
 {
   FILE	*pfile;
+  int	ret;
 
   pfile = fopen(file, "r");
   if (pfile != NULL)
@@ -51,6 +52,7 @@ void    upload(int command)
   t_data	*data, *tmp, *pars;
   u_int32_t    	len;
   char		*path;
+  int		fd;
   struct stat   sb;
 
 

@@ -75,7 +75,7 @@ void MyFrame::preview_in_file(char *stream, int bit_left)
 	return ;
 }
 
-void MyPanel::CheckPrevExtension(int id)
+void MyPanel::CheckPrevExtension(wxListEvent& event)
 {
 	long item = -1;
 	int fl = -1;
@@ -108,7 +108,7 @@ void MyPanel::CheckPrevExtension(int id)
 		wxMessageBox("Pas de preview sur ce type de fichier");
 }
 
-void MyPanel::PreviewFile()
+void MyPanel::PreviewFile(wxCommandEvent& event)
 {
 	long item = -1;
 	int fl = -1;

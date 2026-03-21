@@ -36,7 +36,8 @@ void PopupCreate::OnCreateFolder(wxCommandEvent& command)
 {	
 	
 	wxMessageBox("mkdir " + FolderNameText->GetValue());
-	MainFrame->m_panel->ReloadExploServer();
+	wxCommandEvent cmd;
+	MainFrame->m_panel->ReloadExploServer(cmd);
 	//output_message("mkdir " + FolderNameText->GetValue());
 	EndModal(CREATE_FOLDER);
 }

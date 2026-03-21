@@ -17,7 +17,7 @@ CAgree::CAgree(wxWindow* parent, wxWindowID id, const wxString& title, const wxP
     
     wxBoxSizer *item0 = new wxBoxSizer( wxVERTICAL );
 
-    wxTextCtrl *item1 = new wxTextCtrl( this, ID_AGREEMENT, wxT(agreement_txt), wxDefaultPosition, wxSize(400,230), wxTE_MULTILINE|wxTE_READONLY|wxVSCROLL );
+    wxTextCtrl *item1 = new wxTextCtrl( this, ID_AGREEMENT, agreement_txt, wxDefaultPosition, wxSize(400,230), wxTE_MULTILINE|wxTE_READONLY|wxVSCROLL );
     item0->Add( item1, 0, wxALIGN_CENTER|wxALL, 5 );
 
     wxBoxSizer *item2 = new wxBoxSizer( wxHORIZONTAL );
@@ -38,13 +38,13 @@ CAgree::CAgree(wxWindow* parent, wxWindowID id, const wxString& title, const wxP
 	Layout();
 }
 
-void CAgree::OnCancel(void)
+void CAgree::OnCancel(wxCommandEvent& event)
 {
 	MainFrame->output_message("disagree");
 	Close(TRUE);
 }
 
-void CAgree::OnOk(void)
+void CAgree::OnOk(wxCommandEvent& event)
 {
 	MainFrame->output_message("agree");
 	if (!(MainFrame->connect_opt_ag))

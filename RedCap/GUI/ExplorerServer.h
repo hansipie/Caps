@@ -2,7 +2,7 @@
 class CExplorerServer: public wxPanel
 {
 public:
-	CExplorerServer(MyFrame *MainFrame, wxPanel *parent, int height, int xWin, int Ywin, wxChar *bitmap_name);
+	CExplorerServer(MyFrame *MainFrame, wxPanel *parent, int height, int xWin, int Ywin, const wxString& bitmap_name);
 	~CExplorerServer(void);
 
 

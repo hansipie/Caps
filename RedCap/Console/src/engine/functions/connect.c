@@ -37,7 +37,7 @@ int	boucle_client(t_server *server)
 	      return (-3);
 	    }
 	  if (server->data->len == -1)
- 	    {
+	    {
 	      server->connected = 0;
 	      close(server->fd);
 	      server->fd = -42;
@@ -102,9 +102,6 @@ int	init_socket(t_server *server)
   server->connected = 1;
   if (gl_redcap->debug->other)        
     printf("connected but not logged\n");
-  Writen(gl_redcap->bridge->fd, "\n");
-  gl_redcap->engine->server = server;
-  prompt(gl_redcap->bridge->fd);
   Writen(gl_redcap->bridge->fd, "\nconnected to ");
   Writen(gl_redcap->bridge->fd, server->host);
   if (server->caps_flag)

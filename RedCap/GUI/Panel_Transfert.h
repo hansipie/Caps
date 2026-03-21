@@ -5,7 +5,7 @@ class CTranfert: public wxPanel
 public:
 	CTranfert(MyFrame *MainFrame, wxNotebook *m_notebook, int xWin,int yWin);
 	~CTranfert(void);
-	void CTranfert::OnFileSashChange();
+	void OnFileSashChange();
 
 	wxPanel					*panel_transfer;
 	CExplorerServer			*ExploServer;

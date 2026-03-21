@@ -44,15 +44,15 @@ void MyFrame::server_version(vector<wxString>::iterator i)
 		//phase de sauvegarde
 		tmp->CurentSelection = m_panel->m_notebook->GetSelection();
 		//sauv public chat
-		tmp->PublicChat = wxStrdup(m_panel->panel_public->TopChatWindow->GetValue());
-		//sauv titre et contenu des chat privés
+		tmp->PublicChat = m_panel->panel_public->TopChatWindow->GetValue();
+		//sauv titre et contenu des chat priv<E9>s
 		tmp->PrivChat.clear();
 		tmp->PrivChatTitle.clear();
 		tmp->PrivChatId.clear();
 		for ( vector<CPrivChat *>::iterator it = m_panel->List_PrivChat.begin(); it != m_panel->List_PrivChat.end(); ++it )
 		{
 			privchat = *it;
-			tmp->PrivChatTitle.push_back(wxStrdup(privchat->name));
+			tmp->PrivChatTitle.push_back(privchat->name);
 			tmp->PrivChat.push_back(privchat->TopChatWindow->GetValue());
 			tmp->PrivChatId.push_back(privchat->id_user);
 		}
@@ -98,7 +98,7 @@ void MyFrame::server_version(vector<wxString>::iterator i)
 			tmp->Server_version = line.substr(15,line.size() - 15);
 		tmp->CurentSelection = 0;
 		tmp->Users.clear();
-		tmp->PublicChat = NULL;
+		tmp->PublicChat = wxEmptyString;
 		tmp->PrivChatTitle.clear();
 		tmp->PrivChat.clear();
 		tmp->PrivChatId.clear();
@@ -259,7 +259,7 @@ void MyFrame::Affstruct()
 			msg = msg + "  " + nuser->icon + "\n";
 		}
 		vector<wxString>::iterator VPrivChat = dataserv->PrivChat.begin();
-		vector<wxChar *>::iterator VPrivChatTitle = dataserv->PrivChatTitle.begin();
+		vector<wxString>::iterator VPrivChatTitle = dataserv->PrivChatTitle.begin();
 		vector<int>::iterator VPrivChatId = dataserv->PrivChatId.begin();
 		for (; VPrivChat != dataserv->PrivChat.end()
 			&& VPrivChatTitle != dataserv->PrivChatTitle.end()
@@ -272,14 +272,14 @@ void MyFrame::Affstruct()
 			str2 = *VPrivChatTitle;
 			user_id = *VPrivChatId;
 			sprintf(msg2, "%d", user_id);
-			msg = msg + "chat privé avec " + str2 + " id " + msg2 + "\n";		
+			msg = msg + "chat privï¿½ avec " + str2 + " id " + msg2 + "\n";		
 			msg = msg + "    " + str +  "\n";
 		}
 	}
 	wxMessageBox(msg);
 }
 
-void MyFrame::change_serv()
+void MyFrame::change_serv(wxCommandEvent& event)
 {
 	CServData	*ancienData;
 	CPrivChat	*privchat;
@@ -291,15 +291,15 @@ void MyFrame::change_serv()
 	//phase de sauvegarde
 	ancienData->CurentSelection = m_panel->m_notebook->GetSelection();
 	//sauv public chat
-	ancienData->PublicChat = wxStrdup(m_panel->panel_public->TopChatWindow->GetValue());
-	//sauv titre et contenu des chat privés
+	ancienData->PublicChat = m_panel->panel_public->TopChatWindow->GetValue();
+	//sauv titre et contenu des chat privï¿½s
 	ancienData->PrivChat.clear();
 	ancienData->PrivChatTitle.clear();
 	ancienData->PrivChatId.clear();
 	for ( vector<CPrivChat *>::iterator it = m_panel->List_PrivChat.begin(); it != m_panel->List_PrivChat.end(); ++it )
 	{
 		privchat = *it;
-		ancienData->PrivChatTitle.push_back(wxStrdup(privchat->name));
+		ancienData->PrivChatTitle.push_back(privchat->name);
 		ancienData->PrivChat.push_back(privchat->TopChatWindow->GetValue());
 		ancienData->PrivChatId.push_back(privchat->id_user);
 	}
@@ -316,7 +316,7 @@ void MyFrame::change_serv()
 		}
 	}
 	/////////////////////////////////////////////////////////////////////////////////
-	// maintenant que le CurrentServData pointe sur leserveur désiré, on fait
+	// maintenant que le CurrentServData pointe sur leserveur dï¿½sirï¿½, on fait
 	// list_server pour que la fonction fasse le reste du boulot
 	output_message("list_server");
 }
@@ -356,7 +356,7 @@ void MyFrame::server_list(vector<wxString>::iterator i)
 		wxString str;
 
 		//////////////////////////////////////////////////////////////////////
-		// parsing de la commande pour recuprer les serveur connectés
+		// parsing de la commande pour recuprer les serveur connectï¿½s
 		if (tab.size() == 6 && !wxStrcmp(tab.at(5), "Logged"))
 		{
 			name = tab.at(1).SubString(1, tab.at(1).Len() - 3);
@@ -399,7 +399,7 @@ void MyFrame::server_list(vector<wxString>::iterator i)
 				nouvserv->Server_version = "";
 				nouvserv->CurentSelection = 0;
 				nouvserv->Users.clear();
-				nouvserv->PublicChat = NULL;
+				nouvserv->PublicChat = wxEmptyString;
 				nouvserv->PrivChat.clear();
 				nouvserv->PrivChatTitle.clear();
 				nouvserv->PrivChatId.clear();
@@ -415,7 +415,7 @@ void MyFrame::server_list(vector<wxString>::iterator i)
 	//Affstruct();
 
 	/////////////////////////////////////////////////////////////////////////////
-	// on parcours tous les serveurs pour virer de listservdata ceux qui sont pas loggues loggué
+	// on parcours tous les serveurs pour virer de listservdata ceux qui sont pas loggues logguï¿½
 	i = save_i;
 	for (vector<wxString>::iterator PointerLine = i; PointerLine != tab_line_cmd.end(); PointerLine++)
 	{
@@ -443,7 +443,7 @@ void MyFrame::server_list(vector<wxString>::iterator i)
 
 
 			/////////////////////////////////////////////////////////////////////////////
-			// si le serveur est deconnecté, on le supprime de listservdata 
+			// si le serveur est deconnectï¿½, on le supprime de listservdata 
 			if (wxStrcmp("Logged", tab.at(5)))
 			{
 				//wxMessageBox("je vire " + tab.at(0) + " prompt " + prompt + " car " + tab.at(5));
@@ -480,14 +480,14 @@ void MyFrame::server_list(vector<wxString>::iterator i)
 		}
 	}
 	/////////////////////////////////////////////////////////////////////////////////
-	// si on est pas dedans ca veut dire qu'on s'est fait déconnecté
+	// si on est pas dedans ca veut dire qu'on s'est fait dï¿½connectï¿½
 	if(n == 0)
 	{
 		m_panel->Current_serv_data = NULL;
 		/////////////////////////////////////////////////////////////////////////////
-		// comme on est deconnecté, on va essayer de pointer vers le premier serveur loggé
+		// comme on est deconnectï¿½, on va essayer de pointer vers le premier serveur loggï¿½
 
-		// si servdata est nul, ca veut dire qu'il y a pas d'autres serveurs loggés
+		// si servdata est nul, ca veut dire qu'il y a pas d'autres serveurs loggï¿½s
 		if (m_panel->Serv_Data.size() < 1)
 		{
 			SetStatusText("Connection : connected to RedCap client console.", 1);
@@ -607,7 +607,7 @@ void MyFrame::server_list(vector<wxString>::iterator i)
 				long item;
 				CUser		*tmpuser;
 				wxString	str;
-				wxChar		*str2;
+				wxString	str2;
 				int			user_id;
 				CPrivChat	*privchat;
 
@@ -626,7 +626,7 @@ void MyFrame::server_list(vector<wxString>::iterator i)
 				for (n = m_panel->nb_tab; n < x;n++) //clear l'affichage
 					m_panel->m_notebook->DeletePage(m_panel->m_notebook->GetPageCount() - 1);
 				vector<wxString>::iterator VPrivChat = nouveauData->PrivChat.begin();
-				vector<wxChar *>::iterator VPrivChatTitle = nouveauData->PrivChatTitle.begin();
+				vector<wxString>::iterator VPrivChatTitle = nouveauData->PrivChatTitle.begin();
 				vector<int>::iterator VPrivChatId = nouveauData->PrivChatId.begin();
 				for (; VPrivChat != nouveauData->PrivChat.end() 
 					&& VPrivChatTitle != nouveauData->PrivChatTitle.end() 
@@ -638,9 +638,9 @@ void MyFrame::server_list(vector<wxString>::iterator i)
 					user_id = *VPrivChatId;
 					item = m_panel->List_users->GetNextItem(-1, wxLIST_NEXT_ALL,
 													wxLIST_STATE_SELECTED);
-					privchat = new CPrivChat(m_panel->m_notebook, _T(str2) , x, y   ); //on cree une classe temporaire
+					privchat = new CPrivChat(m_panel->m_notebook, str2 , x, y   ); //on cree une classe temporaire
 					privchat->TopChatWindow->SetFont(wxFont(8, wxDECORATIVE, wxNORMAL, wxBOLD, FALSE, "Unicode"));
-					privchat->name = wxStrdup(str2);
+					privchat->name = str2;
 					privchat->TopChatWindow->SetValue(str);
 					privchat->id_user = user_id;
 					GetClientSize( &x, &y ); // on met tout a la bonne taille
@@ -758,7 +758,7 @@ void MyFrame::server_list(vector<wxString>::iterator i)
 		long item;
 		CUser		*tmpuser;
 		wxString	str;
-		wxChar		*str2;
+		wxString	str2;
 		int			user_id;
 		CPrivChat	*privchat;
 
@@ -777,7 +777,7 @@ void MyFrame::server_list(vector<wxString>::iterator i)
 		for (n = m_panel->nb_tab; n < x;n++) //clear l'affichage
 			m_panel->m_notebook->DeletePage(m_panel->m_notebook->GetPageCount() - 1);
 		vector<wxString>::iterator VPrivChat = nouveauData->PrivChat.begin();
-		vector<wxChar *>::iterator VPrivChatTitle = nouveauData->PrivChatTitle.begin();
+		vector<wxString>::iterator VPrivChatTitle = nouveauData->PrivChatTitle.begin();
 		vector<int>::iterator VPrivChatId = nouveauData->PrivChatId.begin();
 		for (; VPrivChat != nouveauData->PrivChat.end() 
 			&& VPrivChatTitle != nouveauData->PrivChatTitle.end() 
@@ -789,9 +789,9 @@ void MyFrame::server_list(vector<wxString>::iterator i)
 			user_id = *VPrivChatId;
 			item = m_panel->List_users->GetNextItem(-1, wxLIST_NEXT_ALL,
 											wxLIST_STATE_SELECTED);
-			privchat = new CPrivChat(m_panel->m_notebook, _T(str2) , x, y   ); //on cree une classe temporaire
+			privchat = new CPrivChat(m_panel->m_notebook, str2 , x, y   ); //on cree une classe temporaire
 			privchat->TopChatWindow->SetFont(wxFont(8, wxDECORATIVE, wxNORMAL, wxBOLD, FALSE, "Unicode"));
-			privchat->name = wxStrdup(str2);
+			privchat->name = str2;
 			privchat->TopChatWindow->SetValue(str);
 			privchat->id_user = user_id;
 			GetClientSize( &x, &y ); // on met tout a la bonne taille
@@ -957,7 +957,7 @@ void MyFrame::receive_priv_chat(vector<wxString>::iterator i)
 
 			GetClientSize( &x, &y ); // on met tout a la bonne taille
 			privchat = new CPrivChat(m_panel->m_notebook, tabline.at(2) , x, y   ); //on cree une classe temporaire
-			privchat->name = wxStrdup(tabline.at(2));
+			privchat->name = tabline.at(2);
 			privchat->id_user = id_user;
 			privchat->BitmapDegr->SetSize(160,0, x - 365, 24);
 			privchat->splitter->SetSize(2, 26, x - 13 - WIDTH_UTILISATEUR, y - 64);
@@ -1196,7 +1196,7 @@ void MyPanel::FillFolder(wxString folder_name)/* ( wxString folder, wxTreeItemId
 	panel_transfer->ExploServer->tree_list->DeleteAllItems();
 	//panel_transfer->ExploClient->tree_list->DeleteAllFileList();
 	MainFrame->CurrentRep = folder_name;
-	MainFrame->CurrentId = 1;
+	MainFrame->CurrentId = wxTreeItemId();
 	MainFrame->output_message("cd \"" + folder_name + "\"");
 	//MainFrame->output_message("pwd");
 	MainFrame->output_message("ls");
@@ -1455,7 +1455,7 @@ id	icon	flag			size	name
 
 			tmp->Users.push_back(nuser);
 			//wxMessageBox("USER = " + nuser->name);
-			m_panel->List_users->InsertItem(m_panel->List_users->GetItemCount(), _T(nuser->name), nuser->num_icon);
+			m_panel->List_users->InsertItem(m_panel->List_users->GetItemCount(), nuser->name, nuser->num_icon);
 		}
 		//delete nuser;
 	}
@@ -1695,7 +1695,7 @@ void MyFrame::broadcast_msg(vector<wxString>::iterator i)
 			Broadcast_String = Broadcast_String + line + "\n";
 		}
 	BroadcastFlag = 1;
-	BroadcastDialog broadcast_box(this, -1, wxT(broadcast_sender), wxDefaultPosition);
+	BroadcastDialog broadcast_box(this, -1, broadcast_sender, wxDefaultPosition);
 	broadcast_box.CentreOnParent();
 	broadcast_box.ShowModal();
 }
@@ -1719,7 +1719,7 @@ void MyFrame::receive_server_msg(vector<wxString>::iterator i)
 				Broadcast_String = Broadcast_String + tabline.at(1) + "";
 		}
 	BroadcastFlag = 1;
-	BroadcastDialog broadcast_box(this, -1, wxT(broadcast_sender), wxDefaultPosition);
+	BroadcastDialog broadcast_box(this, -1, broadcast_sender, wxDefaultPosition);
 	broadcast_box.CentreOnParent();
 	broadcast_box.ShowModal();
 }

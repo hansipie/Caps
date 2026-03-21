@@ -2,7 +2,7 @@
 class CExplorerClient: public wxPanel
 {
 public:
-	CExplorerClient(MyFrame *MainFrame, wxPanel *parent, int height, int xWin, int Ywin, wxChar *bitmap_name);
+	CExplorerClient(MyFrame *MainFrame, wxPanel *parent, int height, int xWin, int Ywin, const wxString& bitmap_name);
 	~CExplorerClient(void);
 
 	wxPanel					*left_page;

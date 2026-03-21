@@ -10,7 +10,8 @@ COptions::COptions(wxWindow* parent, wxWindowID id, const wxString& title, const
 
 	wxBoxSizer *SizerGlobal = new wxBoxSizer( wxVERTICAL );	
 	opt_notebook = new wxNotebook(parent, ID_NOTEBOOK, wxPoint(10, 10),wxSize(300, 300), 0);	
-	wxNotebookSizer *NotebookSizer = new wxNotebookSizer(opt_notebook);
+	wxSizer *NotebookSizer = new wxBoxSizer(wxVERTICAL);
+	NotebookSizer->Add(opt_notebook, 1, wxEXPAND);
 	
 	panel_option = new wxPanel(opt_notebook, -1);
 	
@@ -21,7 +22,7 @@ COptions::COptions(wxWindow* parent, wxWindowID id, const wxString& title, const
 						     wxDefaultPosition, wxDefaultSize, 0);
 	SizerH->Add( user_label, 0, wxALIGN_CENTER|wxALL, 5 );
 	
-	user_field = new wxTextCtrl( panel_option, ID_USER_FIELD, wxT(MainFrame->Name), wxDefaultPosition, wxSize(100, -1), 0);
+	user_field = new wxTextCtrl( panel_option, ID_USER_FIELD, MainFrame->Name, wxDefaultPosition, wxSize(100, -1), 0);
 	SizerH->Add( user_field, 0, wxALIGN_CENTER |  wxALL, 5);
 	
 	SizerV->Add( SizerH, 0, wxALIGN_LEFT|wxALL, 5 );
@@ -63,7 +64,7 @@ COptions::COptions(wxWindow* parent, wxWindowID id, const wxString& title, const
 						     wxDefaultPosition, wxDefaultSize, 0);
 	SizerCryptoH->Add( crypto_label, 0, wxALIGN_CENTER|wxALL, 5 );
 	
-	PassCrypto_field = new wxTextCtrl( panel_crypto, ID_PASSCRYPTO_FIELD, wxT(MainFrame->Pass_crypto), wxDefaultPosition, wxSize(100, -1), wxTE_PASSWORD);
+	PassCrypto_field = new wxTextCtrl( panel_crypto, ID_PASSCRYPTO_FIELD, MainFrame->Pass_crypto, wxDefaultPosition, wxSize(100, -1), wxTE_PASSWORD);
 	SizerCryptoH->Add( PassCrypto_field, 0, wxALIGN_CENTER |  wxALL , 5);
 	
 	SizerCryptoV->Add( SizerCryptoH, 0, wxALIGN_LEFT|wxALL, 5 );

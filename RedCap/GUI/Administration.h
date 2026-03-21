@@ -22,7 +22,7 @@ public:
 	~CAdmin(void);
 	void OnCreateNewAccount(wxCommandEvent &event);
 	void OnEraseAccount(wxCommandEvent &event);
-	void OnSelectedAccount(wxCommandEvent& command);
+	void OnSelectedAccount(wxListEvent& command);
 	void WasModified(wxCommandEvent& command);
 	void save_privileges(wxCommandEvent& command);
 	void FillAcountList();

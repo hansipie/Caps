@@ -163,7 +163,7 @@ public:
 	void get_login_list(vector<wxString>::iterator i);
 
 	void user_change(vector<wxString>::iterator i);
-	void change_serv();
+	void change_serv(wxCommandEvent& event);
 	void receive_priv_chat(vector<wxString>::iterator i);
 	//void auto_launch();
 	void launch_server_box();

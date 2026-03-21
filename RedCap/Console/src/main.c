@@ -1,5 +1,7 @@
 #include "../includes/redcap.h"
 
+t_redcap        *gl_redcap;
+
 void	free_init_conf()
 {
   free(gl_redcap->engine->server);

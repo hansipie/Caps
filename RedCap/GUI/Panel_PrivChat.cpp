@@ -1,10 +1,10 @@
 #include "general.h"
 
-CPrivChat::CPrivChat(wxNotebook *parent, const wxChar *nom, int xWin, int yWin)
+CPrivChat::CPrivChat(wxNotebook *parent, const wxString& nom, int xWin, int yWin)
 {
-	
+
 	m_notebook = parent;
-	name = wxStrdup(nom);
+	name = nom;
 	sous_panel = new wxPanel(m_notebook);
 
 #ifdef __WIN32__
@@ -56,7 +56,7 @@ CPrivChat::CPrivChat(wxNotebook *parent, const wxChar *nom, int xWin, int yWin)
                                  );
 	splitter->SplitHorizontally(TopChatWindow, BottomChatWindow);
 	splitter->SetMinimumPaneSize( 60 );
-	m_notebook->AddPage(sous_panel, wxT(name), TRUE, 3);
+	m_notebook->AddPage(sous_panel, name, TRUE, 3);
 }
 
 CPrivChat::~CPrivChat(void)

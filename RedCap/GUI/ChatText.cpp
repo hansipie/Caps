@@ -13,7 +13,7 @@
 
 void CChatText::CheckKeys(wxKeyEvent& event)
 {
-	long keycode = event.KeyCode();
+	long keycode = event.GetKeyCode();
 
 	if (keycode == WXK_RETURN)
 	{

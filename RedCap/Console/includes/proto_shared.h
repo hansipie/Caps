@@ -74,5 +74,3 @@ void Shutdown(int, int);
 /* Used to handle errors */
 void err_sys(const char *fmt, ...);
 void err_quit(const char *fmt, ...);
-
-void set_non_blocking ( int m_sock, int b);

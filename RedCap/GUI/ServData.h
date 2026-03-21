@@ -11,8 +11,8 @@ public:
 
 	int						CurentSelection;
 	vector<CUser *>			Users;
-	wxChar					*PublicChat;
-	vector<wxChar *>		PrivChatTitle;
+	wxString				PublicChat;
+	vector<wxString>		PrivChatTitle;
 	vector<wxString>		PrivChat;
 	vector<int>				PrivChatId;
 	wxString				Server_version;

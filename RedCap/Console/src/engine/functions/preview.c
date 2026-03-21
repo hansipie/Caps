@@ -38,13 +38,6 @@ int	look_for_supp_ext(char *ext)
     return(1);
   if (!strncmp(ext, ".pdf", 4))
     return(1);
-  if (gl_redcap->engine->server->caps_flag == 1)
-    {
-      if (!strncmp(ext, ".avi", 4))
-	return(2);
-      if (!strncmp(ext, ".mov", 4))
-	return(2);
-    }
   return(0);
 }
 
@@ -59,7 +52,6 @@ void    preview(int command)
   t_data        *pars, *data, *tmp;
   int           flag;
   char		*ext, *str;
-  int		vid;
 
   if(gl_redcap->debug->functions)
     printf("func:preview\n");
@@ -72,7 +64,7 @@ void    preview(int command)
     {      
       pars = pars->next;
       ext = find_extention(pars->buffer);
-      if ((vid = look_for_supp_ext(ext)) == 0)
+      if (look_for_supp_ext(ext) == 0)
 	{
 	  str = malloc(strlen("error: file type [] not supported by preview\n") + strlen(ext));
 	  sprintf(str, "error: file type [%s] not supported by preview\n", ext);
@@ -81,15 +73,6 @@ void    preview(int command)
 	  free(ext);
 	  return;
 	}
-/*       if ((gl_redcap->engine->server->caps_flag == 1) && (vid == 2)) */
-/* 	{ */
-/* 	  if (fork() == 0) */
-/* 	    { */
-/* 	      if (execl(VLCPATH, "-q", "udp:", NULL) == -1) */
-/* 		perror("execl"); */
-/* 	      exit(0); */
-/* 	    } */
-/* 	} */
       if (!gl_redcap->engine->server->caps_flag 
 	  || look_for_size(pars->buffer)) 
       transac = malloc((sizeof(t_transac)) * MALLOC);

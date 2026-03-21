@@ -41,8 +41,7 @@ void	launch_reply(t_transac *transac, t_server *server)
   if ((transac->header->grbg[1] == 0) && (transac->field))
     if ((transac->field->id == 213) ||
 	(transac->field->id == 215) ||
-	 (transac->field->id == 205) ||
-	(transac->field->id == 201))
+	 (transac->field->id == 205))
       {
 	printf("receive file_info\n");
 	receive_file_info(transac);

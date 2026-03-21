@@ -1,6 +1,6 @@
 #include "general.h"
 
-CExplorerServer::CExplorerServer(MyFrame *MainFrame, wxPanel *parent, int height, int xWin, int yWin, wxChar *bitmap_name)
+CExplorerServer::CExplorerServer(MyFrame *MainFrame, wxPanel *parent, int height, int xWin, int yWin, const wxString& bitmap_name)
 {
 	bitmap_left = new wxStaticBitmap(parent, -1,
 									wxBitmap(bitmap_name, wxBITMAP_TYPE_BMP),
@@ -127,7 +127,7 @@ void MyPanel::GetDraggedItemNameServer()
 
 }
 
-void MyPanel::CreateItemServer()
+void MyPanel::CreateItemServer(wxCommandEvent& event)
 {
 	PopupCreate dialog_create_folder(this, -1, wxT("Folder Creation"), wxDefaultPosition);
 //dialog_create_folder.
@@ -135,7 +135,7 @@ void MyPanel::CreateItemServer()
 	dialog_create_folder.ShowModal();
 }
 
-void MyPanel::DeleteItemServer()
+void MyPanel::DeleteItemServer(wxCommandEvent& event)
 {
 	long item = panel_transfer->ExploServer->tree_list->GetNextItem(-1, wxLIST_NEXT_ALL,
                                         wxLIST_STATE_SELECTED);
@@ -157,13 +157,13 @@ void MyPanel::DeleteItemServer()
 		wxMessageBox("No File to Delete have been selected", "File Transfer Information", wxICON_EXCLAMATION);
 }
 
-void MyPanel::ReloadExploServer()
+void MyPanel::ReloadExploServer(wxCommandEvent& event)
 {
 	MainFrame->m_panel->panel_transfer->ExploServer->tree_list->DeleteAllItems();
 	MainFrame->output_message("ls");
 }
 
-void MyPanel::DownloadFileServer()
+void MyPanel::DownloadFileServer(wxCommandEvent& event)
 {
 	wxString file_name;
 	wxString cmd_download;
@@ -222,13 +222,14 @@ void MyPanel::OnDbleClickFileServer(wxTreeEvent& event)
 
 void MyPanel::LaunchDownload(wxListEvent& event)
 {
-	DownloadFileServer();
+	wxCommandEvent cmd;
+	DownloadFileServer(cmd);
 }
 
-void MyPanel::UpLevelServer()
+void MyPanel::UpLevelServer(wxCommandEvent& event)
 {
 	panel_transfer->ExploServer->tree_list->DeleteAllItems();
-	MainFrame->CurrentId = 1;
+	MainFrame->CurrentId = wxTreeItemId();
 	MainFrame->output_message("cd \"..\"");
 	//MainFrame->output_message("pwd");
 	MainFrame->output_message("ls");

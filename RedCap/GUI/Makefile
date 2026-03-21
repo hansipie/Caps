@@ -1,52 +1,32 @@
-# Generated automatically from Makefile.in by configure.
-#
-# File:		Makefile.in
-# Author:	Julian Smart
-# Created:	1998
-# Updated:	
-# Copyright:	(c) 1998 Julian Smart
-#
-# "%W% %G%"
-#
-# Makefile for controls example (UNIX).
+CXX      = g++
+CXXFLAGS = $(shell wx-config --cxxflags) -Wall
+LDFLAGS  = $(shell wx-config --libs)
+PROGRAM  = caps
 
-top_srcdir = ../..
-top_builddir = ../..
-program_dir = samples/caps07-02-2005Multiplateforme
+SRCS = Adminstration.cpp broadcast.cpp Agree.cpp ChatText.cpp \
+       Connexion_client.cpp connexion.cpp create_account.cpp crypto.cpp \
+       Download.cpp engine.cpp ExplorerClient.cpp ExplorerServer.cpp \
+       FileInfo.cpp FileList.cpp MyApp.cpp MyFrame.cpp MyPanel.cpp \
+       NewsGroup.cpp Options.cpp Panel_PrivChat.cpp Panel_PublicChat.cpp \
+       Panel_Transfert.cpp PopupCreate.cpp preview.cpp Rep.cpp \
+       ServData.cpp User.cpp Utilisateur.cpp
 
-PROGRAM=caps
+OBJS = $(SRCS:.cpp=.o)
 
-OBJECTS =	Adminstration.o \
-		broadcast.o \
-		Agree.o \
-		ChatText.o \
-		Connexion_client.o \
-		connexion.o \
-		create_account.o \
-		crypto.o \
-		Download.o \
-		engine.o \
-		ExplorerClient.o \
-		ExplorerServer.o \
-		FileInfo.o \
-		FileList.o \
-		MyApp.o \
-		MyFrame.o \
-		MyPanel.o \
-		NewsGroup.o \
-		Options.o \
-		Panel_PrivChat.o \
-		Panel_PublicChat.o \
-		Panel_Transfert.o \
-		PopupCreate.o \
-		preview.o \
-		Rep.o \
-		ServData.o \
-		User.o \
-		Utilisateur.o
+all: $(PROGRAM)
 
-DEPFILES=$(PROGRAM).d
+$(PROGRAM): $(OBJS)
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
-include ../../src/makeprog.env
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
--include $(DEPFILES)
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(PROGRAM)
+
+re: fclean all
+
+.PHONY: all clean fclean re

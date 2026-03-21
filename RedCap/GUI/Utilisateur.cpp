@@ -1,7 +1,7 @@
 #include "general.h"
 
 
-void MyPanel::OnDbleClickUtilisateur()
+void MyPanel::OnDbleClickUtilisateur(wxListEvent& event)
 {
 	    int x = 0;
 		int y = 0;
@@ -36,7 +36,7 @@ void MyPanel::OnDbleClickUtilisateur()
 			if (tmp->id_user == user->id)
 			{
 				x = 1;
-				m_notebook->SetSelection(y + nb_tab);  //3 par ce ke y a 3 onglets au debut ki sont pas des chats privés
+				m_notebook->SetSelection(y + nb_tab);  //3 par ce ke y a 3 onglets au debut ki sont pas des chats privï¿½s
 			}
 			y++;
 		}
@@ -46,8 +46,8 @@ void MyPanel::OnDbleClickUtilisateur()
 		//si on corrige cette partie, corriger aussi dans engine.cpp
 
 		GetClientSize( &x, &y ); // on met tout a la bonne taille
-		CPrivChat  *privchat = new CPrivChat(m_notebook, _T(List_users->GetItemText(item).c_str()) , x, y   ); //on cree une classe temporaire
-		privchat->name = wxStrdup(List_users->GetItemText(item).c_str());
+		CPrivChat  *privchat = new CPrivChat(m_notebook, List_users->GetItemText(item) , x, y   ); //on cree une classe temporaire
+		privchat->name = List_users->GetItemText(item);
 		privchat->id_user = user->id;
 #ifdef __WIN32__		
 privchat->BitmapDegr->SetSize(160,0, x - 365, 24);

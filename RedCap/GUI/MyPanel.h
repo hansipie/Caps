@@ -80,50 +80,49 @@ public:
 	/** Coord fenetre **/
 	int x, y;
 	
-	void PreviewFile();
-	void CheckPrevExtension(int id);
+	void PreviewFile(wxCommandEvent& event);
     void OnSize( wxSizeEvent& event );
     void OnPageChanged( wxNotebookEvent &event );
-	void OnChatSashChange(wxNotebookEvent &event);
+	void OnChatSashChange(wxSplitterEvent &event);
 	void SendChat(wxCommandEvent & event);
 //	void CheckKeys(wxKeyEvent& event);
 	void suppr_PrivChat(wxCommandEvent& event);
 	//void PanelPublicChat();
-	void OnDbleClickUtilisateur();
+	void OnDbleClickUtilisateur(wxListEvent& event);
 	void OnFileSashChange();
-	
+
 	/* Fonction gerant l'onglet TRANSFER */
 	void OnDbleClickFileServer(wxTreeEvent& event);
 	void OnDbleClickTransferServer(wxTreeEvent& event);
 	void OnRightLeftSashChangeServer(wxNotebookEvent &event);
-	void CreateItemServer();
-	void DeleteItemServer();
-	void ReloadExploServer();
-	void DownloadFileServer();
+	void CreateItemServer(wxCommandEvent& event);
+	void DeleteItemServer(wxCommandEvent& event);
+	void ReloadExploServer(wxCommandEvent& event);
+	void DownloadFileServer(wxCommandEvent& event);
 	void LaunchDownload(wxListEvent& event);
 	void LaunchUpload(wxListEvent& event);
-	void CheckPreviewExtension(wxListEvent& event);
+	void CheckPrevExtension(wxListEvent& event);
 	void FillFolder(wxString rep); /*wxString folder, wxTreeItemId id);*/
 	void UpLevelClient();
-	void UpLevelServer();
+	void UpLevelServer(wxCommandEvent& event);
 	void RefreshServerPath();
-	void GetFileInfo(wxListEvent& event); /// cette fontion va appeler les info du fichier
+	void GetFileInfo(wxCommandEvent& event);
 
 	void OnDbleClickFileClient(wxTreeEvent& event);
 	void OnDbleClickTransferClient(wxTreeEvent& event);
-	void OnTransferSashChange(wxNotebookEvent &event);
+	void OnTransferSashChange(wxSplitterEvent &event);
 	void OnRightLeftSashChangeClient(wxNotebookEvent &event);
-	void CreateItemClient();
-	void DeleteItemClient();
-	void ReloadExploClient();
-	void UploadFileClient();
+	void CreateItemClient(wxCommandEvent& event);
+	void DeleteItemClient(wxCommandEvent& event);
+	void ReloadExploClient(wxCommandEvent& event);
+	void UploadFileClient(wxCommandEvent& event);
 
 	void GetDraggedItemNameClient();
 	void GetDraggedItemNameServer();
 
-	void pause_file();
-	void erase_file();
-	void play_file(wxListEvent& event);
+	void pause_file(wxCommandEvent& event);
+	void erase_file(wxCommandEvent& event);
+	void play_file(wxCommandEvent& event);
 	void OnSelected(wxListEvent& event);
 
 	/************************************/

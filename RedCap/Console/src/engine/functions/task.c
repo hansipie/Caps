@@ -67,7 +67,7 @@ void	show_task(t_thread_data *tmp)
   if (tmp->flow == NULL)
     tmp->flow = strdup("0b");
   s = malloc(40 + 10 + 60 + 70);
-  (float)rate = (tmp->current_size * 100.0) / tmp->file_size;
+  rate = (tmp->current_size * 100.0) / tmp->file_size;
   sprintf(s,
 	  "%s\t%s\t%s\t%s/s\t%.1f%%\t[%s]\t%s\t%s\t%d\n",
 	  vers, current_size, total_size, tmp->flow, rate, show_progress(rate), tmp->status, tmp->name, tmp->reference);

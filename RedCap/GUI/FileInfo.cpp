@@ -11,9 +11,9 @@ FileInfo::FileInfo(wxWindow* parent, wxWindowID id, wxString file_name, wxString
     wxStaticBox *Contour = new wxStaticBox( parent, -1, wxT("File Informations") );
     wxStaticBoxSizer *ContourSizer = new wxStaticBoxSizer( Contour, wxVERTICAL );
     ContourSizer->Add( 10, 5, 0, wxALIGN_CENTER|wxALL, 5 );
-    FileNameText = new wxTextCtrl( parent, ID_FILE_NAME, wxT(file_name), wxDefaultPosition, wxSize(150,-1), 0 );
+    FileNameText = new wxTextCtrl( parent, ID_FILE_NAME, file_name, wxDefaultPosition, wxSize(150,-1), 0 );
     ContourSizer->Add( FileNameText, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-	wxStaticText *OtherInfo = new wxStaticText( parent, -1, wxT(other_info), wxDefaultPosition, wxDefaultSize, 0 );
+	wxStaticText *OtherInfo = new wxStaticText( parent, -1, other_info, wxDefaultPosition, wxDefaultSize, 0 );
     ContourSizer->Add( OtherInfo, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 	ContourSizer->Add( 20, 5, 0, wxALIGN_CENTER|wxALL, 5);
     wxBoxSizer *HBox = new wxBoxSizer( wxHORIZONTAL);
@@ -35,7 +35,8 @@ void FileInfo::OnSaveInfo(wxCommandEvent& command)
 	new_name = FileNameText->GetValue();
 	//	wxMessageBox("rename \"" + file_save + "\" \"" + new_name + "\"");
 	MainFrame->output_message("rename \"" + file_save + "\" \"" + new_name + "\"");
-	MainFrame->m_panel->ReloadExploServer();
+	wxCommandEvent cmd;
+	MainFrame->m_panel->ReloadExploServer(cmd);
 	EndModal(SAVE_INFO);
 	Close(TRUE);
 }

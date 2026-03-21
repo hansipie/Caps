@@ -106,7 +106,7 @@ void MyPanel::OnSelected(wxListEvent& event)
 }
 
 
-void MyPanel::play_file(wxListEvent& event)
+void MyPanel::play_file(wxCommandEvent& event)
 {
 	long item = -1;
 	int flag = 0;
@@ -134,7 +134,7 @@ void MyPanel::play_file(wxListEvent& event)
 		wxMessageBox("You have to select a file to start the Download", "Task Information", wxICON_EXCLAMATION);
 }
 
-void MyPanel::pause_file()
+void MyPanel::pause_file(wxCommandEvent& event)
 {
 	long item = -1;
 	int flag = 0;
@@ -161,7 +161,7 @@ void MyPanel::pause_file()
 
 }
 
-void MyPanel::erase_file()
+void MyPanel::erase_file(wxCommandEvent& event)
 {
 	long item = -1;
 	int flag = 0;

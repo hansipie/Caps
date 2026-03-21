@@ -1,9 +1,9 @@
 class CPrivChat: public wxPanel
 {
 public:
-	CPrivChat(wxNotebook *parent, const wxChar *nom, int xWin, int yWin);
+	CPrivChat(wxNotebook *parent, const wxString& nom, int xWin, int yWin);
 	~CPrivChat(void);
-	const wxChar			*name;
+	wxString				name;
 	int						id_user;
 	wxNotebook				*m_notebook;
 	wxPanel					*sous_panel;

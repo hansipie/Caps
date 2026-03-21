@@ -17,10 +17,10 @@ Connexion::Connexion(wxWindow* parent, wxWindowID id, const wxString& title, con
     wxStaticText *port_label = new wxStaticText( parent, TEXT, wxT("Port :"), wxDefaultPosition, wxDefaultSize, 0 );
     sizer1->Add( port_label, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-	host = new wxTextCtrl( parent, TEXT_HOST, wxT(MainFrame->Serv_Host), wxDefaultPosition, wxSize(175,-1), 0 );
+	host = new wxTextCtrl( parent, TEXT_HOST, MainFrame->Serv_Host, wxDefaultPosition, wxSize(175,-1), 0 );
     sizer1->Add( host, 0, wxGROW|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    port = new wxTextCtrl( parent, TEXT_PORT, wxT(MainFrame->Serv_Port), wxDefaultPosition, wxSize(50,-1), 0 );
+    port = new wxTextCtrl( parent, TEXT_PORT, MainFrame->Serv_Port, wxDefaultPosition, wxSize(50,-1), 0 );
     sizer1->Add( port, 0, wxALIGN_CENTER|wxALL, 5 );
 
     sizer0->Add( sizer1, 0, wxALIGN_CENTER|wxALL, 0 );
@@ -33,10 +33,10 @@ Connexion::Connexion(wxWindow* parent, wxWindowID id, const wxString& title, con
     wxStaticText *password_label = new wxStaticText( parent, TEXT, wxT("Password :"), wxDefaultPosition, wxDefaultSize, 0 );
     sizer2->Add( password_label, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    user = new wxTextCtrl( parent, TEXT, wxT(MainFrame->Serv_User), wxDefaultPosition, wxSize(112,-1), 0 );
+    user = new wxTextCtrl( parent, TEXT, MainFrame->Serv_User, wxDefaultPosition, wxSize(112,-1), 0 );
     sizer2->Add( user, 0, wxGROW|wxALL, 5 );
 
-    password = new wxTextCtrl( parent, TEXT_PASSWORD, wxT(MainFrame->Serv_Passwd), wxDefaultPosition, wxSize(112,-1), wxTE_PASSWORD );
+    password = new wxTextCtrl( parent, TEXT_PASSWORD, MainFrame->Serv_Passwd, wxDefaultPosition, wxSize(112,-1), wxTE_PASSWORD );
     sizer2->Add( password, 0, wxALIGN_CENTER|wxALL, 5 );
 
     sizer0->Add( sizer2, 0, wxALIGN_CENTER|wxALL, 0 );

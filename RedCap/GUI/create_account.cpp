@@ -29,7 +29,7 @@ CCreateAccount::CCreateAccount(wxWindow* parent, wxWindowID id, const wxString& 
 
 void CCreateAccount::OnConfirmNewAccount(wxCommandEvent& command)
 {	
-	if (IsEmpty(name_field->GetValue()) || IsEmpty(login_field->GetValue()))
+	if (name_field->GetValue().IsEmpty() || login_field->GetValue().IsEmpty())
 	{
 		wxMessageDialog MsgDlg(this, "You must fill in at least the login name and the user name to create an Account !", "Save Adminstration Changes", wxYES_DEFAULT | wxICON_EXCLAMATION);
 		MsgDlg.ShowModal();
@@ -37,7 +37,7 @@ void CCreateAccount::OnConfirmNewAccount(wxCommandEvent& command)
 	else
 	{
 		wxString new_pass = password_field->GetValue();
-		if (IsEmpty(new_pass))
+		if (new_pass.IsEmpty())
 			new_pass = " ";
 		CreateAccountCmd = "new_user \"" + login_field->GetValue() +"\" \""+ new_pass + "\" \"" +name_field->GetValue() +"\" \"0000000000000000000000000000000000000000000000000000000000000000\"";
 		//wxMessageBox(CreateAccountCmd);

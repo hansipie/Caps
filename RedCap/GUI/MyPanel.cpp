@@ -101,11 +101,11 @@ void MyPanel::SendChat(wxCommandEvent & event)
 		{
 			wxMessageBox("Je crypte");
 			msg = msg + "send_chat \"";
-			msg = msg + MainFrame->crypto( wxT(panel_public->ChatText->GetValue()) , MainFrame->Pass_crypto, 'c')+ "\"";
+			msg = msg + MainFrame->crypto( panel_public->ChatText->GetValue() , MainFrame->Pass_crypto, 'c')+ "\"";
 		}
 		else
 		{
-			msg = "send_chat \"" + wxT(panel_public->ChatText->GetValue()) + "\"";
+			msg = "send_chat \"" + panel_public->ChatText->GetValue() + "\"";
 		}
 		//msg = "send_chat \"" + wxT(panel_public->ChatText->GetValue()) + "\"";
 		MainFrame->output_message (msg);
@@ -123,9 +123,9 @@ void MyPanel::SendChat(wxCommandEvent & event)
 		tmp->TopChatWindow->SetFont(wxFont(8, wxDECORATIVE, wxNORMAL, wxBOLD, FALSE, "Unicode"));
 		
 		tmp->TopChatWindow->SetDefaultStyle(wxTextAttr(login_colour));
-		tmp->TopChatWindow->AppendText(wxT(wxString(MainFrame->Name)) + " says : " + "\n");
+		tmp->TopChatWindow->AppendText(wxString(MainFrame->Name) + " says : " + "\n");
 		tmp->TopChatWindow->SetDefaultStyle(wxTextAttr(*wxBLACK));
-		tmp->TopChatWindow->AppendText(wxT(tmp->ChatText->GetValue() + "\n"));
+		tmp->TopChatWindow->AppendText(tmp->ChatText->GetValue() + "\n");
 
 		dataserv = Current_serv_data;
 		for (vector<CUser * >::iterator i = dataserv->Users.begin(); i != dataserv->Users.end(); ++i)
@@ -245,7 +245,7 @@ if (Selected_page == 2)
 		wxMessageBox("Page -1");
 }
 
-void MyPanel::OnChatSashChange(wxNotebookEvent &event)
+void MyPanel::OnChatSashChange(wxSplitterEvent &event)
 {
 	int x = 0 ;
 	int y = 0 ; 
@@ -266,7 +266,7 @@ void MyPanel::OnChatSashChange(wxNotebookEvent &event)
 
 
 
-void MyPanel::OnTransferSashChange(wxNotebookEvent &event)
+void MyPanel::OnTransferSashChange(wxSplitterEvent &event)
 {
 	int sash;
 

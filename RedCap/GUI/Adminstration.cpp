@@ -219,7 +219,7 @@ void CAdmin::OnEraseAccount(wxCommandEvent& command)
 
 }
 
-void CAdmin::OnSelectedAccount(wxCommandEvent& command)
+void CAdmin::OnSelectedAccount(wxListEvent& command)
 {	
 	wxString account;
 
@@ -242,7 +242,7 @@ void CAdmin::OnSelectedAccount(wxCommandEvent& command)
 		if (save == wxID_YES)
 		{
 			pass = password->GetValue();
-			if (IsEmpty(pass))
+			if (pass.IsEmpty())
 				pass = " ";
 			NewAccessPrivileges = "set_user_edit \"" + login->GetValue() + "\" \"" + pass + "\" \"" + UserName->GetValue() + "\"";
 			NewAccessPrivileges = NewAccessPrivileges + " \"" 
@@ -298,7 +298,7 @@ void CAdmin::OnSelectedAccount(wxCommandEvent& command)
 void CAdmin::save_privileges(wxCommandEvent& command)
 {
 	pass = password->GetValue();
-			if (IsEmpty(pass))
+			if (pass.IsEmpty())
 				pass = " ";
 			NewAccessPrivileges = "set_user_edit \"" + login->GetValue() + "\" \"" + pass + "\" \"" + UserName->GetValue() + "\"";
 			NewAccessPrivileges = NewAccessPrivileges + " \"" 

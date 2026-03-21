@@ -14,11 +14,11 @@ Connexion_Client::Connexion_Client(wxWindow* parent, wxWindowID id, const wxStri
     ContourSizer->Add( 10, 5, 0, wxALIGN_CENTER|wxALL, 5 );
     wxStaticText *Client_Host_Label = new wxStaticText( parent, TEXT, wxT("Host :"), wxDefaultPosition, wxDefaultSize, 0 );
     ContourSizer->Add( Client_Host_Label, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-    host = new wxTextCtrl( parent, TEXT_HOST, wxT(MainFrame->Client_Host), wxDefaultPosition, wxSize(150,-1), 0 );
+    host = new wxTextCtrl( parent, TEXT_HOST, MainFrame->Client_Host, wxDefaultPosition, wxSize(150,-1), 0 );
     ContourSizer->Add( host, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
     wxStaticText *Client_Port_Label = new wxStaticText( parent, TEXT, wxT("Port :"), wxDefaultPosition, wxDefaultSize, 0 );
     ContourSizer->Add( Client_Port_Label, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-    port = new wxTextCtrl( parent, TEXT_PORT, wxT(MainFrame->Client_Port), wxDefaultPosition, wxSize(80,-1), 0 );
+    port = new wxTextCtrl( parent, TEXT_PORT, MainFrame->Client_Port, wxDefaultPosition, wxSize(80,-1), 0 );
     ContourSizer->Add( port, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
     ContourSizer->Add( 20, 5, 0, wxALIGN_CENTER|wxALL, 5 );
     wxBoxSizer *HBox = new wxBoxSizer( wxHORIZONTAL );

@@ -19,6 +19,6 @@
 
 /* #include "wrapsock.h" */
 
-t_redcap        *gl_redcap;
+extern t_redcap        *gl_redcap;
 
 /* #endif */

@@ -1,4 +1,3 @@
-void		remove_task(char *vers, long ref, int fd);
 void    my_access(int command);
 void    get_login_list(int fd);
 void    delete_file(int fd);
