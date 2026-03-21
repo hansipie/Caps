@@ -16,13 +16,13 @@ LDFLAGS  = $(shell wx-config --libs)
 
 # Note: Adminstration.cpp (sans 'i') — typo conservée depuis l'original
 SRC_CORE  = MyApp.cpp MyFrame.cpp MyPanel.cpp
-SRC_UI    = Options.cpp ConfirmBox.cpp PopupCreate.cpp
+SRC_UI    = Options.cpp PopupCreate.cpp
 SRC_CHAT  = Panel_PublicChat.cpp Panel_PrivChat.cpp ChatText.cpp \
             broadcast.cpp NewsGroup.cpp
 SRC_NET   = connexion.cpp Connexion_client.cpp ServData.cpp engine.cpp
 SRC_FILES = ExplorerServer.cpp ExplorerClient.cpp Download.cpp \
             Panel_Transfert.cpp preview.cpp FileList.cpp FileInfo.cpp \
-            Rep.cpp ListGauge.cpp
+            Rep.cpp
 SRC_USERS = User.cpp Utilisateur.cpp Adminstration.cpp \
             create_account.cpp Agree.cpp crypto.cpp
 
