@@ -151,6 +151,16 @@ Caps/
 | v0.5a   | Video previews, JPEG image previews |
 | v0.5b   | Demonstration release |
 
+## Big Up
+
+Mad respect to those still keeping the Hotline protocol alive more than 20 years later:
+
+- **[hotline](https://github.com/mierau/hotline)** — A modern, open-source remake of the classic 1997 Hotline app, written in Swift for macOS with iOS/iPadOS support in development. Chat, file sharing, message boards — rebuilt with a native contemporary interface.
+
+- **[Mobius](https://github.com/jhalter/mobius)** — A cross-platform Hotline server written in Go, distributed as a single binary and fully compatible with existing clients. Runs on macOS, Linux, and Windows, with an optional HTTP API for administration.
+
+- **[Hotline Navigator](https://github.com/fuzzywalrus/Hotline-Navigator)** — A modern Hotline client built with Tauri, React, and Rust, available on macOS, Windows, Linux, iOS, iPadOS, and Android. File sharing, chat, and bulletin boards on virtually every platform.
+
 ## License
 
 See [LICENSE](LICENSE).
