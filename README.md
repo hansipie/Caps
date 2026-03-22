@@ -1,4 +1,11 @@
+<p align="center">
+  <img src="assets/logo.png" alt="CAPS logo" width="200"/>
+</p>
+
 # CAPS — Client/Server for the Hotline Protocol
+
+![Language](https://img.shields.io/badge/language-C%2FC%2B%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 CAPS is an open-source implementation of the [Hotline](https://en.wikipedia.org/wiki/Hotline_Communications) protocol, written in C++. It consists of three components:
 
