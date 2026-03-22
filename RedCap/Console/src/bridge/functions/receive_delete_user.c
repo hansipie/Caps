@@ -11,7 +11,7 @@ void	receive_delete_user(t_transac *transac)
     {
       bcopy(transac->field->data, &id, 2);
       id = ntohs(id);
-      buff = malloc((29) * MALLOC);
+      buff = malloc((32) * MALLOC);
       sprintf(buff, "\nnotify delete user id %d\n", id);
       Writen(gl_redcap->bridge->fd, buff);
       free(buff);

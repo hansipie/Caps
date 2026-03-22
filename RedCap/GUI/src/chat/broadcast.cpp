@@ -20,18 +20,18 @@ BroadcastDialog::BroadcastDialog(wxWindow* parent, wxWindowID id, const wxString
 									wxDefaultSize
 									);
 	
-    sizerH->Add( warning_bmp, 0, wxALIGN_CENTER|wxALL, 5 );
+    sizerH->Add( warning_bmp, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 	
     message = new wxTextCtrl( parent, ID_BROAD_TEXT, msg_box, wxDefaultPosition, wxSize(240,60), wxTE_MULTILINE | wxTE_RICH2 );
 	if (MainFrame->BroadcastFlag == 2)
 		message->Clear();
-	sizerH->Add( message, 0, wxALIGN_CENTER|wxALL, 5 );
+	sizerH->Add( message, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    sizerV->Add( sizerH, 0, wxALIGN_CENTER|wxALL, 5 );
+    sizerV->Add( sizerH, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
     wxButton *button = new wxButton( parent, ID_SEND_BROADCAST, wxT("OK"), wxDefaultPosition, wxDefaultSize, 0 );
 	button->SetDefault();  
-	sizerV->Add( button, 0, wxALIGN_CENTER|wxALL, 5 );
+	sizerV->Add( button, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
 	SetSizer(sizerV);
 	SetAutoLayout(TRUE);

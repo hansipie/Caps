@@ -6,25 +6,19 @@ CCreateAccount::CCreateAccount(wxWindow* parent, wxWindowID id, const wxString& 
 	MainFrame = (MyFrame *)parent;
     parent = this;
 	
-	wxStaticBox *info;
-	info = new wxStaticBox( parent, -1, wxT("New User Account Information"), wxPoint(10, 10), wxSize(265, 130));
-    
-    wxStaticText *name_label;
-	name_label = new wxStaticText( parent, ID_TEXT, wxT("Name :"), wxPoint(20, 40), wxDefaultSize, 0 );
+	new wxStaticBox( parent, -1, wxT("New User Account Information"), wxPoint(10, 10), wxSize(265, 130));
+
+	new wxStaticText( parent, ID_TEXT, wxT("Name :"), wxPoint(20, 40), wxDefaultSize, 0 );
     name_field = new wxTextCtrl( parent, ID_TEXTCTRL, wxT(""), wxPoint(130, 40), wxSize(130,-1), 0 );
 
-    wxStaticText *login_label;
-	login_label = new wxStaticText( parent, ID_TEXT, wxT("Login :"), wxPoint(20, 70), wxDefaultSize, 0 );
+	new wxStaticText( parent, ID_TEXT, wxT("Login :"), wxPoint(20, 70), wxDefaultSize, 0 );
     login_field = new wxTextCtrl( parent, ID_TEXTCTRL, wxT(""), wxPoint(130, 70), wxSize(130,-1), 0 );
 
-	wxStaticText *password_label;
-	password_label = new wxStaticText( parent, ID_TEXT, wxT("Password :"), wxPoint(20, 100), wxDefaultSize, 0 );
+	new wxStaticText( parent, ID_TEXT, wxT("Password :"), wxPoint(20, 100), wxDefaultSize, 0 );
 	password_field = new wxTextCtrl( parent, ID_TEXTCTRL, wxT(""), wxPoint(130, 100), wxSize(130,-1), wxTE_PASSWORD );
 
-	wxButton *create_account_button;
-	create_account_button = new wxButton( parent, ID_CREATED_ACCOUNT, wxT("Create"), wxPoint(120, 150), wxDefaultSize,0);
-	wxButton *cancel_account_button;
-	cancel_account_button = new wxButton( parent, wxID_CANCEL, wxT("Cancel"), wxPoint(200, 150), wxDefaultSize,0);
+	new wxButton( parent, ID_CREATED_ACCOUNT, wxT("Create"), wxPoint(120, 150), wxDefaultSize,0);
+	new wxButton( parent, wxID_CANCEL, wxT("Cancel"), wxPoint(200, 150), wxDefaultSize,0);
 }
 
 void CCreateAccount::OnConfirmNewAccount(wxCommandEvent& command)

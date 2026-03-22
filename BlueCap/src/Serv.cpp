@@ -323,8 +323,6 @@ int CServ::Max_fd_used()
 // Serveur main loop
 void CServ::LoopZ()
 {
-  struct timeval tv;
-
   ServConf.IPaddr.assign(inet_ntoa(my_addr.sin_addr));
   if (DEBUG_L0)
     {
@@ -337,9 +335,6 @@ void CServ::LoopZ()
       cout << "Videolan path: " << ServConf.Videolan << endl;
       cout <<"-----------------------------------------------------------------------" << endl;
     }
-  tv.tv_sec = TIMEOUT;
-  tv.tv_usec = 0;
-  
   while (1)
     {
       int nfds, max_fd_used;      

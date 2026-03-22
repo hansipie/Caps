@@ -22,8 +22,6 @@ char * MyFrame::crypto(wxString chaine, wxString cle, unsigned char cmd)
     unsigned char round_key[4][4];
 	char * chaine2;
 
-	int toto;
-
 	len = wxStrlen(cle);
 	for (i=0; i < 16; i++)
 	{
@@ -66,7 +64,6 @@ char * MyFrame::crypto(wxString chaine, wxString cle, unsigned char cmd)
 			{
 			for(j = 0; j < 4; j++)
 				{	
-toto = state[i][j];
 					k = i * 4 + j + h;
 					chaine2[k] =  state[i][j];
 				}
@@ -162,13 +159,13 @@ matrice de la s_box:
         }
 
     
-    //generation du résultat de la multiplication matricielle
+    //generation du rï¿½sultat de la multiplication matricielle
     return (r[0]*rcon(8) + r[1]*rcon(7) + r[2]*rcon(6) + r[3]*rcon(5) + r[4]*rcon(4) + r[5]*rcon(3) + r[6]*rcon(2) + r[7]*rcon(1));
     }
 unsigned char MyFrame::multi(char a, char b)
 
 /*
-    effectue la multiplication des deux caractères passés en paramètre
+    effectue la multiplication des deux caractï¿½res passï¿½s en paramï¿½tre
     cette multiplication doit etre bijective
 */
 
@@ -177,9 +174,9 @@ unsigned char MyFrame::multi(char a, char b)
     unsigned char temp[4];
     temp[0] = b;
     
-    /* ici on récupère les 4 bits de poids faible de b.
-    en fait, l'octet le plus élevé (si on le regarde
-    comme une valeur décimale) que l'on passe dans b
+    /* ici on rï¿½cupï¿½re les 4 bits de poids faible de b.
+    en fait, l'octet le plus ï¿½levï¿½ (si on le regarde
+    comme une valeur dï¿½cimale) que l'on passe dans b
     est 14 (cf. fonction mix_column) */
     do
             {
@@ -198,7 +195,7 @@ unsigned char MyFrame::multi(char a, char b)
 
     for(p = 1; p < 4; p++)  
     
-            /* on calcule les 4 multiples succéssifs de a */
+            /* on calcule les 4 multiples succï¿½ssifs de a */
             {
             intemp = temp[p] * 2;
             if (intemp > 255) temp[p] = (intemp - 256) ^ 27;
@@ -208,21 +205,21 @@ unsigned char MyFrame::multi(char a, char b)
 
     for(p = 0; p < 4; p++)
             
-            /* on met à 0 les cases de temp correspondant
+            /* on met ï¿½ 0 les cases de temp correspondant
             aux 0 du code binaire de b */
             {
             if (bb[p] == 0) temp[p] = 0;
             }
     
-    /* on somme (OU EXCLUSIF) les cases de temp pour générer le résultat
+    /* on somme (OU EXCLUSIF) les cases de temp pour gï¿½nï¿½rer le rï¿½sultat
     de la multiplication */
     return temp[0] ^ temp[1] ^ temp[2] ^ temp[3];
     }
 int MyFrame::expand_key(unsigned char key[4*4], unsigned char w[4*4*11])
 
 /*
-    effectue l'expansion de la clé ( key est la clé du chiffreur et
-    w est la clé résultante - expanded key)
+    effectue l'expansion de la clï¿½ ( key est la clï¿½ du chiffreur et
+    w est la clï¿½ rï¿½sultante - expanded key)
 */
 
     {
@@ -272,7 +269,7 @@ nom) a un round
 int MyFrame::byte_sub(unsigned char state[4][4], unsigned char cmd)
 
 /*
-    effectue l'opération byte_sub
+    effectue l'opï¿½ration byte_sub
 */
 
 
@@ -283,7 +280,7 @@ int MyFrame::byte_sub(unsigned char state[4][4], unsigned char cmd)
         {
         for (j = 0; j < 4; j++)
             {
-            if(cmd == 'd') state[i][j] ^= 198; //ajout du vecteur constant (décryptage)
+            if(cmd == 'd') state[i][j] ^= 198; //ajout du vecteur constant (dï¿½cryptage)
             state[i][j] = sub_s_box(state[i][j], cmd);
             if(cmd == 'c') state[i][j] ^= 198; //ajout du vecteur constant (cryptage)
             }
@@ -297,7 +294,7 @@ int MyFrame::byte_sub(unsigned char state[4][4], unsigned char cmd)
 int MyFrame::shift_row(unsigned char state[4][4], unsigned char cmd)
 
 /*
-    effectue l'opération shift_row
+    effectue l'opï¿½ration shift_row
 */
 
     {
@@ -325,7 +322,7 @@ int MyFrame::shift_row(unsigned char state[4][4], unsigned char cmd)
         state[3][0] = temp;
         }
         
-    else //décryptage
+    else //dï¿½cryptage
         {
         temp = state[1][3];
         state[1][3] = state[1][2];
@@ -355,7 +352,7 @@ int MyFrame::shift_row(unsigned char state[4][4], unsigned char cmd)
 int MyFrame::mix_column(unsigned char state[4][4], unsigned char cmd)
 
 /*
-    effectue l'opération mix_column
+    effectue l'opï¿½ration mix_column
 */
 
     {
@@ -390,7 +387,7 @@ int MyFrame::mix_column(unsigned char state[4][4], unsigned char cmd)
         state[3][3] = multi(temp[0][3],3) ^ multi(temp[1][3],1) ^ multi(temp[2][3],1) ^ multi(temp[3][3],2);
         }
         
-    else //décryptage
+    else //dï¿½cryptage
         {
         state[0][0] = multi(temp[0][0],14) ^ multi(temp[1][0],11) ^ multi(temp[2][0],13) ^ multi(temp[3][0],9);
         state[1][0] = multi(temp[0][0],9) ^ multi(temp[1][0],14) ^ multi(temp[2][0],11) ^ multi(temp[3][0],13);
@@ -420,7 +417,7 @@ int MyFrame::mix_column(unsigned char state[4][4], unsigned char cmd)
 int MyFrame::add_round_key(unsigned char state[4][4], unsigned char round_key[4][4])
 
 /*
-    effectue l'opération add_round_key
+    effectue l'opï¿½ration add_round_key
 */
 
     {
@@ -441,7 +438,7 @@ int MyFrame::add_round_key(unsigned char state[4][4], unsigned char round_key[4]
 int MyFrame::round(unsigned char state[4][4], unsigned char round_key[4][4], int round, unsigned char cmd)
 
 /*
-    effectue un round comprenant les 4 opérations (sauf le dernier qui ne
+    effectue un round comprenant les 4 opï¿½rations (sauf le dernier qui ne
 contient pas mix_column)
 */
 

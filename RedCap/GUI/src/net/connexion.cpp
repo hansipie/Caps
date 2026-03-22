@@ -49,10 +49,10 @@ Connexion::Connexion(wxWindow* parent, wxWindowID id, const wxString& title, con
     wxBoxSizer *sizer3 = new wxBoxSizer( wxHORIZONTAL );
 
     wxButton *save_button = new wxButton( parent, BUTTON_SAVE, wxT("Save..."), wxDefaultPosition, wxDefaultSize, 0 );
-    sizer3->Add( save_button, 0, wxALIGN_CENTER|wxALL, 5 );
+    sizer3->Add( save_button, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     wxButton *connect_button = new wxButton( parent, BUTTON_CONNECT, wxT("Connect.."), wxDefaultPosition, wxDefaultSize, 0 );
-    sizer3->Add( connect_button, 0, wxALIGN_CENTER|wxALL, 5 );
+    sizer3->Add( connect_button, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     sizer0->Add( sizer3, 0, wxALIGN_CENTER|wxALL, 5 );
 

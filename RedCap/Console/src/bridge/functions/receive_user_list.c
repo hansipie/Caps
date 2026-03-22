@@ -86,10 +86,7 @@ void	receive_user_list(t_transac *transac)
 {
   char	*buff, *tmp, *name, *user_flag;
   u_int16_t	user_id, icon, size;
-  int	i;
   char *str;
-
-  i = 0;
   if (gl_redcap->debug->functions)
     printf("function:receive_User_list\n");
   show_user_header(1);

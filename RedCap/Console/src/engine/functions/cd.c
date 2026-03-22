@@ -22,11 +22,8 @@ int	cd_under(int len, int count)
 
 void	cd_then(char *ret)
 {
-  int	len;
-
   if(gl_redcap->debug->functions)
     printf("function:cd_then\n");
-  len = strlen(ret);
   printf("path avant:%s\nret:%s\n", gl_redcap->engine->server->path, ret);
   gl_redcap->engine->server->path = my_strcat(gl_redcap->engine->server->path, ret);
   printf("path entre:%s\n", gl_redcap->engine->server->path);

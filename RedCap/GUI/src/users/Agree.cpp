@@ -18,18 +18,18 @@ CAgree::CAgree(wxWindow* parent, wxWindowID id, const wxString& title, const wxP
     wxBoxSizer *item0 = new wxBoxSizer( wxVERTICAL );
 
     wxTextCtrl *item1 = new wxTextCtrl( this, ID_AGREEMENT, agreement_txt, wxDefaultPosition, wxSize(400,230), wxTE_MULTILINE|wxTE_READONLY|wxVSCROLL );
-    item0->Add( item1, 0, wxALIGN_CENTER|wxALL, 5 );
+    item0->Add( item1, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
     wxBoxSizer *item2 = new wxBoxSizer( wxHORIZONTAL );
 
     wxButton *item3 = new wxButton( this, ID_AGREE, wxT("Agree"), wxDefaultPosition, wxDefaultSize, 0 );
     item3->SetDefault();
-    item2->Add( item3, 0, wxALIGN_CENTER|wxALL, 5 );
+    item2->Add( item3, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     wxButton *item4 = new wxButton( this, ID_DISAGREE, wxT("Disagree"), wxDefaultPosition, wxDefaultSize, 0 );
-    item2->Add( item4, 0, wxALIGN_CENTER|wxALL, 5 );
+    item2->Add( item4, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    item0->Add( item2, 0, wxALIGN_CENTER|wxALL, 5 );
+    item0->Add( item2, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
     this->SetSizer( item0 );
     item0->SetSizeHints( this );

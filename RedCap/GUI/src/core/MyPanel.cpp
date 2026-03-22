@@ -1,5 +1,14 @@
 #include "general.h"
 
+namespace {
+const int kFrameMinWidth = 500;
+const int kMinNotebookWidth = kFrameMinWidth - 4 - WIDTH_UTILISATEUR;
+const int kMinMainPaneWidth = kFrameMinWidth - 13 - WIDTH_UTILISATEUR;
+const int kMinTransferPaneWidth = kFrameMinWidth - WIDTH_UTILISATEUR - 10;
+const int kMinTransferListWidth = kFrameMinWidth - WIDTH_UTILISATEUR - 42;
+const int kMinDownloadWidth = kFrameMinWidth - (WIDTH_UTILISATEUR + 14);
+}
+
 MyPanel::MyPanel( wxWindow * parent, int x, int y, int w, int h )
        : wxPanel( parent, -1, wxPoint(x, y), wxSize(w, h) )
 {
@@ -25,7 +34,7 @@ MyPanel::MyPanel( wxWindow * parent, int x, int y, int w, int h )
     if (0)
         wxLog::AddTraceMask(_T("focus"));
 
-	wxSize imageSize(22, 22);
+    wxSize imageSize(22, 22);
 	wxBitmap toolBarBitmaps[20];
 	toolBarBitmaps[0] = wxBitmap("./icons/chatpublic.bmp",wxBITMAP_TYPE_BMP);
 	toolBarBitmaps[1] = wxBitmap("./icons/transfert.bmp",wxBITMAP_TYPE_BMP);
@@ -120,7 +129,7 @@ void MyPanel::SendChat(wxCommandEvent & event)
 		//int							serv;
 		
 		tmp = List_PrivChat[m_notebook->GetSelection() - nb_tab];
-		tmp->TopChatWindow->SetFont(wxFont(8, wxDECORATIVE, wxNORMAL, wxBOLD, FALSE, "Unicode"));
+		tmp->TopChatWindow->SetFont(wxFont(wxFontInfo(8).Family(wxFONTFAMILY_DECORATIVE).Style(wxFONTSTYLE_NORMAL).Weight(wxFONTWEIGHT_BOLD).FaceName("Unicode")));
 		
 		tmp->TopChatWindow->SetDefaultStyle(wxTextAttr(login_colour));
 		tmp->TopChatWindow->AppendText(wxString(MainFrame->Name) + " says : " + "\n");
@@ -162,11 +171,11 @@ void MyPanel::OnSize(wxSizeEvent& WXUNUSED(event))
     y = 0;
 
     GetClientSize( &x, &y );
-	MainFrame->degrade_title->SetSize(x - 350, 33);
+	MainFrame->degrade_title->SetSize(wxMax(20, x - 350), 33);
 	if (m_notebook)
-		m_notebook->SetSize( WIDTH_UTILISATEUR + 2, 2, x-4 - WIDTH_UTILISATEUR, y - 2);
+		m_notebook->SetSize( WIDTH_UTILISATEUR + 2, 2, wxMax(kMinNotebookWidth, x - 4 - WIDTH_UTILISATEUR), wxMax(180, y - 2));
 	if (List_users) 
-		List_users->SetSize(2, 57 /*32*/, WIDTH_UTILISATEUR - 2, y - 58 /*32*/ );
+		List_users->SetSize(2, 57 /*32*/, WIDTH_UTILISATEUR - 2, wxMax(90, y - 58 /*32*/) );
 	/* Resize de la barre de titre*/
 	if (panel_public->splitter)
 	{
@@ -174,11 +183,11 @@ void MyPanel::OnSize(wxSizeEvent& WXUNUSED(event))
 
 		panel_public->BitmapDegr->SetSize(160, 0, x - 342, 24);
 #endif
-		panel_public->splitter->SetSize(2, 26, x - 13 - WIDTH_UTILISATEUR, y - 64);
-		panel_public->splitter->SetSashPosition(y - 109);
+		panel_public->splitter->SetSize(2, 26, wxMax(kMinMainPaneWidth, x - 13 - WIDTH_UTILISATEUR), wxMax(130, y - 64));
+		panel_public->splitter->SetSashPosition(wxMax(80, y - 109));
 		panel_public->y_sash = panel_public->splitter->GetSashPosition();
-		panel_public->SendChatButton->SetSize(x - 275, (y  - panel_public->y_sash - 67) / 2 - 24, 86, 49 );
-		panel_public->ChatText->SetSize(0, 0, x  - 113 - WIDTH_UTILISATEUR, y  - panel_public->y_sash - 67);
+		panel_public->SendChatButton->SetSize(wxMax(5, x - 275), wxMax(5, (y  - panel_public->y_sash - 67) / 2 - 24), 86, 49 );
+		panel_public->ChatText->SetSize(0, 0, wxMax(120, x  - 113 - WIDTH_UTILISATEUR), wxMax(50, y  - panel_public->y_sash - 67));
 	}
 	
 	/** Resize de l'onglet TRANSFER de Fichier **/
@@ -189,22 +198,22 @@ void MyPanel::OnSize(wxSizeEvent& WXUNUSED(event))
 	panel_transfer->BitmapDegr->SetSize(160, 0, x - 342, 24);
 #endif
 	/*************** resize de l'explorateur du server ******************/
-	panel_transfer->SplitExplo->SetSize(x - WIDTH_UTILISATEUR - 10, y-20);
-	panel_transfer->ExploServer->right_page->SetSize(x - WIDTH_UTILISATEUR - 38, sash-35);
-	panel_transfer->ExploServer->tree_list->SetSize(x - WIDTH_UTILISATEUR - 42, sash-35);
+	panel_transfer->SplitExplo->SetSize(wxMax(kMinTransferPaneWidth, x - WIDTH_UTILISATEUR - 10), wxMax(150, y - 20));
+	panel_transfer->ExploServer->right_page->SetSize(wxMax(kMinTransferListWidth, x - WIDTH_UTILISATEUR - 38), wxMax(50, sash - 35));
+	panel_transfer->ExploServer->tree_list->SetSize(wxMax(kMinTransferListWidth, x - WIDTH_UTILISATEUR - 42), wxMax(50, sash - 35));
 
 #ifdef __WIN32__
 	panel_transfer->ExploServer->bitmap_left2->SetSize(0, 143, 27, sash);
 #endif
 		/*************** resize de l'explorateur du client ******************/
-	panel_transfer->ExploClient->right_page->SetSize(x - WIDTH_UTILISATEUR - 38, y - sash);
-	panel_transfer->ExploClient->tree_list->SetSize(x - WIDTH_UTILISATEUR - 42, y - sash - 95);
+	panel_transfer->ExploClient->right_page->SetSize(wxMax(kMinTransferListWidth, x - WIDTH_UTILISATEUR - 38), wxMax(60, y - sash));
+	panel_transfer->ExploClient->tree_list->SetSize(wxMax(kMinTransferListWidth, x - WIDTH_UTILISATEUR - 42), wxMax(50, y - sash - 95));
 
 #ifdef __WIN32__	
 	panel_transfer->ExploClient->bitmap_left2->SetSize(0, 143, 27, y - sash - 100 );
 #endif
 				/** resize de l'onglet DOWNLOAD de fichier **/
-	panel_download->tree_list_download->SetSize(2, 59, x - (WIDTH_UTILISATEUR + 14), y - 100);
+	panel_download->tree_list_download->SetSize(2, 59, wxMax(kMinDownloadWidth, x - (WIDTH_UTILISATEUR + 14)), wxMax(60, y - 100));
 #ifdef __WIN32__
 	panel_download->BitmapDegr->SetSize(160, 0, x - 342, 24);
 #endif
@@ -221,13 +230,13 @@ void MyPanel::OnSize(wxSizeEvent& WXUNUSED(event))
 		if (tmp->splitter)
 		{
 
-			tmp->BitmapDegr->SetSize(160,0, x - 365, 24);
-			tmp->splitter->SetSize(2, 26, x - 13 - WIDTH_UTILISATEUR, y - 64);
-			tmp->splitter->SetSashPosition(y - 115);
+			tmp->BitmapDegr->SetSize(160,0, wxMax(20, x - 365), 24);
+			tmp->splitter->SetSize(2, 26, wxMax(kMinMainPaneWidth, x - 13 - WIDTH_UTILISATEUR), wxMax(130, y - 64));
+			tmp->splitter->SetSashPosition(wxMax(80, y - 115));
 			tmp->y_sash = tmp->splitter->GetSashPosition();
-			tmp->SendChatButton->SetSize(x - 275, (y  - tmp->y_sash - 67) / 2 - 24, 86, 49 );
-			tmp->CloseButton->SetSize(x - WIDTH_UTILISATEUR - 35, 0, 24, 24);
-			tmp->ChatText->SetSize(0, 0, x - 113 - WIDTH_UTILISATEUR, y  - tmp->y_sash - 67);
+			tmp->SendChatButton->SetSize(wxMax(5, x - 275), wxMax(5, (y  - tmp->y_sash - 67) / 2 - 24), 86, 49 );
+			tmp->CloseButton->SetSize(wxMax(5, x - WIDTH_UTILISATEUR - 35), 0, 24, 24);
+			tmp->ChatText->SetSize(0, 0, wxMax(120, x - 113 - WIDTH_UTILISATEUR), wxMax(50, y  - tmp->y_sash - 67));
 		}
 	}
 }
@@ -253,14 +262,14 @@ void MyPanel::OnChatSashChange(wxSplitterEvent &event)
 	
 	GetClientSize( &x, &y );
 	panel_public->y_sash = panel_public->splitter->GetSashPosition();
-	panel_public->SendChatButton->SetSize(x - 275, (y  - panel_public->y_sash - 67) / 2 - 24, 86, 49 );
-	panel_public->ChatText->SetSize(0, 0, x - 113 - WIDTH_UTILISATEUR, y  - panel_public->y_sash - 67);
+	panel_public->SendChatButton->SetSize(wxMax(5, x - 275), wxMax(5, (y  - panel_public->y_sash - 67) / 2 - 24), 86, 49 );
+	panel_public->ChatText->SetSize(0, 0, wxMax(120, x - 113 - WIDTH_UTILISATEUR), wxMax(50, y  - panel_public->y_sash - 67));
 	for ( vector< CPrivChat * >::iterator it = List_PrivChat.begin(); it != List_PrivChat.end(); ++it)
 	{
 		CPrivChat  *tmp = *it;
 		tmp->y_sash = tmp->splitter->GetSashPosition();
-		tmp->SendChatButton->SetSize(x - 275, (y  - tmp->y_sash - 67) / 2 - 24, 86, 49 );
-		tmp->ChatText->SetSize(0, 0, x - 113 - WIDTH_UTILISATEUR, y  - tmp->y_sash - 67);
+		tmp->SendChatButton->SetSize(wxMax(5, x - 275), wxMax(5, (y  - tmp->y_sash - 67) / 2 - 24), 86, 49 );
+		tmp->ChatText->SetSize(0, 0, wxMax(120, x - 113 - WIDTH_UTILISATEUR), wxMax(50, y  - tmp->y_sash - 67));
 	}
 }
 
@@ -268,16 +277,17 @@ void MyPanel::OnChatSashChange(wxSplitterEvent &event)
 
 void MyPanel::OnTransferSashChange(wxSplitterEvent &event)
 {
+	GetClientSize(&x, &y);
 	int sash;
 
 	sash = panel_transfer->SplitExplo->GetSashPosition();
 		/*************** resize de l'explorateur du server ******************/
-	panel_transfer->ExploServer->right_page->SetSize(x - 213, sash-35);
-	panel_transfer->ExploServer->tree_list->SetSize(x - 213, sash-35);
+	panel_transfer->ExploServer->right_page->SetSize(wxMax(kMinTransferListWidth, x - 213), wxMax(50, sash - 35));
+	panel_transfer->ExploServer->tree_list->SetSize(wxMax(kMinTransferListWidth, x - 213), wxMax(50, sash - 35));
 
 		/*************** resize de l'explorateur du client ******************/
-	panel_transfer->ExploClient->right_page->SetSize(x - 213, y - sash);
-	panel_transfer->ExploClient->tree_list->SetSize(x - 213, y - sash-95);
+	panel_transfer->ExploClient->right_page->SetSize(wxMax(kMinTransferListWidth, x - 213), wxMax(60, y - sash));
+	panel_transfer->ExploClient->tree_list->SetSize(wxMax(kMinTransferListWidth, x - 213), wxMax(50, y - sash - 95));
 #ifdef __WIN32__
 	panel_transfer->ExploServer->bitmap_left2->SetSize(0, 143, 27, sash);
 	panel_transfer->ExploClient->bitmap_left2->SetSize(0, 143, 27, y - sash - 100 );

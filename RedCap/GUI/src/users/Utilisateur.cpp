@@ -15,6 +15,8 @@ void MyPanel::OnDbleClickUtilisateur(wxListEvent& event)
 		// on met item a la bonne valeur
 		item = List_users->GetNextItem(-1, wxLIST_NEXT_ALL,
                                         wxLIST_STATE_SELECTED);
+		if (item < 0 || item >= List_users->GetItemCount())
+			return;
 
 		// on parcours tous les users de data serv 
 		// si on selectionne le 2 eme utilisateur de la liste, cette boucle s'arretera sur le 2eme user de dataserv
@@ -26,6 +28,8 @@ void MyPanel::OnDbleClickUtilisateur(wxListEvent& event)
 				break;
 			item2 = item2 - 1;
 		}
+		if (!user)
+			return;
 
 		//on parcour tous les privchat ouverts
 		// si il y a un chat ouvert qui a le meme ID que le user, alrs c que la conversation etait deja entamee

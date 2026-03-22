@@ -119,10 +119,10 @@ char *bitsfield(char *field)
 
   if (gl_redcap->debug->functions)
     printf("function:bitsfield\n");
-    if ((strlen(field) % 8) != 0)
+  if ((strlen(field) % 8) != 0)
     {
       printf("error: BitsField with bad size\n");
-      return (result);
+      return (NULL);
     }
   result = malloc(9);
   iter = strlen(field) / 8;

@@ -147,7 +147,7 @@ void CClServ::sessionBP(int io)
 void CClServ::sessionBP1(int io)
 {
   int size;
-  char *val;
+  char val[BUFFSIZE];
 
   switch(step)
     {

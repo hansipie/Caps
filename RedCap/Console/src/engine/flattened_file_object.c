@@ -3,8 +3,7 @@
 t_thread_data *fill_flat_file_header(t_thread_data *transfert)
 {
   transfert->header = malloc((sizeof(t_flat_file)) * MALLOC);
-  transfert->header->format  = malloc((4) * MALLOC);
-  transfert->header->format = strncpy(transfert->header->format, "FILP", 4);
+  transfert->header->format = strdup("FILP");
   transfert->header->version = 1;
   transfert->header->rsvd = malloc((16) * MALLOC);
   bzero(transfert->header->rsvd, 16);

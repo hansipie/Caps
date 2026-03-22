@@ -23,11 +23,9 @@ t_data	*pars_server_name(char *buffer, int len)
 void    server_name(int command)
 {
   t_data        *pars;
-  int           flag;
 
   if(gl_redcap->debug->functions)
     printf("func:server_name\n");
-  flag = 0;
   if((pars = pars_server_name(gl_redcap->bridge->data->buffer, gl_redcap->bridge->data->len)) != NULL)
     {
       Writen(gl_redcap->bridge->fd, "name of ");

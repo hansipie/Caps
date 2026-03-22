@@ -160,13 +160,24 @@ void MyPanel::GetFileInfo(wxCommandEvent& event)
 {
 	long item = panel_transfer->ExploServer->tree_list->GetNextItem(-1, wxLIST_NEXT_ALL,
                                         wxLIST_STATE_SELECTED);
+	if (item < 0 || item >= panel_transfer->ExploServer->tree_list->GetItemCount())
+	{
+		wxMessageBox("No file selected", "File Transfer Information", wxICON_EXCLAMATION);
+		return;
+	}
 	MainFrame->output_message("file_info \"" + panel_transfer->ExploServer->tree_list->GetItemText(item) + "\"");
 }
 
 void MyPanel::LaunchUpload(wxListEvent& event)
 {
-	long item = panel_transfer->ExploClient->tree_list->GetNextItem(-1, wxLIST_NEXT_ALL,
+	long item = event.GetIndex();
+	if (item < 0)
+	{
+		item = panel_transfer->ExploClient->tree_list->GetNextItem(-1, wxLIST_NEXT_ALL,
                                         wxLIST_STATE_SELECTED);
+	}
+	if (item < 0 || item >= panel_transfer->ExploClient->tree_list->GetItemCount())
+		return;
 	wxMessageBox(panel_transfer->ExploClient->tree_list->GetItemText(item));
 	MainFrame->output_message("upload \"" + panel_transfer->ExploClient->tree_list->GetItemText(item) + "\"");
 	//output_message("upload " + panel_transfer->ExploClient->tree_list->GetItemText(item));

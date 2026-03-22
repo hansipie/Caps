@@ -3,7 +3,6 @@
 void	disconnect(int command)
 {
 /*   t_transac *transac; */
-  char	*buff;
 
 /*   transac = malloc((sizeof(t_transac)) * MALLOC); */
 /*   transac = build_hdr(transac, 110, HDR_RQST); */

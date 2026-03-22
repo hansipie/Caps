@@ -7,8 +7,8 @@ CAdmin::CAdmin(wxWindow* parent, wxWindowID id, const wxString& title, const wxP
     parent = this;
 	save_flag = 0;
 	wxBitmap AdminBitmaps[2];
-	AdminBitmaps[0] = wxBitmap("./icons/add_useraccount.bmp",wxBITMAP_TYPE_BMP);
-	AdminBitmaps[1] = wxBitmap("./icons/suppr_account.bmp",wxBITMAP_TYPE_BMP);
+	AdminBitmaps[0] = wxBitmap("./icons/add_user_account.bmp",wxBITMAP_TYPE_BMP);
+	AdminBitmaps[1] = wxBitmap("./icons/suppr_user_account.bmp",wxBITMAP_TYPE_BMP);
 	
 	wxMask *mask0 = new wxMask(AdminBitmaps[0], *wxWHITE);
     AdminBitmaps[0].SetMask(mask0);
@@ -36,7 +36,7 @@ CAdmin::CAdmin(wxWindow* parent, wxWindowID id, const wxString& title, const wxP
 	list_account = new wxListCtrl(parent, 
 										ID_LIST_ACCOUNT,
 										wxPoint(5, 65), wxSize(230, 345), 
-										wxSUNKEN_BORDER | /*wxLC_SMALL_ICON |*/ wxLC_LIST);
+										wxSUNKEN_BORDER | wxLC_REPORT);
 
 	list_account->InsertColumn( 0, wxT("Login"), wxLIST_FORMAT_LEFT, 110 );
 
@@ -45,19 +45,15 @@ CAdmin::CAdmin(wxWindow* parent, wxWindowID id, const wxString& title, const wxP
 //-------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------
 
-	wxStaticBox *item1;
-	item1 = new wxStaticBox( parent, -1, wxT("User Account Information"), wxPoint(240, 40), wxSize(265, 130));
-    
-    wxStaticText *item3;
-	item3 = new wxStaticText( parent, ID_TEXT, wxT("Name :"), wxPoint(250, 70), wxDefaultSize, 0 );
+	new wxStaticBox( parent, -1, wxT("User Account Information"), wxPoint(240, 40), wxSize(265, 130));
+
+	new wxStaticText( parent, ID_TEXT, wxT("Name :"), wxPoint(250, 70), wxDefaultSize, 0 );
 	UserName = new wxTextCtrl( parent, ID_TEXTCTRL, wxT(""), wxPoint(360, 70), wxSize(130,-1), 0 );
 
-    wxStaticText *item5;
-	item5 = new wxStaticText( parent, ID_TEXT, wxT("Login :"), wxPoint(250, 100), wxDefaultSize, 0 );
+	new wxStaticText( parent, ID_TEXT, wxT("Login :"), wxPoint(250, 100), wxDefaultSize, 0 );
     login = new wxTextCtrl( parent, ID_TEXTCTRL, wxT(""), wxPoint(360, 100), wxSize(130,-1), 0 );
 
-   wxStaticText *item7;
-   item7 = new wxStaticText( parent, ID_TEXT, wxT("Password :"), wxPoint(250, 130), wxDefaultSize, 0 );
+	new wxStaticText( parent, ID_TEXT, wxT("Password :"), wxPoint(250, 130), wxDefaultSize, 0 );
    password = new wxTextCtrl( parent, ID_TEXTCTRL, wxT(""), wxPoint(360, 130), wxSize(130,-1),wxTE_PASSWORD );
 
 //-------------------------------------------------------------------------------------------------------------
@@ -141,10 +137,8 @@ CAdmin::CAdmin(wxWindow* parent, wxWindowID id, const wxString& title, const wxP
 					wxPoint(5, 95), wxDefaultSize, 0 );
 	rights_notebook->AddPage(panel_MiscellaneousRights, wxT("Miscellaneous"));
 	
-	wxButton *ok_opt_button;
-	ok_opt_button = new wxButton( this, BUTTON_SAVE, wxT("Save"), wxPoint(345, 425), wxDefaultSize,0);
-	wxButton *cancel_opt_button;
-	cancel_opt_button = new wxButton( this, wxID_CANCEL, wxT("Cancel"), wxPoint(430, 425), wxDefaultSize,0);
+	new wxButton( this, BUTTON_SAVE, wxT("Save"), wxPoint(345, 425), wxDefaultSize,0);
+	new wxButton( this, wxID_CANCEL, wxT("Cancel"), wxPoint(430, 425), wxDefaultSize,0);
 	//MainFrame->output_message("get_login_list");
 }
 
@@ -183,7 +177,6 @@ void CAdmin::OnEraseAccount(wxCommandEvent& command)
 {
 	wxString account;
 	wxString suppr_message;
-	int suppr;
 
 	long item = list_account->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
 	if (item != -1)
@@ -191,7 +184,7 @@ void CAdmin::OnEraseAccount(wxCommandEvent& command)
 	suppr_message = "Are you sure you want to delete the user \"" + account + "\" ?";
 
 #ifdef __WIN32__
-
+	int suppr;
 	if (IsEmpty(account))
 	{
 		wxMessageDialog MsgDlg_erreur(this, "You must select a User Account before deleting", "Save Administration Changes", wxOK | wxICON_EXCLAMATION);

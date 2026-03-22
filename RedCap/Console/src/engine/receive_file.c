@@ -54,12 +54,10 @@ char	*calc_debit(long current_bytes, float cycle)
 {
   float	time;
   float	debit;
-  int	i;
   char	*str;
 
   if(gl_redcap->debug->functions)
     printf("func:calc_debit\n");
-  i = 0;
   time = cycle / sysconf(_SC_CLK_TCK);
   debit = current_bytes / time;
   str = convert(debit);  
@@ -70,17 +68,15 @@ void	receive_preview(t_thread_data *transfert)
 {
   long	tot;
   long	nb_bits;
-  char  *buf, *save, *name;
+  char  *buf, *name;
   char	*tmp;
-  int	i, ffd, flag;
+  int	ffd, flag;
 
-  i = 0;
   if(gl_redcap->debug->functions)
     printf("func:receive_preview\n");
   tot = 0;
   Writen(gl_redcap->bridge->fd, "\npreview:\n");
   buf = malloc(20);
-  save = buf;
   flag = O_CREAT | O_EXCL | O_RDWR;//
   name = my_strcat("preview_", transfert->name);
   ffd = open(name, flag, 0600);//
@@ -116,12 +112,11 @@ void	receive_file(t_thread_data *transfert)
   char		buf[MY_READ_SIZE], *name, *path;
   int		nb_bits, i, ffd, flag;
   t_data	data;
-  long		current_bits, transfert_bits;
+  long		current_bits;
   
   if (gl_redcap->debug->functions)
     printf("function:receive_file\n");
   i = 0;
-  transfert_bits = 0;
   name = strdup(transfert->name);
   name = my_strcat(name, ".hpf");
   if (transfert->resumage)

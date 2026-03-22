@@ -27,7 +27,7 @@ using namespace std;
     #define HL_OS "AMAC"
 #else
     //ifdef __i386__
-    #define HL_OS "MWIN"
+    #define HL_OS ((char*)"MWIN")
 #endif
 
 class CMyVectorTools

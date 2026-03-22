@@ -3,16 +3,13 @@
 void	resume_upload(t_thread_data *transfert)
 {
   t_transac     *transac;
-  t_data	*data;
 
   if(gl_redcap->debug->functions)
     printf("func:resume_upload\n");
   transac = malloc((sizeof(t_transac)) * MALLOC);
-  data = malloc((sizeof(t_data)) * MALLOC);
   transac = build_hdr(transac, UPL_FILE, HDR_RQST);
   transac = build_field_s(transac, FILE_NAME, transfert->name);
   transac = build_field_i(transac, 204, 2);
-  data = make_path(gl_redcap->engine->server->path, 1);
   free(transfert->status);
   transfert->status = strdup("resume");
   //    new_elem_task(pars->buffer, transac->header->id, UPL_FILE, strlen(pars->buffer) + pars->len + 130, 0);

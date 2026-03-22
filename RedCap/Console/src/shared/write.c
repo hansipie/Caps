@@ -15,6 +15,9 @@ void Writen(int fd, char *ptr)
 /*       printf("\n"); */
     }
   if (write(fd, ptr, len) != len)
-    err_sys("writen error");
+    {
+       if (gl_redcap->debug->other)
+         perror("Writen failed (GUI likely disconnected)");
+    }
 }
 

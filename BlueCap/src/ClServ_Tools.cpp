@@ -172,7 +172,7 @@ char *CClServ::read_agreement(char *agreement)
   if (!agreementfile.is_open())
     { 
       cerr << "Error opening file: no agreement" << endl; 
-      return(""); 
+      return((char*)"");
     }
   while (!agreementfile.eof())
     {

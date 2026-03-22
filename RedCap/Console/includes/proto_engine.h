@@ -26,6 +26,7 @@ void    rename_file(int fd);
 void    lmkdir(int fd);
 void    server_name(int connfd);
 void		modify_task(char *buff, int id, int vers, int transfert_size, int resume);
+void		remove_task(char *vers, long ref, int fd);
 void		stop_task(int fd);
 void		delete_task(int fd);
 void		cancel_task(int fd);

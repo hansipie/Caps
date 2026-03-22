@@ -12,6 +12,9 @@ MyFrame::MyFrame(const wxChar *title, int x, int y)
 	CreateMyMenuBar();
 	CreateMyToolBar();
 	m_panel = new MyPanel( this, 10, 10, 300, 100 );
+	wxBoxSizer *mainSizer = new wxBoxSizer(wxVERTICAL);
+	mainSizer->Add(m_panel, 1, wxEXPAND);
+	SetSizer(mainSizer);
 	CreateStatusBar(2);
 	int size[2];
 	size[0] = 20;
@@ -19,6 +22,7 @@ MyFrame::MyFrame(const wxChar *title, int x, int y)
 	SetStatusWidths(2, size);
 
 	SetSizeHints( 500, 425 );
+	Layout();
 	Name = "RedCapUser";
 	Icone = "314";
 
@@ -531,7 +535,7 @@ void MyFrame::input_message(wxSocketEvent& event)
 
 		tempcmd = *outputcmd.begin();
 		outputcmd.erase(outputcmd.begin());
-		//wxMessageBox("un message en atente va etre expedié! \n" + tempcmd);
+		//wxMessageBox("un message en atente va etre expediï¿½! \n" + tempcmd);
 		output_message(tempcmd);
 	}
 	m_busy = FALSE;

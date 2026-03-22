@@ -2,7 +2,6 @@
 
 void	my_access(int command)
 {
-  unsigned char c;
   char  *str2;
   int   i, j;
 

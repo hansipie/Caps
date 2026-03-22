@@ -64,7 +64,7 @@ void	new_elem_task(char *buff, int id, int vers, int transfert_size, int resume)
 void		insert_new_task(t_thread_data *new)
 {
   int		nbr;
-  t_thread_data *tmp, *tmp2;
+  t_thread_data *tmp;
   t_thread_data *save;
   
   if(gl_redcap->debug->functions)
@@ -74,7 +74,6 @@ void		insert_new_task(t_thread_data *new)
       nbr = 1;
       save = gl_redcap->engine->server->transfert;
       tmp = gl_redcap->engine->server->transfert;
-      tmp2 = save;
       while (tmp->next->id != save->id)
 	{
 	  tmp = tmp->next;
@@ -205,6 +204,7 @@ void		delete_task(int command)
   pars = pars_opt(gl_redcap->bridge->data->buffer,
 		  gl_redcap->bridge->data->len,
 		  command);
+  tmp = pars;
   if (pars != NULL)
     {
       pars = pars->next;
@@ -221,10 +221,10 @@ void		cancel_task(int command)
   
   if(gl_redcap->debug->functions)
     printf("func:cancel_task\n");
-  tmp = pars;
-  pars = pars_opt(gl_redcap->bridge->data->buffer, 
+  pars = pars_opt(gl_redcap->bridge->data->buffer,
 		  gl_redcap->bridge->data->len,
 		  command);
+  tmp = pars;
   if (pars != NULL)
     {
       pars = pars->next;

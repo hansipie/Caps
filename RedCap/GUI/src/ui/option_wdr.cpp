@@ -27,24 +27,24 @@ wxSizer *Option( wxWindow *parent, bool call_fit, bool set_sizer )
     wxBoxSizer *item1 = new wxBoxSizer( wxHORIZONTAL );
 
     wxStaticText *item2 = new wxStaticText( parent, ID_USERNAME, wxT("User Name : "), wxDefaultPosition, wxDefaultSize, 0 );
-    item1->Add( item2, 0, wxALIGN_CENTER|wxALL, 5 );
+    item1->Add( item2, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
     wxTextCtrl *item3 = new wxTextCtrl( parent, ID_TEXTCTRL, wxT(""), wxDefaultPosition, wxSize(100,-1), 0 );
-    item1->Add( item3, 0, wxALIGN_CENTER|wxALL, 5 );
+    item1->Add( item3, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 
-    item0->Add( item1, 0, wxALIGN_CENTER|wxALL, 5 );
+    item0->Add( item1, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
     wxCheckBox *item4 = new wxCheckBox( parent, ID_CHECKBOX, wxT("Auto Agreement"), wxDefaultPosition, wxDefaultSize, 0 );
-    item0->Add( item4, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    item0->Add( item4, 0, wxALIGN_LEFT|wxALL, 5 );
 
     wxCheckBox *item5 = new wxCheckBox( parent, ID_CHECKBOX, wxT("Show Join/Leave chat"), wxDefaultPosition, wxDefaultSize, 0 );
-    item0->Add( item5, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    item0->Add( item5, 0, wxALIGN_LEFT|wxALL, 5 );
 
     wxCheckBox *item6 = new wxCheckBox( parent, ID_CHECKBOX, wxT("Refuse Private Message"), wxDefaultPosition, wxDefaultSize, 0 );
-    item0->Add( item6, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    item0->Add( item6, 0, wxALIGN_LEFT|wxALL, 5 );
 
     wxCheckBox *item7 = new wxCheckBox( parent, ID_CHECKBOX, wxT("Automatic Response"), wxDefaultPosition, wxDefaultSize, 0 );
-    item0->Add( item7, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
+    item0->Add( item7, 0, wxALIGN_LEFT|wxALL, 5 );
 
     if (set_sizer)
     {

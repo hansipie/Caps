@@ -77,17 +77,14 @@ void MyFrame::preview_in_file(char *stream, int bit_left)
 
 void MyPanel::CheckPrevExtension(wxListEvent& event)
 {
-	long item = -1;
-	int fl = -1;
+	long item = event.GetIndex();
+	if (item < 0)
+	{
+		item = this->panel_transfer->ExploServer->tree_list->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+	}
+	if (item < 0 || item >= this->panel_transfer->ExploServer->tree_list->GetItemCount())
+		return;
 
-	for ( ; fl == -1; )
-    {
-        item = this->panel_transfer->ExploServer->tree_list->GetNextItem(item, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
-        if ( item == -1 )
-            break;
-		fl = 1;		
-        // this item is selected - do whatever is needed with it
-    }
 	wxString file_name = this->panel_transfer->ExploServer->tree_list->GetItemText(item);
 	wxString extension = file_name.AfterLast('.');
 	if (extension.CmpNoCase("pdf") || extension.CmpNoCase("mpeg") || 
@@ -122,6 +119,11 @@ void MyPanel::PreviewFile(wxCommandEvent& event)
 		fl = 1;
         // this item is selected - do whatever is needed with it
     }
+	if (item < 0 || item >= this->panel_transfer->ExploServer->tree_list->GetItemCount())
+	{
+		wxMessageBox("You have to select a file to preview", "File Transfer Information", wxICON_EXCLAMATION);
+		return;
+	}
 	wxString file_name = this->panel_transfer->ExploServer->tree_list->GetItemText(item);
 	//wxMessageBox("Lancement du preview de " +  file_name + ".");
 	MainFrame->output_message("preview \"" + file_name + "\"");

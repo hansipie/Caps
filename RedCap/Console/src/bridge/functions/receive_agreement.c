@@ -22,10 +22,10 @@ void	receive_agreement(t_transac *transac)
       prompt(gl_redcap->bridge->fd);
     return;
     }
-  printf("\tpouet\n");
   if (transac->field->id == 101)
     {
-      printf("\tpouet y a un 101\n");
+      if (gl_redcap->debug->functions)
+        printf("Agreement received with ID 101\n");
 /*       if (transac->field->size == 0) */
 /* 	return; */
       buff = malloc((transac->field->size + 1) * MALLOC);

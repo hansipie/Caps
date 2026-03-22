@@ -43,11 +43,9 @@ void    previous_server()
 
 t_server	*goto_server(pthread_t *thread, t_server *server)
 {
-  t_server *server_c;
   int	   flag;
 
   flag = 0;
-  server_c = gl_redcap->engine->server;
   while(strcmp(gl_redcap->engine->server->host, gl_redcap->bridge->data->buffer))
     {
       if (strcmp(gl_redcap->engine->server->host, "Client RedCap"))
@@ -120,8 +118,8 @@ t_server	 *list_server(pthread_t *thread, t_server *server)
 
 void		lst_server()
 {
-  pthread_t *thread;
-  t_server *server;
+  pthread_t *thread = NULL;
+  t_server *server = NULL;
 
   list_server(thread, server);
 }
@@ -144,12 +142,15 @@ t_server *extract_server(pthread_t *thread, t_server *server)
 
 t_server *remove_server(pthread_t *thread, t_server *server)
 {
+  t_server *prev;
+
   if (gl_redcap->debug->functions)
     printf("***function:remove_server\n");
-  server->prev->next = server->next;
+  prev = server->prev;
+  prev->next = server->next;
   close(server->fd);
   free(server);
-  return(server->prev);
+  return(prev);
 }
 
 int next_id(int *tab, int len)

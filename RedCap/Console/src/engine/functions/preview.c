@@ -50,12 +50,10 @@ void    preview(int command)
 {
   t_transac     *transac;
   t_data        *pars, *data, *tmp;
-  int           flag;
   char		*ext, *str;
 
   if(gl_redcap->debug->functions)
     printf("func:preview\n");
-  flag = 0;
   pars = pars_opt(gl_redcap->bridge->data->buffer,
 		  gl_redcap->bridge->data->len, 
 		  command);

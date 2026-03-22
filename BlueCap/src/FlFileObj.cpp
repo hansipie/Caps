@@ -67,15 +67,15 @@ char *CFlFileObj::make_FFO(string file)
       return NULL;
     }
   rsvd.assign(16, '\0');
-  part1 = new CFFHeader("FILP", 1, (char *)rsvd.data(), 2);
+  part1 = new CFFHeader((char*)"FILP", 1, (char *)rsvd.data(), 2);
 
   rsvd.assign(32, '\0');
   part3 = new CFFInfoFork(HL_OS, (char *)type.c_str(), (char *)crea.c_str(), (char *)rsvd.data(),  (char *)filename.c_str(), filename.length());
 
   rsvd.assign(4, '\0');
-  part2 = new CFFForkHeader("INFO", 0, (char *)rsvd.data(), part3->name_size + 74);
+  part2 = new CFFForkHeader((char*)"INFO", 0, (char *)rsvd.data(), part3->name_size + 74);
 
-  part4 = new CFFForkHeader("DATA", 0, (char *)rsvd.data(), sb.st_size);
+  part4 = new CFFForkHeader((char*)"DATA", 0, (char *)rsvd.data(), sb.st_size);
 
   build_FFO_buff();
 

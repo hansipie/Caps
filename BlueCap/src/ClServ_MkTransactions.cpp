@@ -283,13 +283,13 @@ bool CClServ::MakeGetFileInfoReply(int Id)
       tosend.build_hdr(NO_TYPE, HDR_RPLY);
       if (sb.st_mode & S_IFDIR)
 	{
-	  tosend.build_field_s(ID_FILE_TYPE_STR, "Folder");
-	  tosend.build_field_s(ID_FILE_CREA_STR, "n/a");  
-	  tosend.build_field_b(ID_FILE_TYPE, "fldr", 4); // a verifier
+	  tosend.build_field_s(ID_FILE_TYPE_STR, (char*)"Folder");
+	  tosend.build_field_s(ID_FILE_CREA_STR, (char*)"n/a");
+	  tosend.build_field_b(ID_FILE_TYPE, (char*)"fldr", 4); // a verifier
 	}
       else
 	{
-	  tosend.build_field_b(ID_FILE_TYPE, "othr", 4); // a verifier
+	  tosend.build_field_b(ID_FILE_TYPE, (char*)"othr", 4); // a verifier
 	  string type = Server->GetTypeStr(filename);
 	  tosend.build_field_s(ID_FILE_TYPE_STR, (char *)type.c_str());
 	  string crea = Server->GetCreaStr(filename);
@@ -297,8 +297,8 @@ bool CClServ::MakeGetFileInfoReply(int Id)
 	  tosend.build_field_i(ID_FILE_SIZE, sb.st_size);
   	}
       tosend.build_field_s(ID_FILE_NAME, (char *)filename.c_str());
-      tosend.build_field_b(ID_FILE_CREA_DAT, "", 0);
-      tosend.build_field_b(ID_FILE_MOD_DAT, "", 0);
+      tosend.build_field_b(ID_FILE_CREA_DAT, (char*)"", 0);
+      tosend.build_field_b(ID_FILE_MOD_DAT, (char*)"", 0);
       tosend.build_field_s(ID_FILE_COMM, (char *)Server->ServConf.ServerName.c_str());
       FinalizeBuffer(tosend);
       return true;

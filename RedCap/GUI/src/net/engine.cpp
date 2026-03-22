@@ -143,11 +143,11 @@ void MyFrame::server_known(vector<wxString>::iterator i)
 {
 	wxString	line;
 	wxString	name;
-	size_t		n;
-	CServData	*tmp;
 
 	//wxMessageBox("server_know");
 #ifdef __WIN32__
+	size_t		n;
+	CServData	*tmp;
 	line = *i;
 	tmp = m_panel->Current_serv_data;
 	name = "";
@@ -604,8 +604,6 @@ void MyFrame::server_list(vector<wxString>::iterator i)
 				CServData *nouveauData;
 				int x = 0;
 				int y = 0;
-				long item;
-				CUser		*tmpuser;
 				wxString	str;
 				wxString	str2;
 				int			user_id;
@@ -636,10 +634,8 @@ void MyFrame::server_list(vector<wxString>::iterator i)
 					str = *VPrivChat;
 					str2 = *VPrivChatTitle;
 					user_id = *VPrivChatId;
-					item = m_panel->List_users->GetNextItem(-1, wxLIST_NEXT_ALL,
-													wxLIST_STATE_SELECTED);
 					privchat = new CPrivChat(m_panel->m_notebook, str2 , x, y   ); //on cree une classe temporaire
-					privchat->TopChatWindow->SetFont(wxFont(8, wxDECORATIVE, wxNORMAL, wxBOLD, FALSE, "Unicode"));
+					privchat->TopChatWindow->SetFont(wxFont(wxFontInfo(8).Family(wxFONTFAMILY_DECORATIVE).Style(wxFONTSTYLE_NORMAL).Weight(wxFONTWEIGHT_BOLD).FaceName("Unicode")));
 					privchat->name = str2;
 					privchat->TopChatWindow->SetValue(str);
 					privchat->id_user = user_id;
@@ -755,8 +751,6 @@ void MyFrame::server_list(vector<wxString>::iterator i)
 		CServData *nouveauData;
 		int x = 0;
 		int y = 0;
-		long item;
-		CUser		*tmpuser;
 		wxString	str;
 		wxString	str2;
 		int			user_id;
@@ -787,10 +781,8 @@ void MyFrame::server_list(vector<wxString>::iterator i)
 			str = *VPrivChat;
 			str2 = *VPrivChatTitle;
 			user_id = *VPrivChatId;
-			item = m_panel->List_users->GetNextItem(-1, wxLIST_NEXT_ALL,
-											wxLIST_STATE_SELECTED);
 			privchat = new CPrivChat(m_panel->m_notebook, str2 , x, y   ); //on cree une classe temporaire
-			privchat->TopChatWindow->SetFont(wxFont(8, wxDECORATIVE, wxNORMAL, wxBOLD, FALSE, "Unicode"));
+			privchat->TopChatWindow->SetFont(wxFont(wxFontInfo(8).Family(wxFONTFAMILY_DECORATIVE).Style(wxFONTSTYLE_NORMAL).Weight(wxFONTWEIGHT_BOLD).FaceName("Unicode")));
 			privchat->name = str2;
 			privchat->TopChatWindow->SetValue(str);
 			privchat->id_user = user_id;
@@ -857,7 +849,7 @@ void MyFrame::receive_chat(vector<wxString>::iterator i)
 
 	msg = "";
 	i++;
-	m_panel->panel_public->TopChatWindow->SetFont(wxFont(8, wxDECORATIVE, wxNORMAL, wxBOLD, FALSE, "Unicode"));
+	m_panel->panel_public->TopChatWindow->SetFont(wxFont(wxFontInfo(8).Family(wxFONTFAMILY_DECORATIVE).Style(wxFONTSTYLE_NORMAL).Weight(wxFONTWEIGHT_BOLD).FaceName("Unicode")));
 	m_panel->panel_public->TopChatWindow->SetDefaultStyle(wxTextAttr(*wxBLUE));
 	
 	for ( ; i != tab_line_cmd.end(); ++i )
@@ -945,7 +937,7 @@ void MyFrame::receive_priv_chat(vector<wxString>::iterator i)
 	}
 	if (it != m_panel->List_PrivChat.end())
 	{
-		privchat->TopChatWindow->SetFont(wxFont(8, wxDECORATIVE, wxNORMAL, wxBOLD, FALSE, "Unicode"));
+		privchat->TopChatWindow->SetFont(wxFont(wxFontInfo(8).Family(wxFONTFAMILY_DECORATIVE).Style(wxFONTSTYLE_NORMAL).Weight(wxFONTWEIGHT_BOLD).FaceName("Unicode")));
 		privchat->TopChatWindow->SetDefaultStyle(wxTextAttr(login_colour));
 		privchat->TopChatWindow->AppendText(msg1);
 		privchat->TopChatWindow->SetDefaultStyle(wxTextAttr(*wxBLACK));
@@ -967,7 +959,7 @@ void MyFrame::receive_priv_chat(vector<wxString>::iterator i)
 			privchat->CloseButton->SetSize(x - WIDTH_UTILISATEUR - 35, 0, 24, 24);
 			privchat->ChatText->SetSize(0, 0, x - 113 - WIDTH_UTILISATEUR, y  - privchat->y_sash - 67);
 			m_panel->List_PrivChat.push_back(privchat); //on enregistre la classe dans la liste
-			privchat->TopChatWindow->SetFont(wxFont(8, wxDECORATIVE, wxNORMAL, wxBOLD, FALSE, "Unicode"));
+			privchat->TopChatWindow->SetFont(wxFont(wxFontInfo(8).Family(wxFONTFAMILY_DECORATIVE).Style(wxFONTSTYLE_NORMAL).Weight(wxFONTWEIGHT_BOLD).FaceName("Unicode")));
 			privchat->TopChatWindow->SetDefaultStyle(wxTextAttr(login_colour));
 			privchat->TopChatWindow->AppendText(msg1);
 			privchat->TopChatWindow->SetDefaultStyle(wxTextAttr(*wxBLACK));
@@ -1035,16 +1027,13 @@ void MyFrame::file_client_set_list(vector<wxString>::iterator i)
 	int					serv;
 	vector<wxString>	fichier;
 	wxString			line;
-	CServData			*tmp;
 	int cpt_file = 0;
 
 
-	tmp = NULL;
 	serv = m_panel->List_serv->GetSelection();
 	vector<CServData * >::iterator it = m_panel->Serv_Data.begin();
 	for (/*vector<CServData * >::iterator it = m_panel->Serv_Data.begin()*/; it != m_panel->Serv_Data.end(); ++it )
 	{
-		tmp = *it;
 		if(serv <= 0)
 			break;
 		serv --;
@@ -1112,17 +1101,14 @@ void MyFrame::file_set_list(vector<wxString>::iterator i)
 	int					serv;
 	vector<wxString>	fichier;
 	wxString			line;
-	CServData			*tmp;
 //	CRep				*RepRoot;
 //	CRep 				*RepList;
 //	CFileList			*FileList;
 
-	tmp = NULL;
 	serv = m_panel->List_serv->GetSelection();
 	vector<CServData * >::iterator it = m_panel->Serv_Data.begin();
 	for (/*vector<CServData * >::iterator it = m_panel->Serv_Data.begin()*/; it != m_panel->Serv_Data.end(); ++it )
 	{
-		tmp = *it;
 		if(serv <= 0)
 			break;
 		serv --;
@@ -1441,8 +1427,6 @@ id	icon	flag			size	name
 					nuser->num_icon = 12;
 				else if (!strncmp(FlagLst.at(2), "3", 1))
 					nuser->num_icon = 16;
-				int	cpt_flag;
-				cpt_flag = 0;
 				if (FlagLst.at(3) == '1')
 					nuser->num_icon += 1;
 				if (FlagLst.at(1) == '1')

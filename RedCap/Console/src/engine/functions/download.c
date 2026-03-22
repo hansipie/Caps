@@ -79,12 +79,11 @@ void    download(int command)
 {
   t_transac	*transac;
   t_data	*pars, *data, *resume, *tmp_pars;
-  int		flag, vers, resum;
+  int		vers, resum;
   char		*tmp;
 
   if(gl_redcap->debug->functions)
     printf("func:download\n");
-  flag = 0;
   resum = 0;
   vers = 0;
   pars = pars_opt(gl_redcap->bridge->data->buffer, 
