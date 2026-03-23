@@ -7,6 +7,8 @@
 ![Language](https://img.shields.io/badge/language-C%2FC%2B%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+> **Disclaimer**: This is a **Final Year University Project from 2005**. It is published here purely as a historical archive. It is not intended for production use, is not actively maintained, and is not expected to evolve further.
+
 CAPS is an open-source implementation of the [Hotline](https://en.wikipedia.org/wiki/Hotline_Communications) protocol, written in C++. It consists of three components:
 
 - **BlueCap** — the server
@@ -145,6 +147,41 @@ Caps/
 │       └── build/bin/  # Compiled GUI binary
 └── README.md
 ```
+
+## Documentation
+
+### Protocol
+
+| File | Description |
+|------|-------------|
+| [HLProtocol - original.md](docs/HLProtocol%20-%20original.md) | Original Hotline protocol specification |
+| [HLProtocol - CAPS v0.6_dev.md](docs/HLProtocol%20-%20CAPS%20v0.6_dev.md) | CAPS v0.6 protocol implementation notes |
+| [HLProtocol - Analyse des changements v0.6.md](docs/HLProtocol%20-%20Analyse%20des%20changements%20v0.6.md) | Protocol changes analysis for v0.6 |
+
+### BlueCap (server)
+
+| File | Description |
+|------|-------------|
+| [ABOUT.TXT](BlueCap/docs/ABOUT.TXT) | Project overview |
+| [INSTALL.TXT](BlueCap/docs/INSTALL.TXT) | Installation instructions |
+
+### RedCap/Console (CLI client)
+
+| File | Description |
+|------|-------------|
+| [ReadME](RedCap/Console/docs/ReadME) | General readme |
+| [INSTALL](RedCap/Console/docs/INSTALL) | Build and install instructions |
+| [Instructions.txt](RedCap/Console/docs/Instructions.txt) | Usage instructions |
+| [user_flag.txt](RedCap/Console/docs/user_flag.txt) | User permission flags reference |
+| [ChangeLog](RedCap/Console/docs/ChangeLog) | Change history |
+| [TODO](RedCap/Console/docs/TODO) | Planned features |
+| [AUTHORS](RedCap/Console/docs/AUTHORS) | Contributors |
+
+### RedCap/GUI (graphical client)
+
+| File | Description |
+|------|-------------|
+| [ABOUT.txt](RedCap/GUI/docs/ABOUT.txt) | About the GUI client |
 
 ## Version History
 

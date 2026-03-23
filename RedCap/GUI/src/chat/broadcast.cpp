@@ -1,7 +1,7 @@
 #include "general.h"
 
 BroadcastDialog::BroadcastDialog(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos)
-:wxDialog(parent, id, title, pos, wxSize(360, 150))
+:wxDialog(parent, id, title, pos, wxDefaultSize)
 {
 	MainFrame = (MyFrame *)parent;
 	parent = this;
@@ -33,9 +33,7 @@ BroadcastDialog::BroadcastDialog(wxWindow* parent, wxWindowID id, const wxString
 	button->SetDefault();  
 	sizerV->Add( button, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
 
-	SetSizer(sizerV);
-	SetAutoLayout(TRUE);
-	Layout();
+	SetSizerAndFit(sizerV);
 }
 
 void BroadcastDialog::OnSendBroadcast(wxCommandEvent& command)

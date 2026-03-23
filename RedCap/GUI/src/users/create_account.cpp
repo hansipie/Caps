@@ -1,24 +1,45 @@
 #include "general.h"
 
 CCreateAccount::CCreateAccount(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos)
-:wxDialog(parent, id, title, pos, wxSize(290, 210))
+:wxDialog(parent, id, title, pos, wxDefaultSize)
 {
 	MainFrame = (MyFrame *)parent;
     parent = this;
-	
-	new wxStaticBox( parent, -1, wxT("New User Account Information"), wxPoint(10, 10), wxSize(265, 130));
 
-	new wxStaticText( parent, ID_TEXT, wxT("Name :"), wxPoint(20, 40), wxDefaultSize, 0 );
-    name_field = new wxTextCtrl( parent, ID_TEXTCTRL, wxT(""), wxPoint(130, 40), wxSize(130,-1), 0 );
+	wxBoxSizer *VMainBox = new wxBoxSizer(wxVERTICAL);
+	wxStaticBox *Contour = new wxStaticBox(parent, -1, wxT("New User Account Information"));
+	wxStaticBoxSizer *ContourSizer = new wxStaticBoxSizer(Contour, wxVERTICAL);
 
-	new wxStaticText( parent, ID_TEXT, wxT("Login :"), wxPoint(20, 70), wxDefaultSize, 0 );
-    login_field = new wxTextCtrl( parent, ID_TEXTCTRL, wxT(""), wxPoint(130, 70), wxSize(130,-1), 0 );
+	wxFlexGridSizer *FormGrid = new wxFlexGridSizer(3, 2, 5, 10);
+	FormGrid->AddGrowableCol(1, 1);
 
-	new wxStaticText( parent, ID_TEXT, wxT("Password :"), wxPoint(20, 100), wxDefaultSize, 0 );
-	password_field = new wxTextCtrl( parent, ID_TEXTCTRL, wxT(""), wxPoint(130, 100), wxSize(130,-1), wxTE_PASSWORD );
+	wxStaticText *name_label = new wxStaticText(parent, ID_TEXT, wxT("Name :"), wxDefaultPosition, wxDefaultSize, 0);
+	name_field = new wxTextCtrl(parent, ID_TEXTCTRL, wxT(""), wxDefaultPosition, wxSize(130,-1), 0);
+	FormGrid->Add(name_label, 0, wxALIGN_CENTER_VERTICAL|wxALL, 3);
+	FormGrid->Add(name_field, 0, wxEXPAND|wxALL, 3);
 
-	new wxButton( parent, ID_CREATED_ACCOUNT, wxT("Create"), wxPoint(120, 150), wxDefaultSize,0);
-	new wxButton( parent, wxID_CANCEL, wxT("Cancel"), wxPoint(200, 150), wxDefaultSize,0);
+	wxStaticText *login_label = new wxStaticText(parent, ID_TEXT, wxT("Login :"), wxDefaultPosition, wxDefaultSize, 0);
+	login_field = new wxTextCtrl(parent, ID_TEXTCTRL, wxT(""), wxDefaultPosition, wxSize(130,-1), 0);
+	FormGrid->Add(login_label, 0, wxALIGN_CENTER_VERTICAL|wxALL, 3);
+	FormGrid->Add(login_field, 0, wxEXPAND|wxALL, 3);
+
+	wxStaticText *password_label = new wxStaticText(parent, ID_TEXT, wxT("Password :"), wxDefaultPosition, wxDefaultSize, 0);
+	password_field = new wxTextCtrl(parent, ID_TEXTCTRL, wxT(""), wxDefaultPosition, wxSize(130,-1), wxTE_PASSWORD);
+	FormGrid->Add(password_label, 0, wxALIGN_CENTER_VERTICAL|wxALL, 3);
+	FormGrid->Add(password_field, 0, wxEXPAND|wxALL, 3);
+
+	ContourSizer->Add(FormGrid, 0, wxEXPAND|wxALL, 5);
+
+	wxBoxSizer *ButtonBox = new wxBoxSizer(wxHORIZONTAL);
+	wxButton *create_btn = new wxButton(parent, ID_CREATED_ACCOUNT, wxT("Create"), wxDefaultPosition, wxDefaultSize, 0);
+	create_btn->SetDefault();
+	ButtonBox->Add(create_btn, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
+	wxButton *cancel_btn = new wxButton(parent, wxID_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0);
+	ButtonBox->Add(cancel_btn, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
+	ContourSizer->Add(ButtonBox, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5);
+
+	VMainBox->Add(ContourSizer, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 10);
+	SetSizerAndFit(VMainBox);
 }
 
 void CCreateAccount::OnConfirmNewAccount(wxCommandEvent& command)

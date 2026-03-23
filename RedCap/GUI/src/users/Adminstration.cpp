@@ -1,7 +1,7 @@
 #include "general.h"
 
 CAdmin::CAdmin(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos)
-:wxDialog(parent, id, title, pos, wxSize(520, 500))
+:wxDialog(parent, id, title, pos, wxDefaultSize)
 {
 	MainFrame = (MyFrame *)parent;
     parent = this;
@@ -9,136 +9,200 @@ CAdmin::CAdmin(wxWindow* parent, wxWindowID id, const wxString& title, const wxP
 	wxBitmap AdminBitmaps[2];
 	AdminBitmaps[0] = wxBitmap("./icons/add_user_account.bmp",wxBITMAP_TYPE_BMP);
 	AdminBitmaps[1] = wxBitmap("./icons/suppr_user_account.bmp",wxBITMAP_TYPE_BMP);
-	
+
 	wxMask *mask0 = new wxMask(AdminBitmaps[0], *wxWHITE);
     AdminBitmaps[0].SetMask(mask0);
 	wxMask *mask1 = new wxMask(AdminBitmaps[1], *wxWHITE);
     AdminBitmaps[1].SetMask(mask1);
-	
+
 	add_account_button = new wxBitmapButton(parent, ID_ADD_ACCOUNT_BUTTON,
 								AdminBitmaps[0],
-								wxPoint(5, 8),
+								wxDefaultPosition,
 								wxSize(30, 30));
-	suppr_account_button = new wxBitmapButton(parent, ID_SUPPR_ACCOUNT_BUTTON, 
-								AdminBitmaps[1], 
-								wxPoint(220, 8),
+	suppr_account_button = new wxBitmapButton(parent, ID_SUPPR_ACCOUNT_BUTTON,
+								AdminBitmaps[1],
+								wxDefaultPosition,
 								wxSize(30, 30));
 
 //------------------------------------------------------------------------------------------------------------
 
 	BitmapUser = new wxStaticBitmap(
-									this, -1,
+									parent, -1,
 									wxBitmap("./icons/Accounts.bmp", wxBITMAP_TYPE_BMP),
-									wxPoint(5, 40),
-									wxSize(230, 24)
+									wxDefaultPosition,
+									wxDefaultSize
 									);
 
-	list_account = new wxListCtrl(parent, 
+	list_account = new wxListCtrl(parent,
 										ID_LIST_ACCOUNT,
-										wxPoint(5, 65), wxSize(230, 345), 
+										wxDefaultPosition, wxSize(230, -1),
 										wxSUNKEN_BORDER | wxLC_REPORT);
 
 	list_account->InsertColumn( 0, wxT("Login"), wxLIST_FORMAT_LEFT, 110 );
 
+//-------------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------------
 
+	wxStaticBox *InfoContour = new wxStaticBox(parent, -1, wxT("User Account Information"));
+	wxStaticBoxSizer *InfoBox = new wxStaticBoxSizer(InfoContour, wxVERTICAL);
+
+	wxBoxSizer *NameRow = new wxBoxSizer(wxHORIZONTAL);
+	wxStaticText *name_label = new wxStaticText(parent, ID_TEXT, wxT("Name :"), wxDefaultPosition, wxDefaultSize, 0);
+	UserName = new wxTextCtrl(parent, ID_TEXTCTRL, wxT(""), wxDefaultPosition, wxSize(130,-1), 0);
+	NameRow->Add(name_label, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
+	NameRow->Add(UserName, 1, wxEXPAND|wxALL, 5);
+	InfoBox->Add(NameRow, 0, wxEXPAND|wxALL, 2);
+
+	wxBoxSizer *LoginRow = new wxBoxSizer(wxHORIZONTAL);
+	wxStaticText *login_label = new wxStaticText(parent, ID_TEXT, wxT("Login :"), wxDefaultPosition, wxDefaultSize, 0);
+	login = new wxTextCtrl(parent, ID_TEXTCTRL, wxT(""), wxDefaultPosition, wxSize(130,-1), 0);
+	LoginRow->Add(login_label, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
+	LoginRow->Add(login, 1, wxEXPAND|wxALL, 5);
+	InfoBox->Add(LoginRow, 0, wxEXPAND|wxALL, 2);
+
+	wxBoxSizer *PasswordRow = new wxBoxSizer(wxHORIZONTAL);
+	wxStaticText *password_label = new wxStaticText(parent, ID_TEXT, wxT("Password :"), wxDefaultPosition, wxDefaultSize, 0);
+	password = new wxTextCtrl(parent, ID_TEXTCTRL, wxT(""), wxDefaultPosition, wxSize(130,-1), wxTE_PASSWORD);
+	PasswordRow->Add(password_label, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
+	PasswordRow->Add(password, 1, wxEXPAND|wxALL, 5);
+	InfoBox->Add(PasswordRow, 0, wxEXPAND|wxALL, 2);
 
 //-------------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------------
 
-	new wxStaticBox( parent, -1, wxT("User Account Information"), wxPoint(240, 40), wxSize(265, 130));
+	rights_notebook = new wxNotebook(parent, ID_NOTEBOOK, wxDefaultPosition, wxDefaultSize, 0);
+	rights_notebook->SetMinSize(wxSize(270, 200));
 
-	new wxStaticText( parent, ID_TEXT, wxT("Name :"), wxPoint(250, 70), wxDefaultSize, 0 );
-	UserName = new wxTextCtrl( parent, ID_TEXTCTRL, wxT(""), wxPoint(360, 70), wxSize(130,-1), 0 );
-
-	new wxStaticText( parent, ID_TEXT, wxT("Login :"), wxPoint(250, 100), wxDefaultSize, 0 );
-    login = new wxTextCtrl( parent, ID_TEXTCTRL, wxT(""), wxPoint(360, 100), wxSize(130,-1), 0 );
-
-	new wxStaticText( parent, ID_TEXT, wxT("Password :"), wxPoint(250, 130), wxDefaultSize, 0 );
-   password = new wxTextCtrl( parent, ID_TEXTCTRL, wxT(""), wxPoint(360, 130), wxSize(130,-1),wxTE_PASSWORD );
-
-//-------------------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------------------
-
-	rights_notebook = new wxNotebook(parent, ID_NOTEBOOK, wxPoint(240, 175),wxSize(270, 235), 0);		
-	
 	panel_FilesRights = new wxPanel(rights_notebook, -1);
+	wxFlexGridSizer *FilesSizer = new wxFlexGridSizer(0, 2, 2, 10);
 
-	
-	downloadfile = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can download Files"), 
-					wxPoint(5, 35), wxDefaultSize, 0 );
-	uploadfile = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can upload Files"), 
-					wxPoint(5, 55), wxDefaultSize, 0 );
-	uploadanywhere = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can upload Anywhere"), 
-					wxPoint(5, 75), wxDefaultSize, 0 );
-	deletefile = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can delete Files"), 
-					wxPoint(5, 95), wxDefaultSize, 0 );	
-	renamefile = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can rename Files"), 
-					wxPoint(5, 115), wxDefaultSize, 0 );
-	movefile = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can move Files"), 
-					wxPoint(5, 135), wxDefaultSize, 0 );
-	getfilecomment = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can comment Files"), 
-					wxPoint(5, 155), wxDefaultSize, 0 );
+	downloadfile = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can download Files"), wxDefaultPosition, wxDefaultSize, 0 );
+	uploadfile = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can upload Files"), wxDefaultPosition, wxDefaultSize, 0 );
+	uploadanywhere = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can upload Anywhere"), wxDefaultPosition, wxDefaultSize, 0 );
+	deletefile = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can delete Files"), wxDefaultPosition, wxDefaultSize, 0 );
+	renamefile = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can rename Files"), wxDefaultPosition, wxDefaultSize, 0 );
+	movefile = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can move Files"), wxDefaultPosition, wxDefaultSize, 0 );
+	getfilecomment = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can comment Files"), wxDefaultPosition, wxDefaultSize, 0 );
+	createfolder = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can create Folders"), wxDefaultPosition, wxDefaultSize, 0 );
+	renamefolder = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can rename Folders"), wxDefaultPosition, wxDefaultSize, 0 );
+	deletefolder = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can delete Folders"), wxDefaultPosition, wxDefaultSize, 0 );
+	movefolder = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can move Folders"), wxDefaultPosition, wxDefaultSize, 0 );
+	setfoldercomment = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can comment Folders"), wxDefaultPosition, wxDefaultSize, 0 );
+	makealias = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can make Aliases"), wxDefaultPosition, wxDefaultSize, 0 );
+	viewdropboxes = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can view Drop Boxes"), wxDefaultPosition, wxDefaultSize, 0 );
 
-	createfolder = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can create Folders"), 
-					wxPoint(135, 35), wxDefaultSize, 0 );
-	renamefolder = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can rename Folders"), 
-					wxPoint(135, 55), wxDefaultSize, 0 );
-	deletefolder = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can delete Folders"), 
-					wxPoint(135, 75), wxDefaultSize, 0 );
-	movefolder = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can move Folders"), 
-					wxPoint(135, 95), wxDefaultSize, 0 );
-	setfoldercomment = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can comment Folders"), 
-					wxPoint(135, 115), wxDefaultSize, 0 );
-	makealias = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can make Aliases"), 
-					wxPoint(135, 135), wxDefaultSize, 0 );
-	viewdropboxes = new wxCheckBox( panel_FilesRights, ID_DWNL_FILE, wxT("Can view Drop Boxes"), 
-					wxPoint(135, 155), wxDefaultSize, 0 );
+	FilesSizer->Add(downloadfile, 0, wxALL, 3);
+	FilesSizer->Add(createfolder, 0, wxALL, 3);
+	FilesSizer->Add(uploadfile, 0, wxALL, 3);
+	FilesSizer->Add(renamefolder, 0, wxALL, 3);
+	FilesSizer->Add(uploadanywhere, 0, wxALL, 3);
+	FilesSizer->Add(deletefolder, 0, wxALL, 3);
+	FilesSizer->Add(deletefile, 0, wxALL, 3);
+	FilesSizer->Add(movefolder, 0, wxALL, 3);
+	FilesSizer->Add(renamefile, 0, wxALL, 3);
+	FilesSizer->Add(setfoldercomment, 0, wxALL, 3);
+	FilesSizer->Add(movefile, 0, wxALL, 3);
+	FilesSizer->Add(makealias, 0, wxALL, 3);
+	FilesSizer->Add(getfilecomment, 0, wxALL, 3);
+	FilesSizer->Add(viewdropboxes, 0, wxALL, 3);
+
+	panel_FilesRights->SetSizer(FilesSizer);
 	rights_notebook->AddPage(panel_FilesRights, wxT("Files"));
-	
+
 	panel_UserRights = new wxPanel(rights_notebook, -1);
-	createuser = new wxCheckBox( panel_UserRights, ID_DWNL_FILE, wxT("Can cresate Accounts"), 
-					wxPoint(5, 35), wxDefaultSize, 0 );
-	modifyuser = new wxCheckBox( panel_UserRights, ID_DWNL_FILE, wxT("Can modify Accounts"), 
-					wxPoint(5, 55), wxDefaultSize, 0 );
-	deleteuser = new wxCheckBox( panel_UserRights, ID_DWNL_FILE, wxT("Can delete Accounts"), 
-					wxPoint(5, 75), wxDefaultSize, 0 );
-	showinlist = new wxCheckBox( panel_UserRights, ID_DWNL_FILE, wxT("Can read Accounts"), 
-					wxPoint(5, 95), wxDefaultSize, 0 );	
-	openuser = new wxCheckBox( panel_UserRights, ID_DWNL_FILE, wxT("Can get User Info"), 
-					wxPoint(5, 115), wxDefaultSize, 0 );	
-	modifyuser = new wxCheckBox( panel_UserRights, ID_DWNL_FILE, wxT("Can modify Accounts"), 
-					wxPoint(5, 135), wxDefaultSize, 0 );
-	changeownpassword = new wxCheckBox( panel_UserRights, ID_DWNL_FILE, wxT("Can change own password"), 
-					wxPoint(5, 155), wxDefaultSize, 0 );
+	wxBoxSizer *UserSizer = new wxBoxSizer(wxVERTICAL);
+
+	createuser = new wxCheckBox( panel_UserRights, ID_DWNL_FILE, wxT("Can cresate Accounts"), wxDefaultPosition, wxDefaultSize, 0 );
+	modifyuser = new wxCheckBox( panel_UserRights, ID_DWNL_FILE, wxT("Can modify Accounts"), wxDefaultPosition, wxDefaultSize, 0 );
+	deleteuser = new wxCheckBox( panel_UserRights, ID_DWNL_FILE, wxT("Can delete Accounts"), wxDefaultPosition, wxDefaultSize, 0 );
+	showinlist = new wxCheckBox( panel_UserRights, ID_DWNL_FILE, wxT("Can read Accounts"), wxDefaultPosition, wxDefaultSize, 0 );
+	openuser = new wxCheckBox( panel_UserRights, ID_DWNL_FILE, wxT("Can get User Info"), wxDefaultPosition, wxDefaultSize, 0 );
+	changeownpassword = new wxCheckBox( panel_UserRights, ID_DWNL_FILE, wxT("Can change own password"), wxDefaultPosition, wxDefaultSize, 0 );
+
+	UserSizer->Add(createuser, 0, wxALL, 3);
+	UserSizer->Add(modifyuser, 0, wxALL, 3);
+	UserSizer->Add(deleteuser, 0, wxALL, 3);
+	UserSizer->Add(showinlist, 0, wxALL, 3);
+	UserSizer->Add(openuser, 0, wxALL, 3);
+	UserSizer->Add(changeownpassword, 0, wxALL, 3);
+
+	panel_UserRights->SetSizer(UserSizer);
 	rights_notebook->AddPage(panel_UserRights, wxT("User"));
-	
-	panel_ChatRights = new wxPanel(rights_notebook, -1);	
-	readchat = new wxCheckBox( panel_ChatRights, ID_DWNL_FILE, wxT("Can read Chat"), 
-					wxPoint(5, 35), wxDefaultSize, 0 );
-	sendchat = new wxCheckBox( panel_ChatRights, ID_DWNL_FILE, wxT("Can send Accounts"), 
-					wxPoint(5, 55), wxDefaultSize, 0 );
-	openchat = new wxCheckBox( panel_ChatRights, ID_DWNL_FILE, wxT("Can initiate Private Chat"), 
-					wxPoint(5, 75), wxDefaultSize, 0 );
-	closechat = new wxCheckBox( panel_ChatRights, ID_DWNL_FILE, wxT("Can close Chat"), 
-					wxPoint(5, 95), wxDefaultSize, 0 );	
-	sendprivatemessage = new wxCheckBox( panel_ChatRights, ID_DWNL_FILE, wxT("Can send Messages"), 
-					wxPoint(5, 115), wxDefaultSize, 0 );	
-	broadcast = new wxCheckBox( panel_ChatRights, ID_DWNL_FILE, wxT("Can Broadcast"), 
-					wxPoint(5, 135), wxDefaultSize, 0 );
+
+	panel_ChatRights = new wxPanel(rights_notebook, -1);
+	wxBoxSizer *ChatSizer = new wxBoxSizer(wxVERTICAL);
+
+	readchat = new wxCheckBox( panel_ChatRights, ID_DWNL_FILE, wxT("Can read Chat"), wxDefaultPosition, wxDefaultSize, 0 );
+	sendchat = new wxCheckBox( panel_ChatRights, ID_DWNL_FILE, wxT("Can send Accounts"), wxDefaultPosition, wxDefaultSize, 0 );
+	openchat = new wxCheckBox( panel_ChatRights, ID_DWNL_FILE, wxT("Can initiate Private Chat"), wxDefaultPosition, wxDefaultSize, 0 );
+	closechat = new wxCheckBox( panel_ChatRights, ID_DWNL_FILE, wxT("Can close Chat"), wxDefaultPosition, wxDefaultSize, 0 );
+	sendprivatemessage = new wxCheckBox( panel_ChatRights, ID_DWNL_FILE, wxT("Can send Messages"), wxDefaultPosition, wxDefaultSize, 0 );
+	broadcast = new wxCheckBox( panel_ChatRights, ID_DWNL_FILE, wxT("Can Broadcast"), wxDefaultPosition, wxDefaultSize, 0 );
+
+	ChatSizer->Add(readchat, 0, wxALL, 3);
+	ChatSizer->Add(sendchat, 0, wxALL, 3);
+	ChatSizer->Add(openchat, 0, wxALL, 3);
+	ChatSizer->Add(closechat, 0, wxALL, 3);
+	ChatSizer->Add(sendprivatemessage, 0, wxALL, 3);
+	ChatSizer->Add(broadcast, 0, wxALL, 3);
+
+	panel_ChatRights->SetSizer(ChatSizer);
 	rights_notebook->AddPage(panel_ChatRights, wxT("Chat"));
+
 	panel_MiscellaneousRights = new wxPanel(rights_notebook, -1);
-	anyname = new wxCheckBox( panel_MiscellaneousRights, ID_DWNL_FILE, wxT("Can use any name"), 
-					wxPoint(5, 35), wxDefaultSize, 0 );
-	noagreement = new wxCheckBox( panel_MiscellaneousRights, ID_DWNL_FILE, wxT("Don't show Agreement"), 
-					wxPoint(5, 55), wxDefaultSize, 0 );
-	DisconnectUser = new wxCheckBox( panel_MiscellaneousRights, ID_DWNL_FILE, wxT("Can Disconnect User"), 
-					wxPoint(5, 75), wxDefaultSize, 0 );
-	GetClientInfo = new wxCheckBox( panel_MiscellaneousRights, ID_DWNL_FILE, wxT("Get Client Info"), 
-					wxPoint(5, 95), wxDefaultSize, 0 );
+	wxBoxSizer *MiscSizer = new wxBoxSizer(wxVERTICAL);
+
+	anyname = new wxCheckBox( panel_MiscellaneousRights, ID_DWNL_FILE, wxT("Can use any name"), wxDefaultPosition, wxDefaultSize, 0 );
+	noagreement = new wxCheckBox( panel_MiscellaneousRights, ID_DWNL_FILE, wxT("Don't show Agreement"), wxDefaultPosition, wxDefaultSize, 0 );
+	DisconnectUser = new wxCheckBox( panel_MiscellaneousRights, ID_DWNL_FILE, wxT("Can Disconnect User"), wxDefaultPosition, wxDefaultSize, 0 );
+	GetClientInfo = new wxCheckBox( panel_MiscellaneousRights, ID_DWNL_FILE, wxT("Get Client Info"), wxDefaultPosition, wxDefaultSize, 0 );
+
+	MiscSizer->Add(anyname, 0, wxALL, 3);
+	MiscSizer->Add(noagreement, 0, wxALL, 3);
+	MiscSizer->Add(DisconnectUser, 0, wxALL, 3);
+	MiscSizer->Add(GetClientInfo, 0, wxALL, 3);
+
+	panel_MiscellaneousRights->SetSizer(MiscSizer);
 	rights_notebook->AddPage(panel_MiscellaneousRights, wxT("Miscellaneous"));
-	
-	new wxButton( this, BUTTON_SAVE, wxT("Save"), wxPoint(345, 425), wxDefaultSize,0);
-	new wxButton( this, wxID_CANCEL, wxT("Cancel"), wxPoint(430, 425), wxDefaultSize,0);
+
+//-------------------------------------------------------------------------------------------------------------
+// Buttons
+//-------------------------------------------------------------------------------------------------------------
+
+	wxButton *save_btn = new wxButton(parent, BUTTON_SAVE, wxT("Save"), wxDefaultPosition, wxDefaultSize, 0);
+	wxButton *cancel_btn = new wxButton(parent, wxID_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0);
+
+//-------------------------------------------------------------------------------------------------------------
+// Sizer assembly
+//-------------------------------------------------------------------------------------------------------------
+
+	wxBoxSizer *VMainBox = new wxBoxSizer(wxVERTICAL);
+
+	wxBoxSizer *TopToolbar = new wxBoxSizer(wxHORIZONTAL);
+	TopToolbar->Add(add_account_button, 0, wxALL, 3);
+	TopToolbar->Add(suppr_account_button, 0, wxALL, 3);
+	VMainBox->Add(TopToolbar, 0, wxLEFT|wxTOP, 5);
+
+	wxBoxSizer *ContentBox = new wxBoxSizer(wxHORIZONTAL);
+
+	wxBoxSizer *LeftPanel = new wxBoxSizer(wxVERTICAL);
+	LeftPanel->Add(BitmapUser, 0, wxALL, 3);
+	LeftPanel->Add(list_account, 1, wxEXPAND|wxALL, 3);
+	ContentBox->Add(LeftPanel, 0, wxEXPAND|wxALL, 5);
+
+	wxBoxSizer *RightPanel = new wxBoxSizer(wxVERTICAL);
+	RightPanel->Add(InfoBox, 0, wxEXPAND|wxALL, 5);
+	RightPanel->Add(rights_notebook, 1, wxEXPAND|wxALL, 5);
+	ContentBox->Add(RightPanel, 1, wxEXPAND|wxALL, 5);
+
+	VMainBox->Add(ContentBox, 1, wxEXPAND|wxALL, 5);
+
+	wxBoxSizer *ButtonRow = new wxBoxSizer(wxHORIZONTAL);
+	ButtonRow->Add(save_btn, 0, wxALL, 5);
+	ButtonRow->Add(cancel_btn, 0, wxALL, 5);
+	VMainBox->Add(ButtonRow, 0, wxALIGN_RIGHT|wxALL, 5);
+
+	SetSizerAndFit(VMainBox);
 	//MainFrame->output_message("get_login_list");
 }
 
@@ -153,7 +217,7 @@ void CAdmin::FillAcountList()
 	for ( vector<wxString>::iterator i = account_list.begin(); i != account_list.end(); ++i )
 	{
 		list_account->InsertItem(list_account->GetItemCount(),*i);
-	}	
+	}
 }
 void CAdmin::OnCreateNewAccount(wxCommandEvent& command)
 {
@@ -213,19 +277,19 @@ void CAdmin::OnEraseAccount(wxCommandEvent& command)
 }
 
 void CAdmin::OnSelectedAccount(wxListEvent& command)
-{	
+{
 	wxString account;
 
 	int save;
 	wxString save_message;
-	
+
 
 	//MainFrame->IntToBox(save_flag);
 	long item = list_account->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
 	if (item != -1)
 		account = list_account->GetItemText(item);
 
-	
+
 	if (save_flag == 1)
 	{
 		save_flag = 0;
@@ -238,7 +302,7 @@ void CAdmin::OnSelectedAccount(wxListEvent& command)
 			if (pass.IsEmpty())
 				pass = " ";
 			NewAccessPrivileges = "set_user_edit \"" + login->GetValue() + "\" \"" + pass + "\" \"" + UserName->GetValue() + "\"";
-			NewAccessPrivileges = NewAccessPrivileges + " \"" 
+			NewAccessPrivileges = NewAccessPrivileges + " \""
 				+ ((deletefile->GetValue())?"1":"0")
 				+ ((uploadfile->GetValue())?"1":"0")
 				+ ((downloadfile->GetValue())?"1":"0")
@@ -276,13 +340,13 @@ void CAdmin::OnSelectedAccount(wxListEvent& command)
 				//+ ((uploadfolder->GetValue())?"1":"0")
 				//+ ((makealias->GetValue())?"1":"0")
 				+ "00000000000000000000000000"
-				+ "\""; 
+				+ "\"";
 			//wxMessageBox(NewAccessPrivileges);
 			MainFrame->output_message(NewAccessPrivileges);
 		}
 		MainFrame->output_message("get_user " + account);
 	}
-	else 
+	else
 		MainFrame->output_message("get_user " + account);
 //	wxMessageBox("get_user \"" + account + "\"");
 		prec_account = account;
@@ -294,7 +358,7 @@ void CAdmin::save_privileges(wxCommandEvent& command)
 			if (pass.IsEmpty())
 				pass = " ";
 			NewAccessPrivileges = "set_user_edit \"" + login->GetValue() + "\" \"" + pass + "\" \"" + UserName->GetValue() + "\"";
-			NewAccessPrivileges = NewAccessPrivileges + " \"" 
+			NewAccessPrivileges = NewAccessPrivileges + " \""
 				+ ((deletefile->GetValue())?"1":"0")
 				+ ((uploadfile->GetValue())?"1":"0")
 				+ ((downloadfile->GetValue())?"1":"0")
@@ -332,14 +396,14 @@ void CAdmin::save_privileges(wxCommandEvent& command)
 				//+ ((uploadfolder->GetValue())?"1":"0")
 				//+ ((makealias->GetValue())?"1":"0")
 				+ "00000000000000000000000000"
-				+ "\""; 
+				+ "\"";
 			//wxMessageBox(NewAccessPrivileges);
 			MainFrame->output_message(NewAccessPrivileges);
 			save_flag = 0;
 }
 
 void CAdmin::WasModified(wxCommandEvent& command)
-{	
+{
 	save_flag = 1;
 	//wxMessageBox("checkbox Modified");
 }
@@ -348,6 +412,6 @@ BEGIN_EVENT_TABLE(CAdmin, wxDialog)
 EVT_BUTTON(ID_ADD_ACCOUNT_BUTTON, CAdmin::OnCreateNewAccount)
 EVT_BUTTON(ID_SUPPR_ACCOUNT_BUTTON, CAdmin::OnEraseAccount)
 EVT_BUTTON(BUTTON_SAVE, CAdmin::save_privileges)
-EVT_LIST_ITEM_SELECTED(ID_LIST_ACCOUNT, CAdmin::OnSelectedAccount) 
-EVT_CHECKBOX(ID_DWNL_FILE, CAdmin::WasModified) 
+EVT_LIST_ITEM_SELECTED(ID_LIST_ACCOUNT, CAdmin::OnSelectedAccount)
+EVT_CHECKBOX(ID_DWNL_FILE, CAdmin::WasModified)
 END_EVENT_TABLE()

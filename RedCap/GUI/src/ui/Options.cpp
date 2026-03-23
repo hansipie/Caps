@@ -2,14 +2,14 @@
 
 
 COptions::COptions(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos)
-:wxDialog(parent, id, title, pos, wxSize(400, 300))
+:wxDialog(parent, id, title, pos, wxDefaultSize)
 {
  
     MainFrame = (MyFrame *)parent;
     parent = this;
 
 	wxBoxSizer *SizerGlobal = new wxBoxSizer( wxVERTICAL );	
-	opt_notebook = new wxNotebook(parent, ID_NOTEBOOK, wxPoint(10, 10),wxSize(300, 300), 0);	
+	opt_notebook = new wxNotebook(parent, ID_NOTEBOOK, wxDefaultPosition, wxDefaultSize, 0);
 	wxSizer *NotebookSizer = new wxBoxSizer(wxVERTICAL);
 	NotebookSizer->Add(opt_notebook, 1, wxEXPAND);
 	
@@ -72,23 +72,16 @@ COptions::COptions(wxWindow* parent, wxWindowID id, const wxString& title, const
 	panel_crypto->SetSizer(SizerCryptoV);
 	opt_notebook->AddPage(panel_crypto, wxT("Data Secutity"));
 	
-	opt_notebook->SetSize(10, 10, 375, 220);
-	SizerGlobal->Add(NotebookSizer, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5);
+	SizerGlobal->Add(NotebookSizer, 1, wxEXPAND|wxALL, 5);
 
-//	wxBoxSizer *SizerButton = new wxBoxSizer ( wxHORIZONTAL );
+	wxBoxSizer *SizerButton = new wxBoxSizer(wxHORIZONTAL);
+	wxButton *ok_opt_button = new wxButton(this, BUTTON_OK, wxT("Ok"), wxDefaultPosition, wxDefaultSize, 0);
+	SizerButton->Add(ok_opt_button, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
+	wxButton *cancel_opt_button = new wxButton(this, BUTTON_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0);
+	SizerButton->Add(cancel_opt_button, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
+	SizerGlobal->Add(SizerButton, 0, wxALIGN_CENTER|wxALL, 5);
 
-	new wxButton( this, BUTTON_OK, wxT("Ok"), wxPoint(210, 240), wxDefaultSize,0);
-	//SizerButton->Add(ok_opt_button, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 5);
-
-	new wxButton( this, BUTTON_CANCEL, wxT("Cancel"), wxPoint(300, 240), wxDefaultSize,0);
-	//SizerButton->Add(cancel_opt_button, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 5);
-	
-	//SizerGlobal->Add( SizerButton, 0, wxALIGN_CENTER|wxLEFT|wxBOTTOM, 5 );
-
-	//SetSizer(SizerButton);
-
-	SetAutoLayout(TRUE);
-	Layout();
+	SetSizerAndFit(SizerGlobal);
 }
 
 void COptions::OnCancel(wxCommandEvent &event)

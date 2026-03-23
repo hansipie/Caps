@@ -1,7 +1,7 @@
 #include "general.h"
 
 PopupCreate::PopupCreate(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos)
-:wxDialog(parent, id, title, pos, wxSize(250, 430))
+:wxDialog(parent, id, title, pos, wxDefaultSize)
 {
 	
 	MainFrame = (MyFrame *)parent;
@@ -26,9 +26,8 @@ PopupCreate::PopupCreate(wxWindow* parent, wxWindowID id, const wxString& title,
 	wxButton *Client_Cancel_Button = new wxButton( parent, CANCEL_FOLDER, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, wxNO_BORDER );
 	HBox->Add( Client_Cancel_Button, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
 	ContourSizer->Add( HBox, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
-	VMainBox->Add( ContourSizer, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 10 );	SetSizer(VMainBox);
-	SetAutoLayout(TRUE);
-	Layout();
+	VMainBox->Add( ContourSizer, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 10 );
+	SetSizerAndFit(VMainBox);
 }
 
 void PopupCreate::OnCreateFolder(wxCommandEvent& command)

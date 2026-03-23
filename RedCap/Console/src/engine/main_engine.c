@@ -22,7 +22,8 @@ void	main_engine()
       printf("still:%d\n", still);
       if(!still)
 	{
-	  printf("youuuo uuu je suis");
+	  if (gl_redcap->debug->thread)
+	    printf("Engine waiting for data...\n");
 	  pthread_cond_wait(&gl_redcap->engine->cond, &gl_redcap->engine->mutex);
 	  perror("pthread_cond_wait in main_engine");
 	}

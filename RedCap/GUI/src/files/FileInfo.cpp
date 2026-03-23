@@ -1,7 +1,7 @@
 #include "general.h"
 
 FileInfo::FileInfo(wxWindow* parent, wxWindowID id, wxString file_name, wxString other_info, const wxString& title, const wxPoint& pos)
-:wxDialog(parent, id, title, pos, wxSize(210, 260))
+:wxDialog(parent, id, title, pos, wxDefaultSize)
 {
 	MainFrame = (MyFrame *)parent;
 	parent = this;
@@ -24,9 +24,7 @@ FileInfo::FileInfo(wxWindow* parent, wxWindowID id, wxString file_name, wxString
     HBox->Add( CloseButton, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5 );
     ContourSizer->Add( HBox, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 5 );
     VMainBox->Add( ContourSizer, 0, wxALIGN_CENTER_HORIZONTAL|wxALL, 10 );
-	SetSizer(VMainBox);
-	SetAutoLayout(TRUE);
-	Layout();
+	SetSizerAndFit(VMainBox);
 }
 
 void FileInfo::OnSaveInfo(wxCommandEvent& command)

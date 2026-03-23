@@ -3,7 +3,7 @@
 //#pragma comment(lib, "ws2_32.lib")
 
 Connexion::Connexion(wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos)
-:wxDialog(parent, id, title, pos, wxSize(250, 430))
+:wxDialog(parent, id, title, pos, wxDefaultSize)
 {
 	MainFrame = (MyFrame *)parent;
 	parent = this;
@@ -64,9 +64,7 @@ Connexion::Connexion(wxWindow* parent, wxWindowID id, const wxString& title, con
     sizer0->Add( MainFrame->list_bookmark, 0, wxALIGN_CENTER|wxALL, 5 );
     wxButton *cancel_connect_button = new wxButton( parent, BUTTON_CANCEL, wxT("Cancel"), wxDefaultPosition, wxDefaultSize, 0 );
     sizer0->Add( cancel_connect_button, 0, wxALIGN_RIGHT|wxALIGN_CENTER_VERTICAL|wxALL, 5 );
-	SetSizer(sizer0);
-	SetAutoLayout(TRUE);
-	Layout();
+	SetSizerAndFit(sizer0);
 }
 
 void Connexion::OnConnectServeurButton(wxCommandEvent& command)
